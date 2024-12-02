@@ -3,15 +3,19 @@ import { GlobalStyle } from "./styles/global";
 import { store } from "./store";
 import { BrowserRouter } from "react-router-dom";
 import { Layouts } from "./layouts";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./styles/theme";
 
 export function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <Layouts />
-      </BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Layouts />
+        </BrowserRouter>
 
-      <GlobalStyle />
+        <GlobalStyle />
+      </ThemeProvider>
     </Provider>
   );
 }
