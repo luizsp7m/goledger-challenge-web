@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   main {
-    height: calc(100vh - 71px);
+    height: calc(100vh - 70px);
     overflow-y: auto;
 
     &::-webkit-scrollbar {
@@ -17,11 +17,15 @@ export const Container = styled.div`
       background-color: ${({ theme }) => theme["border-color"]}; 
     }
 
-    div {
+    > div.content {
       width: 100%;
-      max-width: 1366px;
+      max-width: 1152px;
       margin: 0 auto;
       padding: 12px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
   }
 `

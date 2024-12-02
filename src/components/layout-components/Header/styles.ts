@@ -1,13 +1,12 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  background: ${({ theme }) => theme["background-color-secondary"]};
-  border-bottom: 1px solid ${({ theme }) => theme["border-color"]};
+  background: ${({ theme }) => theme["background-color-primary"]};
 
   header {
     height: 70px;
     width: 100%;
-    max-width: 1366px;
+    max-width: 1152px;
     padding: 12px;
     margin: 0 auto;
     display: flex;
@@ -16,6 +15,7 @@ export const Container = styled.div`
 
     h1 {
       font-size: ${({ theme }) => theme["text-md"]};
+      font-weight: 500;
     }
 
     nav {

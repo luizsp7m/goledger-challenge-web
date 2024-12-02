@@ -12,7 +12,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
       <Header />
 
       <main>
-        <div>{children}</div>
+        <div className="content">{children}</div>
       </main>
     </Container>
   );
