@@ -12,7 +12,7 @@ export default function ArtistsPage() {
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
   const [artistFormModalFormIsOpen, setArtistFormModalsOpen] = useState(false);
 
-  function handleOpenArtistFormModal(artist?: Artist) {
+  function handleOpenArtistFormModal(artist: Artist | null) {
     if (artist) {
       setSelectedArtist(artist);
     }
@@ -36,16 +36,19 @@ export default function ArtistsPage() {
         handleOpenModalForm={handleOpenArtistFormModal}
       />
 
-      <ArtistsTable artists={data?.artists ?? []} />
+      <ArtistsTable
+        artists={data?.artists ?? []}
+        handleOpenModalForm={handleOpenArtistFormModal}
+      />
 
       <Modal
         title="Artista"
         isOpen={artistFormModalFormIsOpen}
-        onClose={handleCloseArtistFormModal}
+        handleCloseModal={handleCloseArtistFormModal}
       >
         <ArtistForm
           selectedArtist={selectedArtist}
-          closeArtistFormModal={handleCloseArtistFormModal}
+          handleCloseModal={handleCloseArtistFormModal}
         />
       </Modal>
     </Fragment>

@@ -19,6 +19,8 @@ export const theme = {
 
   "border-color": "rgba(255, 255, 255, 0.05)",
 
+  "input-color": "#232327",
+
   "text-sx": "0.750rem",
   "text-sm": "0.875rem",
   "text-md": "1.00rem",

@@ -4,9 +4,13 @@ import { Artist } from "~/types/Artist";
 
 interface ArtistsTableProps {
   artists?: Artist[];
+  handleOpenModalForm: (artist: Artist | null) => void;
 }
 
-export function ArtistsTable({ artists = [] }: ArtistsTableProps) {
+export function ArtistsTable({
+  artists = [],
+  handleOpenModalForm,
+}: ArtistsTableProps) {
   return (
     <Table>
       <thead>
@@ -19,12 +23,12 @@ export function ArtistsTable({ artists = [] }: ArtistsTableProps) {
 
       <tbody>
         {artists.map((artist) => (
-          <tr key={artist.id}>
+          <tr key={artist.id} onClick={() => handleOpenModalForm(artist)}>
             <td>{artist.name}</td>
             <td>{artist.country}</td>
 
             <td width={96}>
-              <DeleteButton />
+              <DeleteButton onDelete={() => alert("OK")} />
             </td>
           </tr>
         ))}

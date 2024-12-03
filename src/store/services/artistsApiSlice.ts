@@ -1,5 +1,6 @@
 import { Artist } from "~/types/Artist";
 import { apiSlice } from "./apiSlice";
+import { ArtistFormData } from "~/views/app-views/artists/components/ArtistForm";
 
 interface FetchArtistsResponse {
   result: {
@@ -15,6 +16,14 @@ interface FetchArtistsResponse {
 
 interface ArtistsResponse {
   artists: Artist[]
+}
+
+interface CreateArtistRequest {
+  data: ArtistFormData;
+}
+
+interface UpdateArtistRequest extends CreateArtistRequest {
+  artistId: string;
 }
 
 export const artistsApiSlice = apiSlice.injectEndpoints({
@@ -44,10 +53,43 @@ export const artistsApiSlice = apiSlice.injectEndpoints({
           })
         }
       }
-    })
+    }),
+
+    createArtist: builder.mutation<void, CreateArtistRequest>({
+      invalidatesTags: (result) => result ? ["artists"] : [],
+      query: ({ data }) => ({
+        url: "/invoke/createAsset",
+        method: "POST",
+        body: {
+          "asset": [
+            {
+              "@assetType": "artist",
+              ...data,
+            }
+          ]
+        }
+      })
+    }),
+
+    updateArtist: builder.mutation<void, UpdateArtistRequest>({
+      invalidatesTags: (result) => result ? ["artists"] : [],
+      query: ({ artistId, data }) => ({
+        url: "/invoke/updateAsset",
+        method: "PUT",
+        body: {
+          "update": {
+            "@assetType": "artist",
+            "@key": artistId,
+            ...data,
+          }
+        }
+      })
+    }),
   })
 })
 
 export const {
-  useLazyGetArtistsQuery
+  useLazyGetArtistsQuery,
+  useCreateArtistMutation,
+  useUpdateArtistMutation,
 } = artistsApiSlice
