@@ -5,6 +5,18 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.15);
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: ${({ theme }) => theme["border-color"]}; 
+    }
   }
 
   body {

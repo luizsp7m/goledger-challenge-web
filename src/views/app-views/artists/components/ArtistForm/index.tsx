@@ -70,7 +70,7 @@ export function ArtistForm({
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormGroup>
-        <FormLabel label="Nome: " />
+        <FormLabel label="Nome do artista: " />
         <Input {...register("name")} disabled={!!selectedArtist} />
         <FormErrorMessage error={errors.name} />
       </FormGroup>

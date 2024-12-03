@@ -8,7 +8,7 @@ interface ConfirmDeleteProps {
   handleCloseModal: () => void;
   message: string;
   removeRecord: () => Promise<void>;
-  isDeleting: boolean;
+  deleteIsLoading: boolean;
 }
 
 export function ConfirmDelete({
@@ -16,7 +16,7 @@ export function ConfirmDelete({
   handleCloseModal,
   message,
   removeRecord,
-  isDeleting,
+  deleteIsLoading,
 }: ConfirmDeleteProps) {
   async function handleRemoveRecord() {
     try {
@@ -43,9 +43,9 @@ export function ConfirmDelete({
             type="button"
             className="confirm"
             onClick={handleRemoveRecord}
-            disabled={isDeleting}
+            disabled={deleteIsLoading}
           >
-            {isDeleting && (
+            {deleteIsLoading && (
               <ReactLoading type="spinningBubbles" width={16} height={16} />
             )}
             Sim

@@ -16,7 +16,7 @@ export default function ArtistsPage() {
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
   const [artistFormModalFormIsOpen, setArtistFormModalsOpen] = useState(false);
 
-  function handleOpenArtistFormModal(artist: Artist | null) {
+  function handleOpenArtistFormModal(artist?: Artist) {
     if (artist) {
       setSelectedArtist(artist);
     }
@@ -30,7 +30,7 @@ export default function ArtistsPage() {
   }
 
   useEffect(() => {
-    getArtists();
+    getArtists().unwrap();
   }, []);
 
   return (

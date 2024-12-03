@@ -1,9 +1,8 @@
-import { Artist } from "~/types/Artist";
 import { Container } from "./styles";
 
 interface ToolbarProps {
   title: string;
-  handleOpenModalForm: (artist: Artist | null) => void;
+  handleOpenModalForm: () => void;
 }
 
 export function Toolbar({ title, handleOpenModalForm }: ToolbarProps) {
@@ -11,7 +10,7 @@ export function Toolbar({ title, handleOpenModalForm }: ToolbarProps) {
     <Container>
       <h3>{title}</h3>
 
-      <button type="button" onClick={() => handleOpenModalForm(null)}>
+      <button type="button" onClick={() => handleOpenModalForm()}>
         Adicionar
       </button>
     </Container>

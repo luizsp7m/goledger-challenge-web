@@ -17,8 +17,8 @@ export function Header() {
 
         <nav>
           <Link to={"/artists"}>Artistas</Link>
-          <Link to={"/songs"}>Músicas</Link>
           <Link to={"/albums"}>Álbuns</Link>
+          <Link to={"/songs"}>Músicas</Link>
           <Link to={"/playlists"}>Playlists</Link>
         </nav>
       </header>
