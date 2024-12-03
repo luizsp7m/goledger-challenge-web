@@ -6,6 +6,13 @@ export const Container = styled.button`
   align-items: center;
 
   svg {
-    color: #f87171;
+    color: ${({ theme }) => theme["danger-color"]};
+    transition: color 0.15s;
+  }
+
+  &:hover {
+    svg {
+      color: ${({ theme }) => theme["danger-color-hover"]};
+    }
   }
 `

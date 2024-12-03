@@ -6,15 +6,15 @@ export const Container = styled.div`
   align-items: center;
 
   h3 {
-    font-size: 16px;
+    font-size: ${({ theme }) => theme["text-md"]};
     font-weight: 500;
   }
 
   button {
     background: ${({ theme }) => theme["primary-color"]};
-    padding: 12px 16px;
+    padding: ${({ theme }) => theme["p-3"]} ${({ theme }) => theme["p-4"]};
     border-radius: 4px;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme["text-sm"]};
 
     &:hover {
       background: ${({ theme }) => theme["primary-color-hover"]};

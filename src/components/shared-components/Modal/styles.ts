@@ -6,13 +6,13 @@ export const DialogRoot = styled(Dialog.Root)``;
 export const DialogPortal = styled(Dialog.Portal)``;
 
 export const DialogOverlay = styled(Dialog.Overlay)`
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.35);
   position: fixed;
   inset: 0;
 `;
 
 export const DialogContent = styled(Dialog.Content)`
-	background: #323238;
+	background: ${({ theme }) => theme["modal-color"]};
 	border-radius: 4px;
 	position: fixed;
 	top: 50%;
@@ -22,29 +22,36 @@ export const DialogContent = styled(Dialog.Content)`
 	max-width: 512px;
 
   &:focus {
-    outline: none
+    outline: none;
   }
 
 	div.header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 16px;
-		border-bottom: 1px solid rgba(255,255,255,0.15);
+		padding: ${({ theme }) => theme["p-4"]};
+		border-bottom: 1px solid ${({ theme }) => theme["border-color"]};
 
 		h5 {
-			font-size: 0.875rem;
+			font-size: ${({ theme }) => theme["text-md"]};
 			font-weight: 500;
 		}
 
 		button {
+			svg {
+				color:  ${({ theme }) => theme["danger-color"]};
+				transition: color 0.15s;
+			}
+
 			&:hover {
-				opacity: 0.75;
+				svg {
+					color:  ${({ theme }) => theme["danger-color-hover"]};
+				}
 			}
 		}
 	}
 
-	div.content {
-		padding: 16px;
+	div.body {
+		padding: ${({ theme }) => theme["p-4"]};
 	}
 `;

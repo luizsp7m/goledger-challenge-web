@@ -17,15 +17,15 @@ export const Container = styled.div`
       background-color: ${({ theme }) => theme["border-color"]}; 
     }
 
-    > div.content {
+    > div.container {
       width: 100%;
       max-width: 1152px;
       margin: 0 auto;
-      padding: 12px;
+      padding: ${({ theme }) => theme['p-3']};
 
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: ${({ theme }) => theme['gap-3']};
     }
   }
 `

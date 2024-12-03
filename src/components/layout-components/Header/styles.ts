@@ -7,7 +7,7 @@ export const Container = styled.div`
     height: 70px;
     width: 100%;
     max-width: 1152px;
-    padding: 12px;
+    padding: ${({ theme }) => theme["p-3"]};
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -21,7 +21,7 @@ export const Container = styled.div`
     nav {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: ${({ theme }) => theme["gap-4"]};
       
       a {
         color: ${({ theme }) => theme["text-color-secondary"]};

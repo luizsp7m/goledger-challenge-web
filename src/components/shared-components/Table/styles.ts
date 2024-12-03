@@ -7,34 +7,37 @@ export const Container = styled.div`
   table {
     border-collapse: collapse;
     width: 100%;
-    color: ${({ theme }) => theme["text-color-secondary"]};
     font-size: ${({ theme }) => theme["text-sm"]};
     text-align: left;
     
     thead {
       text-transform: uppercase;
-      background: #323238;
-      color: #C4C4CC;
-      font-weight: 500;
+      
+      tr {
+        background: ${({ theme }) => theme["table-thead-color"]};
+        border-bottom: 1px solid ${({ theme }) => theme["border-color"]};
+        color: ${({ theme }) => theme["text-color-primary"]};
+        font-weight: 500;
+      }
     }
 
     tbody {
+      tr {
+        background: ${({ theme }) => theme["table-row-color"]};
+        border-bottom: 1px solid ${({ theme }) => theme["border-color"]};
+        color: ${({ theme }) => theme["text-color-secondary"]};
+        font-weight: 400;
+        transition: background 0.15s;
+        cursor: pointer;
 
-    }
-
-    tr {
-      background: #29292E;
-      border-bottom: 1px solid #323238;
-      transition: background 0.15s;
-      cursor: pointer;
-
-      &:hover {
-        background: #3e3e43;
+        &:hover {
+          background: ${({ theme }) => theme["table-row-color-hover"]};
+        }
       }
     }
 
     th, td {
-      padding: 1rem 1.5rem;
+      padding: ${({ theme }) => theme["p-4"]} ${({ theme }) => theme["p-6"]};
     }
   }
 `;

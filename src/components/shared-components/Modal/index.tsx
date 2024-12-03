@@ -32,11 +32,11 @@ export function Modal({
             <h5>{title}</h5>
 
             <button onClick={onClose}>
-              <X size={14} color="#CCC" weight="bold" />
+              <X width={16} height={16} weight="bold" />
             </button>
           </div>
 
-          <div className="content">{children}</div>
+          <div className="body">{children}</div>
         </DialogContent>
       </DialogPortal>
     </DialogRoot>

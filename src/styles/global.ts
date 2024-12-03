@@ -23,10 +23,5 @@ export const GlobalStyle = createGlobalStyle`
     background: 0;
     cursor: pointer;
     color: ${({ theme }) => theme["text-color-primary"]};
-    transition: opacity ease-in-out 0.15s;
-    
-    &:hover {
-      opacity: 0.75;
-    }
   }
 `
