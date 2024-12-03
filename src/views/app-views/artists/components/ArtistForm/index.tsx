@@ -7,15 +7,16 @@ import { FormErrorMessage } from "~/components/shared-components/Form/FormErrorM
 import { FormGroup } from "~/components/shared-components/Form/FormGroup";
 import { FormLabel } from "~/components/shared-components/Form/FormLabel";
 import { SubmitButton } from "~/components/shared-components/Form/SubmitButton";
+import { Artist } from "~/types/Artist";
+
 import {
   useCreateArtistMutation,
   useUpdateArtistMutation,
 } from "~/store/services/artistsApiSlice";
-import { Artist } from "~/types/Artist";
 
 const artistSchema = z.object({
-  name: z.string().min(3),
-  country: z.string().min(3),
+  name: z.string().trim().min(1, { message: "Campo obrigatório" }),
+  country: z.string().trim().min(1, { message: "Campo obrigatório" }),
 });
 
 export type ArtistFormData = z.infer<typeof artistSchema>;

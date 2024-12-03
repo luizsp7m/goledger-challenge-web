@@ -5,9 +5,13 @@ import { Artist } from "~/types/Artist";
 import { Modal } from "~/components/shared-components/Modal";
 import { ArtistForm } from "./components/ArtistForm";
 import { Toolbar } from "~/components/shared-components/Toolbar";
+import { DataLoading } from "~/components/shared-components/DataLoading";
 
 export default function ArtistsPage() {
-  const [getArtists, { data }] = useLazyGetArtistsQuery();
+  const [
+    getArtists,
+    { data: artistsData, isLoading: artistsIsLoading, isError: artistsIsError },
+  ] = useLazyGetArtistsQuery();
 
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
   const [artistFormModalFormIsOpen, setArtistFormModalsOpen] = useState(false);
@@ -36,10 +40,17 @@ export default function ArtistsPage() {
         handleOpenModalForm={handleOpenArtistFormModal}
       />
 
-      <ArtistsTable
-        artists={data?.artists ?? []}
-        handleOpenModalForm={handleOpenArtistFormModal}
-      />
+      {artistsIsLoading && <DataLoading />}
+      {artistsIsError && <p>Failed to fetch user data</p>}
+
+      {!artistsIsLoading && artistsData && (
+        <ArtistsTable
+          artists={artistsData.artists}
+          handleOpenModalForm={handleOpenArtistFormModal}
+        />
+      )}
+
+      {!artistsIsLoading && !artistsData && <p>No data available</p>}
 
       <Modal
         title="Artista"

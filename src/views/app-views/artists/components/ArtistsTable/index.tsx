@@ -72,10 +72,10 @@ export function ArtistsTable({
         modalIsOpen={confirmDeleteModal.isOpen}
         handleCloseModal={handleCloseConfirmDeleteModal}
         message="Deseja excluir esse artista?"
+        isDeleting={isDeleting}
         removeRecord={() =>
           deleteArtist({ artistId: confirmDeleteModal.artistId! }).unwrap()
         }
-        isDeleting={isDeleting}
       />
     </>
   );
