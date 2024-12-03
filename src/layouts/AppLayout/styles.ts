@@ -3,7 +3,8 @@ import styled from 'styled-components'
 export const Container = styled.div`
   main {
     height: calc(100vh - 70px);
-    overflow-y: auto;
+    overflow-y: hidden;
+    display: flex;
 
     &::-webkit-scrollbar {
       width: 10px;
@@ -18,6 +19,8 @@ export const Container = styled.div`
     }
 
     > div.container {
+      flex: 1;
+
       width: 100%;
       max-width: 1152px;
       margin: 0 auto;

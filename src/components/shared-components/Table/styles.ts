@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const Container = styled.div`
   position: relative;
   overflow-x: auto;
+  max-height: 100%;
+  position: relative;
 
   table {
     border-collapse: collapse;
@@ -14,7 +16,6 @@ export const Container = styled.div`
       text-transform: uppercase;
       
       tr {
-        background: ${({ theme }) => theme["table-thead-color"]};
         border-bottom: 1px solid ${({ theme }) => theme["border-color"]};
         color: ${({ theme }) => theme["text-color-primary"]};
         font-size: ${({ theme }) => theme["text-sx"]};
@@ -39,6 +40,12 @@ export const Container = styled.div`
 
     th, td {
       padding: ${({ theme }) => theme["p-4"]} ${({ theme }) => theme["p-6"]};
+    }
+
+    th {
+      background: ${({ theme }) => theme["table-thead-color"]};
+      position: sticky;
+      top: 0;
     }
   }
 `;
