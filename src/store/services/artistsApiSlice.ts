@@ -85,6 +85,20 @@ export const artistsApiSlice = apiSlice.injectEndpoints({
         }
       })
     }),
+
+    deleteArtist: builder.mutation<void, { artistId: string }>({
+      invalidatesTags: (result) => result ? ["artists"] : [],
+      query: ({ artistId }) => ({
+        url: "/invoke/deleteAsset",
+        method: "DELETE",
+        body: {
+          key: {
+            "@assetType": "artist",
+            "@key": artistId,
+          }
+        }
+      })
+    }),
   })
 })
 
@@ -92,4 +106,5 @@ export const {
   useLazyGetArtistsQuery,
   useCreateArtistMutation,
   useUpdateArtistMutation,
+  useDeleteArtistMutation,
 } = artistsApiSlice
