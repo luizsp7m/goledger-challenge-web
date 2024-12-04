@@ -103,6 +103,7 @@ export const artistsApiSlice = apiSlice.injectEndpoints({
 })
 
 export const {
+  useGetArtistsQuery,
   useLazyGetArtistsQuery,
   useCreateArtistMutation,
   useUpdateArtistMutation,

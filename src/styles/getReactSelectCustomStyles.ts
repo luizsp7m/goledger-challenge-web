@@ -6,7 +6,7 @@ export const getReactSelectCustomStyles = (): StylesConfig<unknown, false, Group
     input: (baseStyles) => {
       return {
         ...baseStyles,
-        color: theme["text-color-secondary"]
+        color: theme["text-color-secondary"],
       }
     },
 
@@ -19,6 +19,7 @@ export const getReactSelectCustomStyles = (): StylesConfig<unknown, false, Group
         background: theme["input-color"],
         boxShadow: "none",
         cursor: state.isDisabled ? "not-allowed" : "default",
+        opacity: state.isDisabled ? 0.75 : 100,
 
         minHeight: "44px",
         fontSize: theme["text-sm"],

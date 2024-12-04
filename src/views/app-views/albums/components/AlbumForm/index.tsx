@@ -19,7 +19,7 @@ import {
 
 const albumSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
-  year: z
+  year: z.coerce
     .string()
     .refine((value) => /^\d{4}$/.test(value), {
       message: "O ano deve conter exatamente 4 dígitos",
@@ -45,6 +45,9 @@ export function AlbumForm({
   const [createAlbum] = useCreateAlbumMutation();
   const [updateAlbum] = useUpdateAlbumMutation();
 
+  const [getArtist, { data: artistsData, isFetching: artistsIsFetching }] =
+    useLazyGetArtistsQuery();
+
   const {
     control,
     register,
@@ -60,9 +63,6 @@ export function AlbumForm({
       },
     }),
   });
-
-  const [getArtist, { data: artistsData, isFetching: artistsIsFetching }] =
-    useLazyGetArtistsQuery();
 
   const artistOptions = useMemo(() => {
     if (!artistsData) return [];
@@ -125,12 +125,18 @@ export function AlbumForm({
               isLoading={artistsIsFetching}
               options={artistOptions}
               isClearable
-              onChange={(selectedOption) =>
-                field.onChange(selectedOption?.value)
-              }
+              isDisabled={!!selectedAlbum}
               value={artistOptions.find(
                 (option) => option.value === field.value
               )}
+              onChange={(selectedOption) => {
+                const option = selectedOption as {
+                  value: string;
+                  label: string;
+                } | null;
+
+                field.onChange(option ? option.value : null);
+              }}
             />
           )}
         />

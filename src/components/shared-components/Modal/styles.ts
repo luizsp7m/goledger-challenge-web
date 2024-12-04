@@ -18,7 +18,7 @@ export const DialogContent = styled(Dialog.Content)`
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 100%;
+	width: 95%;
 	max-width: 512px;
 
   &:focus {

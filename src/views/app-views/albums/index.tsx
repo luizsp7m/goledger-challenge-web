@@ -1,7 +1,7 @@
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import { DataLoading } from "~/components/shared-components/DataLoading";
 import { Toolbar } from "~/components/shared-components/Toolbar";
-import { useLazyGetAlbumsQuery } from "~/store/services/albumsApiSlice";
+import { useGetAlbumsQuery } from "~/store/services/albumsApiSlice";
 import { Album } from "~/types/Album";
 import { AlbumsTable } from "./components/AlbumsTable";
 import { Modal } from "~/components/shared-components/Modal";
@@ -9,10 +9,11 @@ import { AlbumForm } from "./components/AlbumForm";
 import { useFormModal } from "~/hooks/useFormModal";
 
 export default function AlbumsPage() {
-  const [
-    getAlbums,
-    { data: albumsData, isLoading: albumsIsLoading, isError: albumsIsError },
-  ] = useLazyGetAlbumsQuery();
+  const {
+    data: albumsData,
+    isLoading: albumsIsLoading,
+    isError: albumsIsError,
+  } = useGetAlbumsQuery();
 
   const {
     formModalIsOpen,
@@ -20,10 +21,6 @@ export default function AlbumsPage() {
     handleOpenFormModal,
     handleCloseFormModal,
   } = useFormModal<Album>();
-
-  useEffect(() => {
-    getAlbums().unwrap();
-  }, []);
 
   return (
     <Fragment>

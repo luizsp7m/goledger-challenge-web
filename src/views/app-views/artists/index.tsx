@@ -1,5 +1,5 @@
-import { Fragment, useEffect, useState } from "react";
-import { useLazyGetArtistsQuery } from "~/store/services/artistsApiSlice";
+import { Fragment, useState } from "react";
+import { useGetArtistsQuery } from "~/store/services/artistsApiSlice";
 import { ArtistsTable } from "./components/ArtistsTable";
 import { Artist } from "~/types/Artist";
 import { Modal } from "~/components/shared-components/Modal";
@@ -8,10 +8,11 @@ import { Toolbar } from "~/components/shared-components/Toolbar";
 import { DataLoading } from "~/components/shared-components/DataLoading";
 
 export default function ArtistsPage() {
-  const [
-    getArtists,
-    { data: artistsData, isLoading: artistsIsLoading, isError: artistsIsError },
-  ] = useLazyGetArtistsQuery();
+  const {
+    data: artistsData,
+    isLoading: artistsIsLoading,
+    isError: artistsIsError,
+  } = useGetArtistsQuery();
 
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
   const [artistFormModalFormIsOpen, setArtistFormModalsOpen] = useState(false);
@@ -28,10 +29,6 @@ export default function ArtistsPage() {
     setArtistFormModalsOpen(false);
     setSelectedArtist(null);
   }
-
-  useEffect(() => {
-    getArtists().unwrap();
-  }, []);
 
   return (
     <Fragment>

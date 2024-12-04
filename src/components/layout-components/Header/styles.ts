@@ -30,6 +30,10 @@ export const Container = styled.div`
         text-decoration: none;
         transition: color 0.15s;
 
+        &.active-link {
+          color: ${({ theme }) => theme["text-color-primary"]};
+        }
+
         &:hover {
           color: ${({ theme }) => theme["text-color-primary"]};
         }
@@ -66,6 +70,10 @@ export const Container = styled.div`
         a {
           width: 100%;
           padding: ${({ theme }) => theme["p-4"]};
+
+          &.active-link {
+            background: ${({ theme }) => theme["background-color-tertiary"]};
+          }
 
           &:hover {
             background: ${({ theme }) => theme["background-color-tertiary"]};

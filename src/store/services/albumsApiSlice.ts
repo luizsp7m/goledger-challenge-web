@@ -115,6 +115,7 @@ export const albumsApiSlice = apiSlice.injectEndpoints({
 })
 
 export const {
+  useGetAlbumsQuery,
   useLazyGetAlbumsQuery,
   useCreateAlbumMutation,
   useUpdateAlbumMutation,

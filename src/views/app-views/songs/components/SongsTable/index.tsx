@@ -2,48 +2,45 @@ import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
 import { DeleteButton } from "~/components/shared-components/DeleteButton";
 import { Table } from "~/components/shared-components/Table";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
-import { useDeleteArtistMutation } from "~/store/services/artistsApiSlice";
-import { Artist } from "~/types/Artist";
+import { useDeleteSongMutation } from "~/store/services/songsApiSlice";
+import { Song } from "~/types/Song";
 
-interface ArtistsTableProps {
-  artists?: Artist[];
-  handleOpenModalForm: (artist?: Artist) => void;
+interface SongsTableProps {
+  songs?: Song[];
+  handleOpenFormModal: (song?: Song) => void;
 }
 
-export function ArtistsTable({
-  artists = [],
-  handleOpenModalForm,
-}: ArtistsTableProps) {
-  const [deleteArtist, { isLoading: deleteIsLoading }] =
-    useDeleteArtistMutation();
+export function SongsTable({
+  songs = [],
+  handleOpenFormModal,
+}: SongsTableProps) {
+  const [deleteSong, { isLoading: deleteIsLoading }] = useDeleteSongMutation();
 
   const {
     confirmDeleteModalIsOpen,
     selectedItem,
     handleOpenConfirmDeleteModal,
     handleCloseConfirmDeleteModal,
-  } = useConfirmDeleteModal<Artist>();
+  } = useConfirmDeleteModal<Song>();
 
   return (
     <>
       <Table>
         <thead>
           <tr>
-            <th>Artista</th>
-            <th>País</th>
+            <th>Música</th>
             <th></th>
           </tr>
         </thead>
 
         <tbody>
-          {artists.map((artist) => (
-            <tr key={artist.id} onClick={() => handleOpenModalForm(artist)}>
-              <td>{artist.name}</td>
-              <td>{artist.country}</td>
+          {songs.map((song) => (
+            <tr key={song.id} onClick={() => handleOpenFormModal(song)}>
+              <td>{song.name}</td>
 
               <td width={96}>
                 <DeleteButton
-                  handleDelete={() => handleOpenConfirmDeleteModal(artist)}
+                  handleDelete={() => handleOpenConfirmDeleteModal(song)}
                 />
               </td>
             </tr>
@@ -54,10 +51,10 @@ export function ArtistsTable({
       <ConfirmDelete
         modalIsOpen={confirmDeleteModalIsOpen}
         handleCloseModal={handleCloseConfirmDeleteModal}
-        message="Deseja excluir esse artista?"
+        message="Deseja excluir essa música?"
         deleteIsLoading={deleteIsLoading}
         removeRecord={() =>
-          deleteArtist({ artistId: selectedItem?.id ?? "" }).unwrap()
+          deleteSong({ songId: selectedItem?.id ?? "" }).unwrap()
         }
       />
     </>

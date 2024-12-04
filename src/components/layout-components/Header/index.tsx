@@ -3,6 +3,13 @@ import { Container, Overlay } from "./styles";
 import { List } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 
+const NAV_ITEMS = [
+  { title: "Artistas", route: "/artists" },
+  { title: "Álbuns", route: "/albums" },
+  { title: "Músicas", route: "/songs" },
+  { title: "Playlists", route: "/playlists" },
+];
+
 export function Header() {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
@@ -26,10 +33,15 @@ export function Header() {
         <h1>GoLedger Challenge</h1>
 
         <nav className={menuIsOpen ? "show" : ""}>
-          <Link to={"/artists"}>Artistas</Link>
-          <Link to={"/albums"}>Álbuns</Link>
-          <Link to={"/songs"}>Músicas</Link>
-          <Link to={"/playlists"}>Playlists</Link>
+          {NAV_ITEMS.map((navItem, index) => (
+            <Link
+              key={index}
+              to={navItem.route}
+              className={pathname === navItem.route ? "active-link" : ""}
+            >
+              {navItem.title}
+            </Link>
+          ))}
         </nav>
 
         <button
