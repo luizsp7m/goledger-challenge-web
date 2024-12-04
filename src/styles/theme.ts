@@ -1,6 +1,7 @@
 export const theme = {
   "background-color-primary": "#121214",
   "background-color-secondary": "#202024",
+  "background-color-tertiary": "#323238",
 
   "table-thead-color": "#323238",
   "table-row-color": "#29292E",
