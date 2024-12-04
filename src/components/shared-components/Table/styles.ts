@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 interface ContainerProps {
-  $isLoading: boolean;
+  $isFetching: boolean;
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -16,7 +16,7 @@ export const Container = styled.div<ContainerProps>`
     font-size: ${({ theme }) => theme["text-sm"]};
     text-align: left;
 
-    ${({ $isLoading }) => $isLoading && css`
+    ${({ $isFetching }) => $isFetching && css`
       opacity: 0.75;
     `}
     

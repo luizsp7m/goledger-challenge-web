@@ -8,11 +8,13 @@ import { Artist } from "~/types/Artist";
 interface ArtistsTableProps {
   artists?: Artist[];
   handleOpenModalForm: (artist?: Artist) => void;
+  artistsIsFetching: boolean;
 }
 
 export function ArtistsTable({
   artists = [],
   handleOpenModalForm,
+  artistsIsFetching,
 }: ArtistsTableProps) {
   const [deleteArtist, { isLoading: deleteIsLoading }] =
     useDeleteArtistMutation();
@@ -26,7 +28,7 @@ export function ArtistsTable({
 
   return (
     <>
-      <Table>
+      <Table isFetching={artistsIsFetching}>
         <thead>
           <tr>
             <th>Artista</th>

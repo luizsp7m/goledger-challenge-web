@@ -10,6 +10,8 @@ import { SubmitButton } from "~/components/shared-components/Form/SubmitButton";
 import { Playlist } from "~/types/Playlist";
 import { SongList } from "./components/SongList";
 import { Song } from "~/types/Song";
+import { Checkbox } from "~/components/shared-components/DataEntry/Switch";
+
 import {
   useCreatePlaylistMutation,
   useUpdatePlaylistMutation,
@@ -17,6 +19,7 @@ import {
 
 const playlistSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
+  private: z.boolean(),
   songs: z
     .array(z.string())
     .optional()
@@ -48,6 +51,7 @@ export function PlaylistForm({
     ...(selectedPlaylist && {
       values: {
         name: selectedPlaylist.name,
+        private: selectedPlaylist.private,
         songs: selectedPlaylist.songIds,
       },
     }),
@@ -110,6 +114,8 @@ export function PlaylistForm({
 
         <FormErrorMessage error={errors.songs} />
       </FormGroup>
+
+      <Checkbox label="Está playlist é privada" {...register("private")} />
 
       <SubmitButton isSubmitting={isSubmitting} />
     </Form>

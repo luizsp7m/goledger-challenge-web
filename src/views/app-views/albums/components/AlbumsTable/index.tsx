@@ -8,11 +8,13 @@ import { Album } from "~/types/Album";
 interface AlbumsTableProps {
   albums?: Album[];
   handleOpenFormModal: (album?: Album) => void;
+  albumsIsFetching: boolean;
 }
 
 export function AlbumsTable({
   albums = [],
   handleOpenFormModal,
+  albumsIsFetching,
 }: AlbumsTableProps) {
   const [deleteAlbum, { isLoading: deleteIsLoading }] =
     useDeleteAlbumMutation();
@@ -26,7 +28,7 @@ export function AlbumsTable({
 
   return (
     <>
-      <Table>
+      <Table isFetching={albumsIsFetching}>
         <thead>
           <tr>
             <th>Albúm</th>

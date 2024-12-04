@@ -12,6 +12,7 @@ export default function AlbumsPage() {
   const {
     data: albumsData,
     isLoading: albumsIsLoading,
+    isFetching: albumsIsFetching,
     isError: albumsIsError,
   } = useGetAlbumsQuery();
 
@@ -33,6 +34,7 @@ export default function AlbumsPage() {
         <AlbumsTable
           albums={albumsData.albums}
           handleOpenFormModal={handleOpenFormModal}
+          albumsIsFetching={albumsIsFetching}
         />
       )}
 

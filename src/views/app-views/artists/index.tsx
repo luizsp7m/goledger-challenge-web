@@ -11,6 +11,7 @@ export default function ArtistsPage() {
   const {
     data: artistsData,
     isLoading: artistsIsLoading,
+    isFetching: artistsIsFetching,
     isError: artistsIsError,
   } = useGetArtistsQuery();
 
@@ -44,6 +45,7 @@ export default function ArtistsPage() {
         <ArtistsTable
           artists={artistsData?.artists}
           handleOpenModalForm={handleOpenArtistFormModal}
+          artistsIsFetching={artistsIsFetching}
         />
       )}
 

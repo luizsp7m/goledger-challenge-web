@@ -2,13 +2,13 @@ import { ReactNode } from "react";
 import { Container } from "./styles";
 
 interface TableProps {
-  isLoading?: boolean;
+  isFetching?: boolean;
   children: ReactNode;
 }
 
-export function Table({ isLoading = false, children }: TableProps) {
+export function Table({ isFetching = false, children }: TableProps) {
   return (
-    <Container $isLoading={isLoading}>
+    <Container $isFetching={isFetching}>
       <table>{children}</table>
     </Container>
   );

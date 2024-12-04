@@ -11,6 +11,7 @@ export default function PlaylistsPage() {
   const {
     data: playlistsData,
     isLoading: playlistsIsLoading,
+    isFetching: playlistsIsFetching,
     isError: playlistsIsError,
   } = useGetPlaylistsQuery();
 
@@ -32,6 +33,7 @@ export default function PlaylistsPage() {
         <PlaylistsTable
           playlists={playlistsData.playlists}
           handleOpenFormModal={handleOpenFormModal}
+          playlistsIsFetching={playlistsIsFetching}
         />
       )}
 

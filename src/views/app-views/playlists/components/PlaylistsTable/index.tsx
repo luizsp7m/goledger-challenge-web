@@ -8,11 +8,13 @@ import { Playlist } from "~/types/Playlist";
 interface PlaylistsTableProps {
   playlists?: Playlist[];
   handleOpenFormModal: (playlist?: Playlist) => void;
+  playlistsIsFetching: boolean;
 }
 
 export function PlaylistsTable({
   playlists = [],
   handleOpenFormModal,
+  playlistsIsFetching,
 }: PlaylistsTableProps) {
   const [deletePlaylist, { isLoading: deleteIsLoading }] =
     useDeletePlaylistMutation();
@@ -26,7 +28,7 @@ export function PlaylistsTable({
 
   return (
     <>
-      <Table>
+      <Table isFetching={playlistsIsFetching}>
         <thead>
           <tr>
             <th>Playlist</th>

@@ -11,6 +11,7 @@ export default function SongsPage() {
   const {
     data: songsData,
     isLoading: songsIsLoading,
+    isFetching: songsIsFetching,
     isError: songsIsError,
   } = useGetSongsQuery();
 
@@ -32,6 +33,7 @@ export default function SongsPage() {
         <SongsTable
           songs={songsData.songs}
           handleOpenFormModal={handleOpenFormModal}
+          songsIsFetching={songsIsFetching}
         />
       )}
 

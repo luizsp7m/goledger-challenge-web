@@ -8,11 +8,13 @@ import { Song } from "~/types/Song";
 interface SongsTableProps {
   songs?: Song[];
   handleOpenFormModal: (song?: Song) => void;
+  songsIsFetching: boolean;
 }
 
 export function SongsTable({
   songs = [],
   handleOpenFormModal,
+  songsIsFetching,
 }: SongsTableProps) {
   const [deleteSong, { isLoading: deleteIsLoading }] = useDeleteSongMutation();
 
@@ -25,7 +27,7 @@ export function SongsTable({
 
   return (
     <>
-      <Table>
+      <Table isFetching={songsIsFetching}>
         <thead>
           <tr>
             <th>Música</th>

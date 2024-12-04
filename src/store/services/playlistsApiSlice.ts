@@ -70,7 +70,7 @@ export const playlistsApiSlice = apiSlice.injectEndpoints({
             {
               "@assetType": "playlist",
               name: data.name,
-              private: false,
+              private: data.private,
               songs: data.songs.map(songId => ({
                 "@key": songId
               })),
@@ -90,7 +90,7 @@ export const playlistsApiSlice = apiSlice.injectEndpoints({
             "@assetType": "playlist",
             "@key": playlistId,
             name: data.name,
-            private: false,
+            private: data.private,
             songs: data.songs.map(songId => ({
               "@key": songId
             })),
