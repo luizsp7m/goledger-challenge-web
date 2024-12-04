@@ -1,8 +1,8 @@
-import { FormLabel } from "~/components/shared-components/Form/FormLabel";
-import { Container, SongItem, SongListContainer } from "./styles";
+import { Container } from "./styles";
 import { useGetSongsQuery } from "~/store/services/songsApiSlice";
-import { MusicNotes } from "@phosphor-icons/react";
+import { Check } from "@phosphor-icons/react";
 import { Song } from "~/types/Song";
+import { Table } from "~/components/shared-components/Table";
 
 interface SongListProps {
   selectedSongIds: string[];
@@ -18,23 +18,28 @@ export function SongList({ selectedSongIds, handleSelectSong }: SongListProps) {
 
   return (
     <Container>
-      {songsData && (
-        <SongListContainer>
-          {songsData.songs.map((song) => (
-            <SongItem
-              key={song.id}
-              onClick={() => handleSelectSong(song)}
-              $isSelected={selectedSongIds.includes(song.id)}
-            >
-              <div>
-                <MusicNotes weight="bold" size={14} />
-              </div>
+      <Table>
+        <thead>
+          <tr>
+            <th>Música</th>
+            <th></th>
+          </tr>
+        </thead>
 
-              <span>{song.name}</span>
-            </SongItem>
+        <tbody>
+          {songsData?.songs.map((song) => (
+            <tr key={song.id} onClick={() => handleSelectSong(song)}>
+              <td>{song.name}</td>
+
+              <td width={64}>
+                {selectedSongIds.includes(song.id) && (
+                  <Check size={16} weight="bold" />
+                )}
+              </td>
+            </tr>
           ))}
-        </SongListContainer>
-      )}
+        </tbody>
+      </Table>
     </Container>
   );
 }

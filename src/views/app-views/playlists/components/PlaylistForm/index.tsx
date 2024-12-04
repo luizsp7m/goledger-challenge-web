@@ -10,7 +10,10 @@ import { SubmitButton } from "~/components/shared-components/Form/SubmitButton";
 import { Playlist } from "~/types/Playlist";
 import { SongList } from "./components/SongList";
 import { Song } from "~/types/Song";
-import { useCreatePlaylistMutation } from "~/store/services/playlistsApiSlice";
+import {
+  useCreatePlaylistMutation,
+  useUpdatePlaylistMutation,
+} from "~/store/services/playlistsApiSlice";
 
 const playlistSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
@@ -32,6 +35,7 @@ export function PlaylistForm({
   handleCloseModal,
 }: PlaylistFormProps) {
   const [createPlaylist] = useCreatePlaylistMutation();
+  const [updatePlaylist] = useUpdatePlaylistMutation();
 
   const {
     register,
@@ -66,6 +70,17 @@ export function PlaylistForm({
 
   async function onSubmit(data: PlaylistFormData) {
     if (selectedPlaylist) {
+      try {
+        await updatePlaylist({
+          playlistId: selectedPlaylist.id,
+          data,
+        }).unwrap();
+
+        handleCloseModal();
+      } catch (error) {
+        console.log(error);
+      }
+
       return;
     }
 

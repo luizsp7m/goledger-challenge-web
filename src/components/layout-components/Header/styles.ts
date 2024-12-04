@@ -102,7 +102,6 @@ export const Overlay = styled.div<OverlayProps>`
   z-index: 10;
   inset: 0;
   top: 70px;
-  background-color: none;
 
   @media(max-width: 768px) {
     display: ${({ $isVisible }) => $isVisible ? "flex" : "none"};

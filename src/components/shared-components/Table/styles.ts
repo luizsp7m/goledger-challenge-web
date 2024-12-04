@@ -16,6 +16,7 @@ export const Container = styled.div`
       text-transform: uppercase;
       
       tr {
+        background: ${({ theme }) => theme["table-thead-color"]};
         border-bottom: 1px solid ${({ theme }) => theme["border-color"]};
         color: ${({ theme }) => theme["text-color-primary"]};
         font-size: ${({ theme }) => theme["text-sx"]};

@@ -26,6 +26,10 @@ interface CreatePlaylistRequest {
   data: PlaylistFormData;
 }
 
+interface UpdatePlaylistRequest extends CreatePlaylistRequest {
+  playlistId: string;
+}
+
 export const playlistsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getPlaylists: builder.query<PlaylistsResponse, void>({
@@ -76,6 +80,25 @@ export const playlistsApiSlice = apiSlice.injectEndpoints({
       })
     }),
 
+    updatePlaylist: builder.mutation<void, UpdatePlaylistRequest>({
+      invalidatesTags: (result) => result ? ["playlists"] : [],
+      query: ({ playlistId, data }) => ({
+        url: "/invoke/updateAsset",
+        method: "PUT",
+        body: {
+          "update": {
+            "@assetType": "playlist",
+            "@key": playlistId,
+            name: data.name,
+            private: false,
+            songs: data.songs.map(songId => ({
+              "@key": songId
+            })),
+          }
+        }
+      })
+    }),
+
     deletePlaylist: builder.mutation<void, { playlistId: string }>({
       invalidatesTags: (result) => result ? ["playlists"] : [],
       query: ({ playlistId }) => ({
@@ -92,4 +115,9 @@ export const playlistsApiSlice = apiSlice.injectEndpoints({
   })
 });
 
-export const { useGetPlaylistsQuery, useCreatePlaylistMutation, useDeletePlaylistMutation, } = playlistsApiSlice
+export const {
+  useGetPlaylistsQuery,
+  useCreatePlaylistMutation,
+  useUpdatePlaylistMutation,
+  useDeletePlaylistMutation,
+} = playlistsApiSlice
