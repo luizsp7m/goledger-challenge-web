@@ -12,8 +12,8 @@ interface SongListProps {
 export function SongList({ selectedSongIds, handleSelectSong }: SongListProps) {
   const {
     data: songsData,
-    isLoading: songsIsLoading,
-    isError: songsIsError,
+    // isLoading: songsIsLoading,
+    // isError: songsIsError,
   } = useGetSongsQuery();
 
   return (

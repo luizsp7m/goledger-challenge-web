@@ -2,11 +2,11 @@ import { ReactNode } from "react";
 import { Container } from "./styles";
 import { Header } from "~/components/layout-components/Header";
 
-interface AppLayoutProps {
+interface LayoutProps {
   children: ReactNode;
 }
 
-export default function AppLayout({ children }: AppLayoutProps) {
+export default function Layout({ children }: LayoutProps) {
   return (
     <Container>
       <Header />
