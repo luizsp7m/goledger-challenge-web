@@ -3,15 +3,17 @@ import ReactLoading from "react-loading";
 import { Container } from "./styles";
 import { theme } from "~/styles/theme";
 
-export function LoadingPage() {
+export function TableLoading() {
   return (
     <Container>
       <ReactLoading
-        type="spin"
-        width={48}
-        height={48}
-        color={theme["primary-color"]}
+        width={20}
+        height={20}
+        type="spinningBubbles"
+        color={theme["text-color-secondary"]}
       />
+
+      <span>Carregando dados da tabela</span>
     </Container>
   );
 }

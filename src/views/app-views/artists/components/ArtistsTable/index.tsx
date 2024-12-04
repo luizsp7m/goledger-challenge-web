@@ -31,7 +31,7 @@ export function ArtistsTable({
           <tr>
             <th>Artista</th>
             <th>País</th>
-            <th></th>
+            <th style={{ width: 96 }}></th>
           </tr>
         </thead>
 
@@ -41,7 +41,7 @@ export function ArtistsTable({
               <td>{artist.name}</td>
               <td>{artist.country}</td>
 
-              <td width={96}>
+              <td>
                 <DeleteButton
                   handleDelete={() => handleOpenConfirmDeleteModal(artist)}
                 />

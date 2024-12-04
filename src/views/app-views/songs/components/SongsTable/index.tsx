@@ -29,7 +29,7 @@ export function SongsTable({
         <thead>
           <tr>
             <th>Música</th>
-            <th></th>
+            <th style={{ width: 96 }}></th>
           </tr>
         </thead>
 
@@ -38,7 +38,7 @@ export function SongsTable({
             <tr key={song.id} onClick={() => handleOpenFormModal(song)}>
               <td>{song.name}</td>
 
-              <td width={96}>
+              <td>
                 <DeleteButton
                   handleDelete={() => handleOpenConfirmDeleteModal(song)}
                 />

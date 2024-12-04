@@ -31,7 +31,7 @@ export function PlaylistsTable({
           <tr>
             <th>Playlist</th>
             <th>Pública</th>
-            <th></th>
+            <th style={{ width: 96 }}></th>
           </tr>
         </thead>
 
@@ -41,7 +41,7 @@ export function PlaylistsTable({
               <td>{playlist.name}</td>
               <td>{playlist.private ? "Sim" : "Não"}</td>
 
-              <td width={96}>
+              <td>
                 <DeleteButton
                   handleDelete={() => handleOpenConfirmDeleteModal(playlist)}
                 />

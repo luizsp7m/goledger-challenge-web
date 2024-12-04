@@ -31,7 +31,7 @@ export function AlbumsTable({
           <tr>
             <th>Albúm</th>
             <th>Ano</th>
-            <th></th>
+            <th style={{ width: 96 }}></th>
           </tr>
         </thead>
 
@@ -41,7 +41,7 @@ export function AlbumsTable({
               <td>{album.name}</td>
               <td>{album.year}</td>
 
-              <td width={96}>
+              <td>
                 <DeleteButton
                   handleDelete={() => handleOpenConfirmDeleteModal(album)}
                 />

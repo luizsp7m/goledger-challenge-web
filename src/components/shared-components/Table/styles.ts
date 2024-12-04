@@ -1,16 +1,24 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const Container = styled.div`
+interface ContainerProps {
+  $isLoading: boolean;
+}
+
+export const Container = styled.div<ContainerProps>`
   position: relative;
   overflow-x: auto;
   max-height: 100%;
-  position: relative;
 
   table {
     border-collapse: collapse;
     width: 100%;
+    table-layout: fixed;
     font-size: ${({ theme }) => theme["text-sm"]};
     text-align: left;
+
+    ${({ $isLoading }) => $isLoading && css`
+      opacity: 0.75;
+    `}
     
     thead {
       text-transform: uppercase;
@@ -47,6 +55,10 @@ export const Container = styled.div`
       background: ${({ theme }) => theme["table-thead-color"]};
       position: sticky;
       top: 0;
+    }
+
+    th[style] {
+      width: auto;
     }
   }
 `;

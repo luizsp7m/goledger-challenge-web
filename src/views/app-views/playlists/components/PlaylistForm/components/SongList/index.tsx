@@ -22,7 +22,7 @@ export function SongList({ selectedSongIds, handleSelectSong }: SongListProps) {
         <thead>
           <tr>
             <th>Música</th>
-            <th></th>
+            <th style={{ width: 64 }}></th>
           </tr>
         </thead>
 
@@ -31,7 +31,7 @@ export function SongList({ selectedSongIds, handleSelectSong }: SongListProps) {
             <tr key={song.id} onClick={() => handleSelectSong(song)}>
               <td>{song.name}</td>
 
-              <td width={64}>
+              <td>
                 {selectedSongIds.includes(song.id) && (
                   <Check size={16} weight="bold" />
                 )}

@@ -5,7 +5,7 @@ import { Artist } from "~/types/Artist";
 import { Modal } from "~/components/shared-components/Modal";
 import { ArtistForm } from "./components/ArtistForm";
 import { Toolbar } from "~/components/shared-components/Toolbar";
-import { DataLoading } from "~/components/shared-components/DataLoading";
+import { TableLoading } from "~/components/shared-components/Table/TableLoading";
 
 export default function ArtistsPage() {
   const {
@@ -37,17 +37,15 @@ export default function ArtistsPage() {
         handleOpenModalForm={handleOpenArtistFormModal}
       />
 
-      {artistsIsLoading && <DataLoading />}
-      {artistsIsError && <p>Failed to fetch user data</p>}
+      {artistsIsLoading && <TableLoading />}
+      {artistsIsError && <p>aaa</p>}
 
-      {!artistsIsLoading && artistsData && (
+      {!artistsIsLoading && !artistsIsError && artistsData && (
         <ArtistsTable
-          artists={artistsData.artists}
+          artists={artistsData?.artists}
           handleOpenModalForm={handleOpenArtistFormModal}
         />
       )}
-
-      {!artistsIsLoading && !artistsData && <p>No data available</p>}
 
       <Modal
         title="Artista"
