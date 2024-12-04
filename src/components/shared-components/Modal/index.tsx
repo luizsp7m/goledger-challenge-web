@@ -11,6 +11,7 @@ import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 interface ModalProps {
   title: string;
   isOpen: boolean;
+  maxWidth?: number;
   handleCloseModal: () => void;
   children: React.ReactNode;
 }
@@ -18,6 +19,7 @@ interface ModalProps {
 export function Modal({
   title,
   isOpen,
+  maxWidth = 512,
   handleCloseModal,
   children,
 }: ModalProps) {
@@ -26,7 +28,7 @@ export function Modal({
       <DialogPortal>
         <DialogOverlay />
 
-        <DialogContent>
+        <DialogContent $maxWidth={maxWidth}>
           <DialogTitle hidden>{title}</DialogTitle>
           <DialogDescription hidden>{title}</DialogDescription>
 

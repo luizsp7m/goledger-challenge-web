@@ -1,5 +1,6 @@
 import { Playlist } from "~/types/Playlist";
 import { apiSlice } from "./apiSlice";
+import { PlaylistFormData } from "~/views/app-views/playlists/components/PlaylistForm";
 
 interface FetchPlaylistsResponse {
   result: {
@@ -19,6 +20,10 @@ interface FetchPlaylistsResponse {
 
 interface PlaylistsResponse {
   playlists: Playlist[]
+}
+
+interface CreatePlaylistRequest {
+  data: PlaylistFormData;
 }
 
 export const playlistsApiSlice = apiSlice.injectEndpoints({
@@ -51,6 +56,26 @@ export const playlistsApiSlice = apiSlice.injectEndpoints({
       }
     }),
 
+    createPlaylist: builder.mutation<void, CreatePlaylistRequest>({
+      invalidatesTags: (result) => result ? ["playlists"] : [],
+      query: ({ data }) => ({
+        url: "/invoke/createAsset",
+        method: "POST",
+        body: {
+          "asset": [
+            {
+              "@assetType": "playlist",
+              name: data.name,
+              private: false,
+              songs: data.songs.map(songId => ({
+                "@key": songId
+              })),
+            }
+          ]
+        }
+      })
+    }),
+
     deletePlaylist: builder.mutation<void, { playlistId: string }>({
       invalidatesTags: (result) => result ? ["playlists"] : [],
       query: ({ playlistId }) => ({
@@ -67,4 +92,4 @@ export const playlistsApiSlice = apiSlice.injectEndpoints({
   })
 });
 
-export const { useGetPlaylistsQuery, useDeletePlaylistMutation, } = playlistsApiSlice
+export const { useGetPlaylistsQuery, useCreatePlaylistMutation, useDeletePlaylistMutation, } = playlistsApiSlice

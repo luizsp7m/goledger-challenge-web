@@ -1,13 +1,32 @@
 import { Link, useLocation } from "react-router-dom";
 import { Container, Overlay } from "./styles";
-import { List } from "@phosphor-icons/react";
+import { List, MusicNotes, Playlist, Queue, User } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 
 const NAV_ITEMS = [
-  { title: "Artistas", route: "/artists" },
-  { title: "Álbuns", route: "/albums" },
-  { title: "Músicas", route: "/songs" },
-  { title: "Playlists", route: "/playlists" },
+  {
+    title: "Artistas",
+    route: "/artists",
+    icon: <User size={16} weight="bold" />,
+  },
+
+  {
+    title: "Álbuns",
+    route: "/albums",
+    icon: <Queue size={16} weight="bold" />,
+  },
+
+  {
+    title: "Músicas",
+    route: "/songs",
+    icon: <MusicNotes size={16} weight="bold" />,
+  },
+
+  {
+    title: "Playlists",
+    route: "/playlists",
+    icon: <Playlist size={16} weight="bold" />,
+  },
 ];
 
 export function Header() {
@@ -33,15 +52,18 @@ export function Header() {
         <h1>GoLedger Challenge</h1>
 
         <nav className={menuIsOpen ? "show" : ""}>
-          {NAV_ITEMS.map((navItem, index) => (
-            <Link
-              key={index}
-              to={navItem.route}
-              className={pathname === navItem.route ? "active-link" : ""}
-            >
-              {navItem.title}
-            </Link>
-          ))}
+          {NAV_ITEMS.map((navItem, index) => {
+            return (
+              <Link
+                key={index}
+                to={navItem.route}
+                className={pathname === navItem.route ? "active-link" : ""}
+              >
+                {navItem.icon}
+                {navItem.title}
+              </Link>
+            );
+          })}
         </nav>
 
         <button

@@ -10,11 +10,12 @@ import { FormGroup } from "~/components/shared-components/Form/FormGroup";
 import { FormLabel } from "~/components/shared-components/Form/FormLabel";
 import { SubmitButton } from "~/components/shared-components/Form/SubmitButton";
 import { useLazyGetAlbumsQuery } from "~/store/services/albumsApiSlice";
+import { Song } from "~/types/Song";
+
 import {
   useCreateSongMutation,
   useUpdateSongMutation,
 } from "~/store/services/songsApiSlice";
-import { Song } from "~/types/Song";
 
 const songSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),

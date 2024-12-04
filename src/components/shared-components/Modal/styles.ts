@@ -11,7 +11,11 @@ export const DialogOverlay = styled(Dialog.Overlay)`
   inset: 0;
 `;
 
-export const DialogContent = styled(Dialog.Content)`
+interface DialogContentProps {
+	$maxWidth: number;
+}
+
+export const DialogContent = styled(Dialog.Content) <DialogContentProps>`
 	background: ${({ theme }) => theme["modal-color"]};
 	border-radius: 4px;
 	position: fixed;
@@ -19,7 +23,7 @@ export const DialogContent = styled(Dialog.Content)`
 	left: 50%;
 	transform: translate(-50%, -50%);
 	width: 95%;
-	max-width: 512px;
+	max-width: ${({ $maxWidth }) => `${$maxWidth}px`};
 
   &:focus {
     outline: none;

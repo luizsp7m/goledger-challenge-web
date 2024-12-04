@@ -5,6 +5,7 @@ import { Playlist } from "~/types/Playlist";
 import { PlaylistsTable } from "./components/PlaylistsTable";
 import { useGetPlaylistsQuery } from "~/store/services/playlistsApiSlice";
 import { Modal } from "~/components/shared-components/Modal";
+import { PlaylistForm } from "./components/PlaylistForm";
 
 export default function PlaylistsPage() {
   const {
@@ -40,8 +41,12 @@ export default function PlaylistsPage() {
         title="Playlist"
         isOpen={formModalIsOpen}
         handleCloseModal={handleCloseFormModal}
+        maxWidth={640}
       >
-        <h1>OK</h1>
+        <PlaylistForm
+          selectedPlaylist={selectedItem}
+          handleCloseModal={handleCloseFormModal}
+        />
       </Modal>
     </>
   );

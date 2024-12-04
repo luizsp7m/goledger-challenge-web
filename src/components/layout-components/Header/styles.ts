@@ -22,9 +22,13 @@ export const Container = styled.div`
     nav {
       display: flex;
       align-items: center;
-      gap: ${({ theme }) => theme["gap-4"]};
+      gap: ${({ theme }) => theme["gap-6"]};
       
       a {
+        display: flex;
+        align-items: center;
+        gap: ${({ theme }) => theme["gap-2"]};
+
         color: ${({ theme }) => theme["text-color-secondary"]};
         font-size: ${({ theme }) => theme["text-sm"]};
         text-decoration: none;
