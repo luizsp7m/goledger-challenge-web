@@ -1,22 +1,7 @@
-import { Playlist } from "~/types/Playlist";
+import { Playlist, PlaylistResponseAPI } from "~/types/Playlist";
 import { apiSlice } from "./apiSlice";
 import { PlaylistFormData } from "~/views/app-views/playlists/components/PlaylistForm";
-
-interface FetchPlaylistsResponse {
-  result: {
-    "@assetType": string
-    "@key": string
-    "@lastTouchBy": string
-    "@lastTx": string
-    "@lastUpdated": string
-    name: string
-    private: boolean
-    songs: {
-      "@assetType": string
-      "@key": string
-    }[]
-  }[]
-}
+import { QuerySearchResponse } from "~/types/QuerySearchResponse";
 
 interface PlaylistsResponse {
   playlists: Playlist[]
@@ -46,7 +31,7 @@ export const playlistsApiSlice = apiSlice.injectEndpoints({
         }
       }),
 
-      transformResponse: (response: FetchPlaylistsResponse) => {
+      transformResponse: (response: QuerySearchResponse<PlaylistResponseAPI>) => {
         return {
           playlists: response.result.map(playlist => {
             return {

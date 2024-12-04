@@ -1,18 +1,7 @@
-import { Artist } from "~/types/Artist";
+import { Artist, ArtistResponseAPI } from "~/types/Artist";
 import { apiSlice } from "./apiSlice";
 import { ArtistFormData } from "~/views/app-views/artists/components/ArtistForm";
-
-interface FetchArtistsResponse {
-  result: {
-    "@assetType": string
-    "@key": string
-    "@lastTouchBy": string
-    "@lastTx": string
-    "@lastUpdated": string
-    country: string
-    name: string
-  }[]
-}
+import { QuerySearchResponse } from "~/types/QuerySearchResponse";
 
 interface ArtistsResponse {
   artists: Artist[]
@@ -42,7 +31,7 @@ export const artistsApiSlice = apiSlice.injectEndpoints({
         }
       }),
 
-      transformResponse: (response: FetchArtistsResponse) => {
+      transformResponse: (response: QuerySearchResponse<ArtistResponseAPI>) => {
         return {
           artists: response.result.map(artist => {
             return {

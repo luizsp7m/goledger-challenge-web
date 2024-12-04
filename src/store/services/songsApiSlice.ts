@@ -1,21 +1,7 @@
-import { Song } from "~/types/Song"
+import { Song, SongResponseAPI } from "~/types/Song"
 import { apiSlice } from "./apiSlice"
 import { SongFormData } from "~/views/app-views/songs/components/SongForm"
-
-interface FetchASongsResponse {
-  result: {
-    "@assetType": string
-    "@key": string
-    "@lastTouchBy": string
-    "@lastTx": string
-    "@lastUpdated": string
-    name: string
-    album: {
-      "@assetType": string
-      "@key": string
-    }
-  }[]
-}
+import { QuerySearchResponse } from "~/types/QuerySearchResponse";
 
 interface SongsResponse {
   songs: Song[]
@@ -45,7 +31,7 @@ export const songsApiSlice = apiSlice.injectEndpoints({
         }
       }),
 
-      transformResponse: (response: FetchASongsResponse) => {
+      transformResponse: (response: QuerySearchResponse<SongResponseAPI>) => {
         return {
           songs: response.result.map(song => {
             return {

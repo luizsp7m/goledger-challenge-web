@@ -1,23 +1,7 @@
-import { Album } from "~/types/Album";
+import { Album, AlbumResponseAPI } from "~/types/Album";
 import { apiSlice } from "./apiSlice";
 import { AlbumFormData } from "~/views/app-views/albums/components/AlbumForm";
-
-interface FetchAlbumsResponse {
-  result: {
-    "@assetType": string;
-    "@key": string;
-    "@lastTouchBy": string;
-    "@lastTx": string;
-    "@lastUpdated": string;
-    name: string;
-    year: number;
-
-    artist: {
-      "@assetType": string
-      "@key": string
-    }
-  }[]
-}
+import { QuerySearchResponse } from "~/types/QuerySearchResponse";
 
 interface AlbumsResponse {
   albums: Album[]
@@ -47,7 +31,7 @@ export const albumsApiSlice = apiSlice.injectEndpoints({
         }
       }),
 
-      transformResponse: (response: FetchAlbumsResponse) => {
+      transformResponse: (response: QuerySearchResponse<AlbumResponseAPI>) => {
         return {
           albums: response.result.map(album => {
             return {
