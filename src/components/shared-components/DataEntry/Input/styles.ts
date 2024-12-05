@@ -8,7 +8,7 @@ export const CustomInput = styled.input`
   color: ${({ theme }) => theme["text-color-secondary"]};
   outline: 0;
   border: 0;
-  padding: 0 ${({ theme }) => theme["p-3"]};
+  padding: 0 ${({ theme }) => theme["p-4"]};
   font-size: ${({ theme }) => theme["text-sm"]};
 
   &:disabled {

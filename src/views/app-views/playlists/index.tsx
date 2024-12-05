@@ -6,6 +6,12 @@ import { PlaylistsTable } from "./components/PlaylistsTable";
 import { useGetPlaylistsQuery } from "~/store/services/playlistsApiSlice";
 import { Modal } from "~/components/shared-components/Modal";
 import { PlaylistForm } from "./components/PlaylistForm";
+import { useFilterDataFromQuery } from "~/hooks/useFilterDataFromQuery";
+
+const sortByOptions = [
+  { value: "name:desc", label: "Nome da playlist (A-Z)" },
+  { value: "name:asc", label: "Nome da playlist (Z-A)" },
+];
 
 export default function PlaylistsPage() {
   const {
@@ -22,16 +28,25 @@ export default function PlaylistsPage() {
     handleCloseFormModal,
   } = useFormModal<Playlist>();
 
+  const filteredData = useFilterDataFromQuery({
+    records: playlistsData?.playlists ?? [],
+    field: "name",
+  });
+
   return (
     <>
-      <Toolbar title="Playlists" handleOpenModalForm={handleOpenFormModal} />
+      <Toolbar
+        title="Playlists"
+        sortByOptions={sortByOptions}
+        handleOpenModalForm={handleOpenFormModal}
+      />
 
       {playlistsIsLoading && <DataLoading />}
       {playlistsIsError && <p>Failed to fetch user data</p>}
 
       {!playlistsIsLoading && playlistsData && (
         <PlaylistsTable
-          playlists={playlistsData.playlists}
+          playlists={filteredData}
           handleOpenFormModal={handleOpenFormModal}
           playlistsIsFetching={playlistsIsFetching}
         />

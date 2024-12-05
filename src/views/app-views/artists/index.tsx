@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { useGetArtistsQuery } from "~/store/services/artistsApiSlice";
 import { ArtistsTable } from "./components/ArtistsTable";
 import { Artist } from "~/types/Artist";
@@ -6,6 +6,15 @@ import { Modal } from "~/components/shared-components/Modal";
 import { ArtistForm } from "./components/ArtistForm";
 import { Toolbar } from "~/components/shared-components/Toolbar";
 import { TableLoading } from "~/components/shared-components/Table/TableLoading";
+import { useFilterDataFromQuery } from "~/hooks/useFilterDataFromQuery";
+import { useFormModal } from "~/hooks/useFormModal";
+
+const sortByOptions = [
+  { value: "name:desc", label: "Nome do artista (A-Z)" },
+  { value: "name:asc", label: "Nome do artista (Z-A)" },
+  { value: "country:desc", label: "País (A-Z)" },
+  { value: "country:asc", label: "País (Z-A)" },
+];
 
 export default function ArtistsPage() {
   const {
@@ -15,27 +24,24 @@ export default function ArtistsPage() {
     isError: artistsIsError,
   } = useGetArtistsQuery();
 
-  const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
-  const [artistFormModalFormIsOpen, setArtistFormModalsOpen] = useState(false);
+  const {
+    formModalIsOpen,
+    selectedItem,
+    handleOpenFormModal,
+    handleCloseFormModal,
+  } = useFormModal<Artist>();
 
-  function handleOpenArtistFormModal(artist?: Artist) {
-    if (artist) {
-      setSelectedArtist(artist);
-    }
-
-    setArtistFormModalsOpen(true);
-  }
-
-  function handleCloseArtistFormModal() {
-    setArtistFormModalsOpen(false);
-    setSelectedArtist(null);
-  }
+  const filteredData = useFilterDataFromQuery({
+    records: artistsData?.artists ?? [],
+    field: "name",
+  });
 
   return (
     <Fragment>
       <Toolbar
         title="Artistas"
-        handleOpenModalForm={handleOpenArtistFormModal}
+        sortByOptions={sortByOptions}
+        handleOpenModalForm={handleOpenFormModal}
       />
 
       {artistsIsLoading && <TableLoading />}
@@ -43,20 +49,20 @@ export default function ArtistsPage() {
 
       {!artistsIsLoading && !artistsIsError && artistsData && (
         <ArtistsTable
-          artists={artistsData?.artists}
-          handleOpenModalForm={handleOpenArtistFormModal}
+          artists={filteredData}
+          handleOpenModalForm={handleOpenFormModal}
           artistsIsFetching={artistsIsFetching}
         />
       )}
 
       <Modal
         title="Artista"
-        isOpen={artistFormModalFormIsOpen}
-        handleCloseModal={handleCloseArtistFormModal}
+        isOpen={formModalIsOpen}
+        handleCloseModal={handleCloseFormModal}
       >
         <ArtistForm
-          selectedArtist={selectedArtist}
-          handleCloseModal={handleCloseArtistFormModal}
+          selectedArtist={selectedItem}
+          handleCloseModal={handleCloseFormModal}
         />
       </Modal>
     </Fragment>

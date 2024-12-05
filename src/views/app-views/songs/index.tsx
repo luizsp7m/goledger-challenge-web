@@ -6,6 +6,12 @@ import { Song } from "~/types/Song";
 import { SongsTable } from "./components/SongsTable";
 import { Modal } from "~/components/shared-components/Modal";
 import { SongForm } from "./components/SongForm";
+import { useFilterDataFromQuery } from "~/hooks/useFilterDataFromQuery";
+
+const sortByOptions = [
+  { value: "name:desc", label: "Nome da música (A-Z)" },
+  { value: "name:asc", label: "Nome da música (Z-A)" },
+];
 
 export default function SongsPage() {
   const {
@@ -22,16 +28,25 @@ export default function SongsPage() {
     handleCloseFormModal,
   } = useFormModal<Song>();
 
+  const filteredData = useFilterDataFromQuery({
+    records: songsData?.songs ?? [],
+    field: "name",
+  });
+
   return (
     <>
-      <Toolbar title="Músicas" handleOpenModalForm={handleOpenFormModal} />
+      <Toolbar
+        title="Músicas"
+        sortByOptions={sortByOptions}
+        handleOpenModalForm={handleOpenFormModal}
+      />
 
       {songsIsLoading && <DataLoading />}
       {songsIsError && <p>Failed to fetch user data</p>}
 
       {!songsIsLoading && songsData && (
         <SongsTable
-          songs={songsData.songs}
+          songs={filteredData}
           handleOpenFormModal={handleOpenFormModal}
           songsIsFetching={songsIsFetching}
         />
