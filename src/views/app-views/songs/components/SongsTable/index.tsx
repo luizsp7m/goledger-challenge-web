@@ -1,20 +1,19 @@
 import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
-import { DeleteButton } from "~/components/shared-components/DeleteButton";
 import { Table, TablePagination } from "~/components/shared-components/Table";
-import { TableEmpty } from "~/components/shared-components/Table/TableEmpty";
+import { OperationButton } from "~/components/shared-components/Table/OperationButton";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useDeleteSongMutation } from "~/store/services/songsApiSlice";
 import { Song } from "~/types/Song";
 
 interface SongsTableProps {
-  songs?: Song[];
+  songs: Song[];
   handleOpenFormModal: (song?: Song) => void;
   songsIsFetching: boolean;
   pagination: TablePagination;
 }
 
 export function SongsTable({
-  songs = [],
+  songs,
   handleOpenFormModal,
   songsIsFetching,
   pagination,
@@ -30,32 +29,47 @@ export function SongsTable({
 
   return (
     <>
-      <Table isFetching={songsIsFetching} pagination={pagination}>
-        <thead>
-          <tr>
-            <th>Música</th>
-            <th style={{ width: 96 }}></th>
-          </tr>
-        </thead>
+      <Table
+        data={songs}
+        isFetching={songsIsFetching}
+        pagination={pagination}
+        columns={[
+          { dataIndex: "name", title: "Nome da música" },
 
-        <tbody>
-          {songs.length === 0 ? (
-            <TableEmpty colSpan={2} />
-          ) : (
-            songs.map((song) => (
-              <tr key={song.id} onClick={() => handleOpenFormModal(song)}>
-                <td>{song.name}</td>
+          {
+            title: "",
+            width: 48,
+            render: (song) => (
+              <OperationButton
+                operationType="view"
+                onClick={() => alert(song.id)}
+              />
+            ),
+          },
 
-                <td>
-                  <DeleteButton
-                    handleDelete={() => handleOpenConfirmDeleteModal(song)}
-                  />
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </Table>
+          {
+            title: "",
+            width: 48,
+            render: (song) => (
+              <OperationButton
+                operationType="update"
+                onClick={() => handleOpenFormModal(song)}
+              />
+            ),
+          },
+
+          {
+            title: "",
+            width: 96,
+            render: (song) => (
+              <OperationButton
+                operationType="delete"
+                onClick={() => handleOpenConfirmDeleteModal(song)}
+              />
+            ),
+          },
+        ]}
+      />
 
       <ConfirmDelete
         modalIsOpen={confirmDeleteModalIsOpen}

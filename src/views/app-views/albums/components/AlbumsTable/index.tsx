@@ -1,20 +1,19 @@
 import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
-import { DeleteButton } from "~/components/shared-components/DeleteButton";
 import { Table, TablePagination } from "~/components/shared-components/Table";
-import { TableEmpty } from "~/components/shared-components/Table/TableEmpty";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useDeleteAlbumMutation } from "~/store/services/albumsApiSlice";
 import { Album } from "~/types/Album";
+import { OperationButton } from "~/components/shared-components/Table/OperationButton";
 
 interface AlbumsTableProps {
-  albums?: Album[];
+  albums: Album[];
   handleOpenFormModal: (album?: Album) => void;
   albumsIsFetching: boolean;
   pagination: TablePagination;
 }
 
 export function AlbumsTable({
-  albums = [],
+  albums,
   handleOpenFormModal,
   albumsIsFetching,
   pagination,
@@ -31,34 +30,48 @@ export function AlbumsTable({
 
   return (
     <>
-      <Table isFetching={albumsIsFetching} pagination={pagination}>
-        <thead>
-          <tr>
-            <th>Albúm</th>
-            <th>Ano</th>
-            <th style={{ width: 96 }}></th>
-          </tr>
-        </thead>
+      <Table
+        data={albums}
+        isFetching={albumsIsFetching}
+        pagination={pagination}
+        columns={[
+          { dataIndex: "name", title: "Nome do albúm" },
+          { dataIndex: "year", title: "Ano de lançamento" },
 
-        <tbody>
-          {albums.length === 0 ? (
-            <TableEmpty colSpan={3} />
-          ) : (
-            albums.map((album) => (
-              <tr key={album.id} onClick={() => handleOpenFormModal(album)}>
-                <td>{album.name}</td>
-                <td>{album.year}</td>
+          {
+            title: "",
+            width: 48,
+            render: (album) => (
+              <OperationButton
+                operationType="view"
+                onClick={() => alert(album.id)}
+              />
+            ),
+          },
 
-                <td>
-                  <DeleteButton
-                    handleDelete={() => handleOpenConfirmDeleteModal(album)}
-                  />
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </Table>
+          {
+            title: "",
+            width: 48,
+            render: (album) => (
+              <OperationButton
+                operationType="update"
+                onClick={() => handleOpenFormModal(album)}
+              />
+            ),
+          },
+
+          {
+            title: "",
+            width: 96,
+            render: (album) => (
+              <OperationButton
+                operationType="delete"
+                onClick={() => handleOpenConfirmDeleteModal(album)}
+              />
+            ),
+          },
+        ]}
+      />
 
       <ConfirmDelete
         modalIsOpen={confirmDeleteModalIsOpen}

@@ -1,20 +1,19 @@
 import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
-import { DeleteButton } from "~/components/shared-components/DeleteButton";
 import { Table, TablePagination } from "~/components/shared-components/Table";
-import { TableEmpty } from "~/components/shared-components/Table/TableEmpty";
+import { OperationButton } from "~/components/shared-components/Table/OperationButton";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useDeleteArtistMutation } from "~/store/services/artistsApiSlice";
 import { Artist } from "~/types/Artist";
 
 interface ArtistsTableProps {
-  artists?: Artist[];
+  artists: Artist[];
   handleOpenModalForm: (artist?: Artist) => void;
   artistsIsFetching: boolean;
   pagination: TablePagination;
 }
 
 export function ArtistsTable({
-  artists = [],
+  artists,
   handleOpenModalForm,
   artistsIsFetching,
   pagination,
@@ -31,34 +30,48 @@ export function ArtistsTable({
 
   return (
     <>
-      <Table isFetching={artistsIsFetching} pagination={pagination}>
-        <thead>
-          <tr>
-            <th>Artista</th>
-            <th>País</th>
-            <th style={{ width: 96 }}></th>
-          </tr>
-        </thead>
+      <Table
+        data={artists}
+        isFetching={artistsIsFetching}
+        pagination={pagination}
+        columns={[
+          { dataIndex: "name", title: "Nome do artista" },
+          { dataIndex: "country", title: "País" },
 
-        <tbody>
-          {artists.length === 0 ? (
-            <TableEmpty colSpan={3} />
-          ) : (
-            artists.map((artist) => (
-              <tr key={artist.id} onClick={() => handleOpenModalForm(artist)}>
-                <td>{artist.name}</td>
-                <td>{artist.country}</td>
+          {
+            title: "",
+            width: 48,
+            render: (artist) => (
+              <OperationButton
+                operationType="view"
+                onClick={() => alert(artist.id)}
+              />
+            ),
+          },
 
-                <td>
-                  <DeleteButton
-                    handleDelete={() => handleOpenConfirmDeleteModal(artist)}
-                  />
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </Table>
+          {
+            title: "",
+            width: 48,
+            render: (artist) => (
+              <OperationButton
+                operationType="update"
+                onClick={() => handleOpenModalForm(artist)}
+              />
+            ),
+          },
+
+          {
+            title: "",
+            width: 96,
+            render: (artist) => (
+              <OperationButton
+                operationType="delete"
+                onClick={() => handleOpenConfirmDeleteModal(artist)}
+              />
+            ),
+          },
+        ]}
+      />
 
       <ConfirmDelete
         modalIsOpen={confirmDeleteModalIsOpen}

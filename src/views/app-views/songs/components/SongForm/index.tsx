@@ -20,7 +20,10 @@ import {
 
 const songSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
-  album: z.string().trim().min(1, { message: "Campo obrigatório" }),
+  album: z
+    .string({ message: "Campo obrigatório" })
+    .trim()
+    .min(1, { message: "Campo obrigatório" }),
 });
 
 export type SongFormData = z.infer<typeof songSchema>;

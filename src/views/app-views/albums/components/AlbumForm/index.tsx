@@ -29,7 +29,10 @@ const albumSchema = z.object({
     .refine((year) => year >= 1900 && year <= 2100, {
       message: "O ano deve estar entre 1900 e 2100",
     }),
-  artist: z.string().trim().min(1, { message: "Campo obrigatório" }),
+  artist: z
+    .string({ message: "Campo obrigatório" })
+    .trim()
+    .min(1, { message: "Campo obrigatório" }),
 });
 
 export type AlbumFormData = z.infer<typeof albumSchema>;
@@ -65,6 +68,8 @@ export function AlbumForm({
       },
     }),
   });
+
+  console.log(errors);
 
   const artistOptions = useMemo(() => {
     if (!artistsData) return [];

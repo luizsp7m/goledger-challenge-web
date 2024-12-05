@@ -40,14 +40,10 @@ export const Container = styled.div<ContainerProps>`
     tbody {
       tr {
         background: ${({ theme }) => theme["table-row-color"]};
-        /* border-bottom: 1px solid ${({ theme }) => theme["border-color"]}; */
+        border-bottom: 1px solid ${({ theme }) => theme["border-color"]};
         color: ${({ theme }) => theme["text-color-secondary"]};
         font-weight: 400;
         transition: background 0.15s;
-
-        &.row-selectable {
-          cursor: pointer;
-        }
 
         &:hover {
           background: ${({ theme }) => theme["table-row-color-hover"]};
@@ -73,7 +69,7 @@ export const Container = styled.div<ContainerProps>`
 
 export const PaginationContainer = styled.div`
   display: flex;
-  gap: ${({ theme }) => theme["gap-4"]};
+  gap: ${({ theme }) => theme["gap-2"]};
 `;
 
 interface PaginationItemProps {
@@ -81,18 +77,17 @@ interface PaginationItemProps {
 }
 
 export const PaginationItem = styled.button<PaginationItemProps>`
-  /* width: 36px; */
-  /* height: 36px; */
+  width: 36px;
+  height: 36px;
   background: ${({ theme }) => theme["background-color-tertiary"]};
   display: flex;
   justify-content: center;
   align-items: center;
-  /* border-radius: 4px; */
+  border-radius: 4px;
   font-size: ${({ theme }) => theme["text-sm"]};
   cursor: pointer;
 
   ${({ $isActive }) => $isActive && css`
-    /* background: ${({ theme }) => theme["primary-color"]}; */
-    color: ${({ theme }) => theme["primary-color-hover"]};
+    background: ${({ theme }) => theme["primary-color"]};
   `}
 `;

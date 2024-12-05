@@ -1,20 +1,19 @@
 import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
-import { DeleteButton } from "~/components/shared-components/DeleteButton";
 import { Table, TablePagination } from "~/components/shared-components/Table";
-import { TableEmpty } from "~/components/shared-components/Table/TableEmpty";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useDeletePlaylistMutation } from "~/store/services/playlistsApiSlice";
 import { Playlist } from "~/types/Playlist";
+import { OperationButton } from "~/components/shared-components/Table/OperationButton";
 
 interface PlaylistsTableProps {
-  playlists?: Playlist[];
+  playlists: Playlist[];
   handleOpenFormModal: (playlist?: Playlist) => void;
   playlistsIsFetching: boolean;
   pagination: TablePagination;
 }
 
 export function PlaylistsTable({
-  playlists = [],
+  playlists,
   handleOpenFormModal,
   playlistsIsFetching,
   pagination,
@@ -31,37 +30,52 @@ export function PlaylistsTable({
 
   return (
     <>
-      <Table isFetching={playlistsIsFetching} pagination={pagination}>
-        <thead>
-          <tr>
-            <th>Playlist</th>
-            <th>Pública</th>
-            <th style={{ width: 96 }}></th>
-          </tr>
-        </thead>
+      <Table
+        data={playlists}
+        isFetching={playlistsIsFetching}
+        pagination={pagination}
+        columns={[
+          { dataIndex: "name", title: "Nome da playlist" },
+          {
+            dataIndex: "private",
+            title: "Pública",
+            render: (playlist) => (!playlist.private ? "Sim" : "Não"),
+          },
 
-        <tbody>
-          {playlists.length === 0 ? (
-            <TableEmpty colSpan={3} />
-          ) : (
-            playlists.map((playlist) => (
-              <tr
-                key={playlist.id}
+          {
+            title: "",
+            width: 48,
+            render: (playlist) => (
+              <OperationButton
+                operationType="view"
+                onClick={() => alert(playlist.id)}
+              />
+            ),
+          },
+
+          {
+            title: "",
+            width: 48,
+            render: (playlist) => (
+              <OperationButton
+                operationType="update"
                 onClick={() => handleOpenFormModal(playlist)}
-              >
-                <td>{playlist.name}</td>
-                <td>{!playlist.private ? "Sim" : "Não"}</td>
+              />
+            ),
+          },
 
-                <td>
-                  <DeleteButton
-                    handleDelete={() => handleOpenConfirmDeleteModal(playlist)}
-                  />
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </Table>
+          {
+            title: "",
+            width: 96,
+            render: (playlist) => (
+              <OperationButton
+                operationType="delete"
+                onClick={() => handleOpenConfirmDeleteModal(playlist)}
+              />
+            ),
+          },
+        ]}
+      />
 
       <ConfirmDelete
         modalIsOpen={confirmDeleteModalIsOpen}
