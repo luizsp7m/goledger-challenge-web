@@ -11,12 +11,13 @@ import { Playlist } from "~/types/Playlist";
 import { SongList } from "./components/SongList";
 import { Song } from "~/types/Song";
 import { Checkbox } from "~/components/shared-components/DataEntry/Switch";
+import { useEffect } from "react";
+import { errorToast } from "~/utils/errorToast";
 
 import {
   useCreatePlaylistMutation,
   useUpdatePlaylistMutation,
 } from "~/store/services/playlistsApiSlice";
-import { useEffect } from "react";
 
 const playlistSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
@@ -84,6 +85,7 @@ export function PlaylistForm({
 
         handleCloseModal();
       } catch (error) {
+        errorToast();
         console.log(error);
       }
 
@@ -94,6 +96,7 @@ export function PlaylistForm({
       await createPlaylist({ data }).unwrap();
       handleCloseModal();
     } catch (error) {
+      errorToast();
       console.log(error);
     }
   }

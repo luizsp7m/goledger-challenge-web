@@ -8,12 +8,13 @@ import { FormGroup } from "~/components/shared-components/Form/FormGroup";
 import { FormLabel } from "~/components/shared-components/Form/FormLabel";
 import { SubmitButton } from "~/components/shared-components/Form/SubmitButton";
 import { Artist } from "~/types/Artist";
+import { useEffect } from "react";
+import { errorToast } from "~/utils/errorToast";
 
 import {
   useCreateArtistMutation,
   useUpdateArtistMutation,
 } from "~/store/services/artistsApiSlice";
-import { useEffect } from "react";
 
 const artistSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
@@ -55,6 +56,7 @@ export function ArtistForm({
         await updateArtist({ artistId: selectedArtist.id, data }).unwrap();
         handleCloseModal();
       } catch (error) {
+        errorToast();
         console.log(error);
       }
 
@@ -65,6 +67,7 @@ export function ArtistForm({
       await createArtist({ data }).unwrap();
       handleCloseModal();
     } catch (error) {
+      errorToast();
       console.log(error);
     }
   }

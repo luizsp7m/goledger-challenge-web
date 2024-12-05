@@ -11,6 +11,7 @@ import { FormLabel } from "~/components/shared-components/Form/FormLabel";
 import { SubmitButton } from "~/components/shared-components/Form/SubmitButton";
 import { useLazyGetAlbumsQuery } from "~/store/services/albumsApiSlice";
 import { Song } from "~/types/Song";
+import { errorToast } from "~/utils/errorToast";
 
 import {
   useCreateSongMutation,
@@ -72,6 +73,7 @@ export function SongForm({
         await updateSong({ songId: selectedSong.id, data }).unwrap();
         handleCloseFormModal();
       } catch (error) {
+        errorToast();
         console.log(error);
       }
 
@@ -82,6 +84,7 @@ export function SongForm({
       await createSong({ data }).unwrap();
       handleCloseFormModal();
     } catch (error) {
+      errorToast();
       console.log(error);
     }
   }

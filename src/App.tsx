@@ -1,5 +1,6 @@
-import Layout from "./layout";
+import "react-toastify/dist/ReactToastify.css";
 
+import Layout from "./layout";
 import { Provider } from "react-redux";
 import { GlobalStyle } from "./styles/global";
 import { store } from "./store";
@@ -9,6 +10,7 @@ import { Routes } from "./routes";
 import { BrowserRouter } from "react-router-dom";
 import { Suspense } from "react";
 import { LoadingPage } from "./components/shared-components/LoadingPage";
+import { ToastContainer } from "react-toastify";
 
 export function App() {
   return (
@@ -20,6 +22,8 @@ export function App() {
               <Routes />
             </Layout>
           </Suspense>
+
+          <ToastContainer position="top-center" />
         </BrowserRouter>
 
         <GlobalStyle />
