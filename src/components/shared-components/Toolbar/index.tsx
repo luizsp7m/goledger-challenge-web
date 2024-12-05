@@ -5,6 +5,7 @@ import { z } from "zod";
 import { useSearchParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Select } from "../DataEntry/Select";
+import { SEARCH_PARAMS_KEYS } from "~/constants/searchParmsKeys";
 
 const perPageOptions = [
   { value: "10", label: "10 itens por página" },
@@ -36,9 +37,9 @@ export function Toolbar({
 }: ToolbarProps) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const searchParam = searchParams.get("search") ?? "";
-  const sortByParam = searchParams.get("sortBy") ?? "";
-  const perPageParam = searchParams.get("perPage") ?? "";
+  const searchParam = searchParams.get(SEARCH_PARAMS_KEYS.SEARCH) ?? "";
+  const sortByParam = searchParams.get(SEARCH_PARAMS_KEYS.SORT_BY) ?? "";
+  const perPageParam = searchParams.get(SEARCH_PARAMS_KEYS.PER_PAGE) ?? "";
 
   const { register, handleSubmit } = useForm<SearchFormData>({
     resolver: zodResolver(searchSchema),
@@ -51,36 +52,36 @@ export function Toolbar({
     const { search } = data;
 
     if (!search) {
-      searchParams.delete("search");
+      searchParams.delete(SEARCH_PARAMS_KEYS.SEARCH);
       setSearchParams(searchParams);
       return;
     }
 
-    searchParams.set("search", search);
-    searchParams.set("page", "1");
+    searchParams.set(SEARCH_PARAMS_KEYS.SEARCH, search);
+    searchParams.set(SEARCH_PARAMS_KEYS.PAGE, "1");
 
     setSearchParams(searchParams);
   }
 
   function handleSelectSort(option: Option | null) {
     if (!option) {
-      searchParams.delete("sortBy");
+      searchParams.delete(SEARCH_PARAMS_KEYS.SORT_BY);
       setSearchParams(searchParams);
       return;
     }
 
-    searchParams.set("sortBy", option.value);
+    searchParams.set(SEARCH_PARAMS_KEYS.SORT_BY, option.value);
     setSearchParams(searchParams);
   }
 
   function handleChangePerPage(option: Option | null) {
     if (!option) {
-      searchParams.delete("perPage");
+      searchParams.delete(SEARCH_PARAMS_KEYS.PER_PAGE);
       setSearchParams(searchParams);
       return;
     }
 
-    searchParams.set("perPage", option.value);
+    searchParams.set(SEARCH_PARAMS_KEYS.PER_PAGE, option.value);
     setSearchParams(searchParams);
   }
 

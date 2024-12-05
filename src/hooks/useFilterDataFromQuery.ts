@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router-dom";
+import { SEARCH_PARAMS_KEYS } from "~/constants/searchParmsKeys";
 
 interface UseFilterDataFromQuery<T> {
   records: T[];
@@ -8,10 +9,10 @@ interface UseFilterDataFromQuery<T> {
 export function useFilterDataFromQuery<T>({ records, searchField }: UseFilterDataFromQuery<T>) {
   const [searchParams] = useSearchParams();
 
-  const search = searchParams.get("search");
-  const sortBy = searchParams.get("sortBy");
-  const page = parseInt(searchParams.get("page") ?? "1", 10);
-  const perPage = parseInt(searchParams.get("perPage") ?? "10", 10);
+  const search = searchParams.get(SEARCH_PARAMS_KEYS.SEARCH);
+  const sortBy = searchParams.get(SEARCH_PARAMS_KEYS.SORT_BY);
+  const page = parseInt(searchParams.get(SEARCH_PARAMS_KEYS.PAGE) ?? "1", 10);
+  const perPage = parseInt(searchParams.get(SEARCH_PARAMS_KEYS.PER_PAGE) ?? "10", 10);
 
   const filteredData = records.filter((record) => {
     if (!search) return true;
@@ -26,10 +27,10 @@ export function useFilterDataFromQuery<T>({ records, searchField }: UseFilterDat
 
     const [field, order] = sortBy.split(":");
 
-    if (!Object.keys(a).includes(field)) return 0;
+    if (!Object.keys(a as object).includes(field)) return 0;
 
-    const valueA = `${a[field]}`.toLowerCase();
-    const valueB = `${b[field]}`.toLowerCase();
+    const valueA = `${a[field as keyof T]}`.toLowerCase();
+    const valueB = `${b[field as keyof T]}`.toLowerCase();
 
     if (order === "asc") return valueA.localeCompare(valueB);
     if (order === "desc") return valueB.localeCompare(valueA);

@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { Container, PaginationContainer, PaginationItem } from "./styles";
 import { useSearchParams } from "react-router-dom";
 import { TableEmpty } from "../Table/TableEmpty";
+import { SEARCH_PARAMS_KEYS } from "~/constants/searchParmsKeys";
 
 export interface TablePagination {
   currentPage: number;
@@ -33,7 +34,7 @@ export function Table<T>({
   const [searchParams, setSearchParams] = useSearchParams();
 
   function handleChangePage(page: number) {
-    searchParams.set("page", `${page}`);
+    searchParams.set(SEARCH_PARAMS_KEYS.PAGE, `${page}`);
     setSearchParams(searchParams);
   }
 
