@@ -16,6 +16,13 @@ export const Container = styled.div<ContainerProps>`
     font-size: ${({ theme }) => theme["text-sm"]};
     text-align: left;
 
+    tfoot {
+      background: red;
+      position: sticky;
+      bottom: 0;
+      width: 100%;
+    }
+
     ${({ $isFetching }) => $isFetching && css`
       opacity: 0.75;
     `}
@@ -61,4 +68,29 @@ export const Container = styled.div<ContainerProps>`
       width: auto;
     }
   }
+`;
+
+export const PaginationContainer = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme["gap-2"]};
+`;
+
+interface PaginationItemProps {
+  $isActive: boolean;
+}
+
+export const PaginationItem = styled.button<PaginationItemProps>`
+  width: 36px;
+  height: 36px;
+  background: ${({ theme }) => theme["background-color-tertiary"]};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  font-size: ${({ theme }) => theme["text-sm"]};
+  cursor: pointer;
+
+  ${({ $isActive }) => $isActive && css`
+    background: ${({ theme }) => theme["primary-color"]};
+  `}
 `;

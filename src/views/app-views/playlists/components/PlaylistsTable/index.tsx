@@ -1,6 +1,6 @@
 import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
 import { DeleteButton } from "~/components/shared-components/DeleteButton";
-import { Table } from "~/components/shared-components/Table";
+import { Table, TablePagination } from "~/components/shared-components/Table";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useDeletePlaylistMutation } from "~/store/services/playlistsApiSlice";
 import { Playlist } from "~/types/Playlist";
@@ -9,12 +9,14 @@ interface PlaylistsTableProps {
   playlists?: Playlist[];
   handleOpenFormModal: (playlist?: Playlist) => void;
   playlistsIsFetching: boolean;
+  pagination: TablePagination;
 }
 
 export function PlaylistsTable({
   playlists = [],
   handleOpenFormModal,
   playlistsIsFetching,
+  pagination,
 }: PlaylistsTableProps) {
   const [deletePlaylist, { isLoading: deleteIsLoading }] =
     useDeletePlaylistMutation();
@@ -28,7 +30,7 @@ export function PlaylistsTable({
 
   return (
     <>
-      <Table isFetching={playlistsIsFetching}>
+      <Table isFetching={playlistsIsFetching} pagination={pagination}>
         <thead>
           <tr>
             <th>Playlist</th>
@@ -41,7 +43,7 @@ export function PlaylistsTable({
           {playlists.map((playlist) => (
             <tr key={playlist.id} onClick={() => handleOpenFormModal(playlist)}>
               <td>{playlist.name}</td>
-              <td>{playlist.private ? "Sim" : "Não"}</td>
+              <td>{!playlist.private ? "Sim" : "Não"}</td>
 
               <td>
                 <DeleteButton

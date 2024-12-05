@@ -10,10 +10,10 @@ import { useFilterDataFromQuery } from "~/hooks/useFilterDataFromQuery";
 import { useFormModal } from "~/hooks/useFormModal";
 
 const sortByOptions = [
-  { value: "name:desc", label: "Nome do artista (A-Z)" },
-  { value: "name:asc", label: "Nome do artista (Z-A)" },
-  { value: "country:desc", label: "País (A-Z)" },
-  { value: "country:asc", label: "País (Z-A)" },
+  { value: "name:asc", label: "Nome do artista (A-Z)" },
+  { value: "name:desc", label: "Nome do artista (Z-A)" },
+  { value: "country:asc", label: "País (A-Z)" },
+  { value: "country:desc", label: "País (Z-A)" },
 ];
 
 export default function ArtistsPage() {
@@ -31,9 +31,9 @@ export default function ArtistsPage() {
     handleCloseFormModal,
   } = useFormModal<Artist>();
 
-  const filteredData = useFilterDataFromQuery({
+  const { paginatedData, currentPage, totalPages } = useFilterDataFromQuery({
     records: artistsData?.artists ?? [],
-    field: "name",
+    searchField: "name",
   });
 
   return (
@@ -49,9 +49,10 @@ export default function ArtistsPage() {
 
       {!artistsIsLoading && !artistsIsError && artistsData && (
         <ArtistsTable
-          artists={filteredData}
+          artists={paginatedData}
           handleOpenModalForm={handleOpenFormModal}
           artistsIsFetching={artistsIsFetching}
+          pagination={{ currentPage, totalPages }}
         />
       )}
 

@@ -1,6 +1,6 @@
 import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
 import { DeleteButton } from "~/components/shared-components/DeleteButton";
-import { Table } from "~/components/shared-components/Table";
+import { Table, TablePagination } from "~/components/shared-components/Table";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useDeleteArtistMutation } from "~/store/services/artistsApiSlice";
 import { Artist } from "~/types/Artist";
@@ -9,12 +9,14 @@ interface ArtistsTableProps {
   artists?: Artist[];
   handleOpenModalForm: (artist?: Artist) => void;
   artistsIsFetching: boolean;
+  pagination: TablePagination;
 }
 
 export function ArtistsTable({
   artists = [],
   handleOpenModalForm,
   artistsIsFetching,
+  pagination,
 }: ArtistsTableProps) {
   const [deleteArtist, { isLoading: deleteIsLoading }] =
     useDeleteArtistMutation();
@@ -28,7 +30,7 @@ export function ArtistsTable({
 
   return (
     <>
-      <Table isFetching={artistsIsFetching}>
+      <Table isFetching={artistsIsFetching} pagination={pagination}>
         <thead>
           <tr>
             <th>Artista</th>

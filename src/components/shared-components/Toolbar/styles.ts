@@ -33,14 +33,16 @@ export const Container = styled.div`
     flex-wrap: wrap;
     gap: ${({ theme }) => theme["p-3"]};
     align-items: center;
-    
-    form {
+
+    div.left-side {
       flex: 1;
     }
 
-    div.sort-by {
-      width: 100%;
-      max-width: 256px;
+    div.right-side {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: ${({ theme }) => theme["p-3"]};
     }
   }
 `;

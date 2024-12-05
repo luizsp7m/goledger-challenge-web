@@ -2,34 +2,49 @@ import { useSearchParams } from "react-router-dom";
 
 interface UseFilterDataFromQuery<T> {
   records: T[];
-  field: keyof T
+  searchField: keyof T
 }
 
-export function useFilterDataFromQuery<T>({ records, field }: UseFilterDataFromQuery<T>) {
+export function useFilterDataFromQuery<T>({ records, searchField }: UseFilterDataFromQuery<T>) {
   const [searchParams] = useSearchParams();
 
   const search = searchParams.get("search");
   const sortBy = searchParams.get("sortBy");
+  const page = parseInt(searchParams.get("page") ?? "1", 10);
+  const perPage = parseInt(searchParams.get("perPage") ?? "10", 10);
 
-  return records
-    .filter((record: T) => {
-      if (!search) return record;
+  const filteredData = records.filter((record) => {
+    if (!search) return true;
 
-      return `${record[field]}`.toLowerCase().includes(search.toLocaleLowerCase())
-    })
+    const fieldValue = `${record[searchField]}`.toLowerCase();
 
-    .sort((a: T, b: T) => {
-      if (!sortBy) return 0;
+    return fieldValue.includes(search.toLowerCase());
+  });
 
-      const [field, sort] = sortBy.split(":");
+  const sortedData = filteredData.sort((a, b) => {
+    if (!sortBy) return 0;
 
-      if (!Object.keys(a).includes(field)) return 0;
-      if (!["asc", "desc"].includes(sort)) return 0;
+    const [field, order] = sortBy.split(":");
 
-      if (sort === "asc") {
-        return `${b[field]}`.localeCompare(`${a[field]}`);
-      } else {
-        return `${a[field]}`.localeCompare(`${b[field]}`);
-      }
-    });
+    if (!Object.keys(a).includes(field)) return 0;
+
+    const valueA = `${a[field]}`.toLowerCase();
+    const valueB = `${b[field]}`.toLowerCase();
+
+    if (order === "asc") return valueA.localeCompare(valueB);
+    if (order === "desc") return valueB.localeCompare(valueA);
+
+    return 0;
+  });
+
+  const totalPages = Math.ceil(sortedData.length / perPage);
+
+  const currentPage = Math.min(Math.max(page, 1), totalPages);
+  const paginatedData = sortedData.slice((currentPage - 1) * perPage, currentPage * perPage);
+
+  return {
+    paginatedData,
+    totalPages,
+    currentPage,
+  };
 }

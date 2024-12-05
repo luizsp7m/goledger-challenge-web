@@ -6,7 +6,13 @@ import { useSearchParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Select } from "../DataEntry/Select";
 
-type SortOption = {
+const perPageOptions = [
+  { value: "10", label: "10 itens por página" },
+  { value: "20", label: "20 itens por página" },
+  { value: "30", label: "30 itens por página" },
+];
+
+type Option = {
   value: string;
   label: string;
 };
@@ -19,7 +25,7 @@ type SearchFormData = z.infer<typeof searchSchema>;
 
 interface ToolbarProps {
   title: string;
-  sortByOptions: SortOption[];
+  sortByOptions: Option[];
   handleOpenModalForm: () => void;
 }
 
@@ -32,6 +38,7 @@ export function Toolbar({
 
   const searchParam = searchParams.get("search") ?? "";
   const sortByParam = searchParams.get("sortBy") ?? "";
+  const perPageParam = searchParams.get("perPage") ?? "";
 
   const { register, handleSubmit } = useForm<SearchFormData>({
     resolver: zodResolver(searchSchema),
@@ -50,10 +57,12 @@ export function Toolbar({
     }
 
     searchParams.set("search", search);
+    searchParams.set("page", "1");
+
     setSearchParams(searchParams);
   }
 
-  function handleSelectSort(option: SortOption | null) {
+  function handleSelectSort(option: Option | null) {
     if (!option) {
       searchParams.delete("sortBy");
       setSearchParams(searchParams);
@@ -61,6 +70,17 @@ export function Toolbar({
     }
 
     searchParams.set("sortBy", option.value);
+    setSearchParams(searchParams);
+  }
+
+  function handleChangePerPage(option: Option | null) {
+    if (!option) {
+      searchParams.delete("perPage");
+      setSearchParams(searchParams);
+      return;
+    }
+
+    searchParams.set("perPage", option.value);
     setSearchParams(searchParams);
   }
 
@@ -75,21 +95,33 @@ export function Toolbar({
       </div>
 
       <div className="operations">
-        <form onSubmit={handleSubmit(onSubmitSearch)}>
-          <InputSearch
-            {...register("search")}
-            buttonType="submit"
-            placeholder={`Pesquisar por ${title.toLowerCase()}`}
-          />
-        </form>
+        <div className="left-side">
+          <form onSubmit={handleSubmit(onSubmitSearch)}>
+            <InputSearch
+              {...register("search")}
+              buttonType="submit"
+              placeholder={`Pesquisar por ${title.toLowerCase()}`}
+            />
+          </form>
+        </div>
 
-        <div className="sort-by">
+        <div className="right-side">
           <Select
             value={sortByOptions.find((option) => option.value === sortByParam)}
             isClearable
             placeholder="Ordenar por"
-            onChange={(option) => handleSelectSort(option as SortOption | null)}
+            onChange={(option) => handleSelectSort(option as Option | null)}
             options={sortByOptions}
+          />
+
+          <Select
+            value={perPageOptions.find(
+              (option) => option.value === perPageParam
+            )}
+            isClearable
+            placeholder="Itens por página"
+            onChange={(option) => handleChangePerPage(option as Option | null)}
+            options={perPageOptions}
           />
         </div>
       </div>

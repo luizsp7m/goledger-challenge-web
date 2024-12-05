@@ -9,8 +9,8 @@ import { PlaylistForm } from "./components/PlaylistForm";
 import { useFilterDataFromQuery } from "~/hooks/useFilterDataFromQuery";
 
 const sortByOptions = [
-  { value: "name:desc", label: "Nome da playlist (A-Z)" },
-  { value: "name:asc", label: "Nome da playlist (Z-A)" },
+  { value: "name:asc", label: "Nome da playlist (A-Z)" },
+  { value: "name:desc", label: "Nome da playlist (Z-A)" },
 ];
 
 export default function PlaylistsPage() {
@@ -28,9 +28,9 @@ export default function PlaylistsPage() {
     handleCloseFormModal,
   } = useFormModal<Playlist>();
 
-  const filteredData = useFilterDataFromQuery({
+  const { paginatedData, currentPage, totalPages } = useFilterDataFromQuery({
     records: playlistsData?.playlists ?? [],
-    field: "name",
+    searchField: "name",
   });
 
   return (
@@ -46,9 +46,10 @@ export default function PlaylistsPage() {
 
       {!playlistsIsLoading && playlistsData && (
         <PlaylistsTable
-          playlists={filteredData}
+          playlists={paginatedData}
           handleOpenFormModal={handleOpenFormModal}
           playlistsIsFetching={playlistsIsFetching}
+          pagination={{ currentPage, totalPages }}
         />
       )}
 

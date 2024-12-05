@@ -1,6 +1,6 @@
 import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
 import { DeleteButton } from "~/components/shared-components/DeleteButton";
-import { Table } from "~/components/shared-components/Table";
+import { Table, TablePagination } from "~/components/shared-components/Table";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useDeleteAlbumMutation } from "~/store/services/albumsApiSlice";
 import { Album } from "~/types/Album";
@@ -9,12 +9,14 @@ interface AlbumsTableProps {
   albums?: Album[];
   handleOpenFormModal: (album?: Album) => void;
   albumsIsFetching: boolean;
+  pagination: TablePagination;
 }
 
 export function AlbumsTable({
   albums = [],
   handleOpenFormModal,
   albumsIsFetching,
+  pagination,
 }: AlbumsTableProps) {
   const [deleteAlbum, { isLoading: deleteIsLoading }] =
     useDeleteAlbumMutation();
@@ -28,7 +30,7 @@ export function AlbumsTable({
 
   return (
     <>
-      <Table isFetching={albumsIsFetching}>
+      <Table isFetching={albumsIsFetching} pagination={pagination}>
         <thead>
           <tr>
             <th>Albúm</th>

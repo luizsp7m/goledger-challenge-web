@@ -1,6 +1,6 @@
 import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
 import { DeleteButton } from "~/components/shared-components/DeleteButton";
-import { Table } from "~/components/shared-components/Table";
+import { Table, TablePagination } from "~/components/shared-components/Table";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useDeleteSongMutation } from "~/store/services/songsApiSlice";
 import { Song } from "~/types/Song";
@@ -9,12 +9,14 @@ interface SongsTableProps {
   songs?: Song[];
   handleOpenFormModal: (song?: Song) => void;
   songsIsFetching: boolean;
+  pagination: TablePagination;
 }
 
 export function SongsTable({
   songs = [],
   handleOpenFormModal,
   songsIsFetching,
+  pagination,
 }: SongsTableProps) {
   const [deleteSong, { isLoading: deleteIsLoading }] = useDeleteSongMutation();
 
@@ -27,7 +29,7 @@ export function SongsTable({
 
   return (
     <>
-      <Table isFetching={songsIsFetching}>
+      <Table isFetching={songsIsFetching} pagination={pagination}>
         <thead>
           <tr>
             <th>Música</th>

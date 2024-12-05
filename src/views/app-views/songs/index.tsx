@@ -9,8 +9,8 @@ import { SongForm } from "./components/SongForm";
 import { useFilterDataFromQuery } from "~/hooks/useFilterDataFromQuery";
 
 const sortByOptions = [
-  { value: "name:desc", label: "Nome da música (A-Z)" },
-  { value: "name:asc", label: "Nome da música (Z-A)" },
+  { value: "name:asc", label: "Nome da música (A-Z)" },
+  { value: "name:desc", label: "Nome da música (Z-A)" },
 ];
 
 export default function SongsPage() {
@@ -28,9 +28,9 @@ export default function SongsPage() {
     handleCloseFormModal,
   } = useFormModal<Song>();
 
-  const filteredData = useFilterDataFromQuery({
+  const { paginatedData, currentPage, totalPages } = useFilterDataFromQuery({
     records: songsData?.songs ?? [],
-    field: "name",
+    searchField: "name",
   });
 
   return (
@@ -46,9 +46,10 @@ export default function SongsPage() {
 
       {!songsIsLoading && songsData && (
         <SongsTable
-          songs={filteredData}
+          songs={paginatedData}
           handleOpenFormModal={handleOpenFormModal}
           songsIsFetching={songsIsFetching}
+          pagination={{ currentPage, totalPages }}
         />
       )}
 

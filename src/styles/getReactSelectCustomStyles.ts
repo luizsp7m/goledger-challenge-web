@@ -14,8 +14,9 @@ export const getReactSelectCustomStyles = (): StylesConfig<unknown, false, Group
       return {
         ...baseStyles,
         width: "100%",
-        padding: "0 4px",
-        borderColor: theme["border-color"],
+        padding: "0 6px",
+        border: "none",
+        borderColor: "none",
         background: theme["input-color"],
         boxShadow: "none",
         cursor: state.isDisabled ? "not-allowed" : "default",

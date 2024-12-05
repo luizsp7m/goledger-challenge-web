@@ -10,10 +10,10 @@ import { useFormModal } from "~/hooks/useFormModal";
 import { useFilterDataFromQuery } from "~/hooks/useFilterDataFromQuery";
 
 const sortByOptions = [
-  { value: "name:desc", label: "Nome do albúm (A-Z)" },
-  { value: "name:asc", label: "Nome do albúm (Z-A)" },
-  { value: "year:desc", label: "Ano (mais recente)" },
+  { value: "name:asc", label: "Nome do albúm (A-Z)" },
+  { value: "name:desc", label: "Nome do albúm (Z-A)" },
   { value: "year:asc", label: "Ano (mais antigo)" },
+  { value: "year:desc", label: "Ano (mais recente)" },
 ];
 
 export default function AlbumsPage() {
@@ -31,9 +31,9 @@ export default function AlbumsPage() {
     handleCloseFormModal,
   } = useFormModal<Album>();
 
-  const filteredData = useFilterDataFromQuery({
+  const { paginatedData, currentPage, totalPages } = useFilterDataFromQuery({
     records: albumsData?.albums ?? [],
-    field: "name",
+    searchField: "name",
   });
 
   return (
@@ -49,9 +49,10 @@ export default function AlbumsPage() {
 
       {!albumsIsLoading && albumsData && (
         <AlbumsTable
-          albums={filteredData}
+          albums={paginatedData}
           handleOpenFormModal={handleOpenFormModal}
           albumsIsFetching={albumsIsFetching}
+          pagination={{ currentPage, totalPages }}
         />
       )}
 
