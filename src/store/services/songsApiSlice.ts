@@ -99,6 +99,7 @@ export const songsApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetSongsQuery,
+  useLazyGetSongsQuery,
   useCreateSongMutation,
   useUpdateSongMutation,
   useDeleteSongMutation,

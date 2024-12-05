@@ -5,9 +5,9 @@ import { Artist } from "~/types/Artist";
 import { Modal } from "~/components/shared-components/Modal";
 import { ArtistForm } from "./components/ArtistForm";
 import { Toolbar } from "~/components/shared-components/Toolbar";
-import { TableLoading } from "~/components/shared-components/Table/TableLoading";
 import { useFilterDataFromQuery } from "~/hooks/useFilterDataFromQuery";
 import { useFormModal } from "~/hooks/useFormModal";
+import { DataLoading } from "~/components/shared-components/DataLoading";
 
 const sortByOptions = [
   { value: "name:asc", label: "Nome do artista (A-Z)" },
@@ -44,7 +44,7 @@ export default function ArtistsPage() {
         handleOpenModalForm={handleOpenFormModal}
       />
 
-      {artistsIsLoading && <TableLoading />}
+      {artistsIsLoading && <DataLoading />}
       {artistsIsError && <p>aaa</p>}
 
       {!artistsIsLoading && !artistsIsError && artistsData && (

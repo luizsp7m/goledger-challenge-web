@@ -1,13 +1,19 @@
 import { Link, useLocation } from "react-router-dom";
 import { Container, Overlay } from "./styles";
-import { List, MusicNotes, Playlist, Queue, User } from "@phosphor-icons/react";
+import {
+  List,
+  MusicNotes,
+  Playlist,
+  Queue,
+  Users,
+} from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 
 const NAV_ITEMS = [
   {
     title: "Artistas",
     route: "/artists",
-    icon: <User size={16} weight="bold" />,
+    icon: <Users size={16} weight="bold" />,
   },
 
   {
@@ -49,7 +55,9 @@ export function Header() {
   return (
     <Container>
       <header>
-        <h1>GoLedger Challenge</h1>
+        <Link to={"/"}>
+          <h1>GoLedger Challenge</h1>
+        </Link>
 
         <nav className={menuIsOpen ? "show" : ""}>
           {NAV_ITEMS.map((navItem, index) => {

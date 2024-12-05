@@ -102,6 +102,7 @@ export const playlistsApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetPlaylistsQuery,
+  useLazyGetPlaylistsQuery,
   useCreatePlaylistMutation,
   useUpdatePlaylistMutation,
   useDeletePlaylistMutation,

@@ -6,6 +6,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: ${({ theme }) => theme["gap-4"]};
+  padding: ${({ theme }) => theme["p-6"]};
 
   span {
     color: ${({ theme }) => theme["text-color-secondary"]};
