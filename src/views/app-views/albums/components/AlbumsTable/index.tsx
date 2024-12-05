@@ -1,6 +1,7 @@
 import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
 import { DeleteButton } from "~/components/shared-components/DeleteButton";
 import { Table, TablePagination } from "~/components/shared-components/Table";
+import { TableEmpty } from "~/components/shared-components/Table/TableEmpty";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useDeleteAlbumMutation } from "~/store/services/albumsApiSlice";
 import { Album } from "~/types/Album";
@@ -40,18 +41,22 @@ export function AlbumsTable({
         </thead>
 
         <tbody>
-          {albums.map((album) => (
-            <tr key={album.id} onClick={() => handleOpenFormModal(album)}>
-              <td>{album.name}</td>
-              <td>{album.year}</td>
+          {albums.length === 0 ? (
+            <TableEmpty colSpan={3} />
+          ) : (
+            albums.map((album) => (
+              <tr key={album.id} onClick={() => handleOpenFormModal(album)}>
+                <td>{album.name}</td>
+                <td>{album.year}</td>
 
-              <td>
-                <DeleteButton
-                  handleDelete={() => handleOpenConfirmDeleteModal(album)}
-                />
-              </td>
-            </tr>
-          ))}
+                <td>
+                  <DeleteButton
+                    handleDelete={() => handleOpenConfirmDeleteModal(album)}
+                  />
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </Table>
 

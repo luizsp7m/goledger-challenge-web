@@ -1,6 +1,7 @@
 import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
 import { DeleteButton } from "~/components/shared-components/DeleteButton";
 import { Table, TablePagination } from "~/components/shared-components/Table";
+import { TableEmpty } from "~/components/shared-components/Table/TableEmpty";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useDeleteArtistMutation } from "~/store/services/artistsApiSlice";
 import { Artist } from "~/types/Artist";
@@ -40,18 +41,22 @@ export function ArtistsTable({
         </thead>
 
         <tbody>
-          {artists.map((artist) => (
-            <tr key={artist.id} onClick={() => handleOpenModalForm(artist)}>
-              <td>{artist.name}</td>
-              <td>{artist.country}</td>
+          {artists.length === 0 ? (
+            <TableEmpty colSpan={3} />
+          ) : (
+            artists.map((artist) => (
+              <tr key={artist.id} onClick={() => handleOpenModalForm(artist)}>
+                <td>{artist.name}</td>
+                <td>{artist.country}</td>
 
-              <td>
-                <DeleteButton
-                  handleDelete={() => handleOpenConfirmDeleteModal(artist)}
-                />
-              </td>
-            </tr>
-          ))}
+                <td>
+                  <DeleteButton
+                    handleDelete={() => handleOpenConfirmDeleteModal(artist)}
+                  />
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </Table>
 

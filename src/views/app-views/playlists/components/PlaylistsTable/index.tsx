@@ -1,6 +1,7 @@
 import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
 import { DeleteButton } from "~/components/shared-components/DeleteButton";
 import { Table, TablePagination } from "~/components/shared-components/Table";
+import { TableEmpty } from "~/components/shared-components/Table/TableEmpty";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useDeletePlaylistMutation } from "~/store/services/playlistsApiSlice";
 import { Playlist } from "~/types/Playlist";
@@ -40,18 +41,25 @@ export function PlaylistsTable({
         </thead>
 
         <tbody>
-          {playlists.map((playlist) => (
-            <tr key={playlist.id} onClick={() => handleOpenFormModal(playlist)}>
-              <td>{playlist.name}</td>
-              <td>{!playlist.private ? "Sim" : "Não"}</td>
+          {playlists.length === 0 ? (
+            <TableEmpty colSpan={3} />
+          ) : (
+            playlists.map((playlist) => (
+              <tr
+                key={playlist.id}
+                onClick={() => handleOpenFormModal(playlist)}
+              >
+                <td>{playlist.name}</td>
+                <td>{!playlist.private ? "Sim" : "Não"}</td>
 
-              <td>
-                <DeleteButton
-                  handleDelete={() => handleOpenConfirmDeleteModal(playlist)}
-                />
-              </td>
-            </tr>
-          ))}
+                <td>
+                  <DeleteButton
+                    handleDelete={() => handleOpenConfirmDeleteModal(playlist)}
+                  />
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </Table>
 

@@ -1,6 +1,7 @@
 import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
 import { DeleteButton } from "~/components/shared-components/DeleteButton";
 import { Table, TablePagination } from "~/components/shared-components/Table";
+import { TableEmpty } from "~/components/shared-components/Table/TableEmpty";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useDeleteSongMutation } from "~/store/services/songsApiSlice";
 import { Song } from "~/types/Song";
@@ -38,17 +39,21 @@ export function SongsTable({
         </thead>
 
         <tbody>
-          {songs.map((song) => (
-            <tr key={song.id} onClick={() => handleOpenFormModal(song)}>
-              <td>{song.name}</td>
+          {songs.length === 0 ? (
+            <TableEmpty colSpan={2} />
+          ) : (
+            songs.map((song) => (
+              <tr key={song.id} onClick={() => handleOpenFormModal(song)}>
+                <td>{song.name}</td>
 
-              <td>
-                <DeleteButton
-                  handleDelete={() => handleOpenConfirmDeleteModal(song)}
-                />
-              </td>
-            </tr>
-          ))}
+                <td>
+                  <DeleteButton
+                    handleDelete={() => handleOpenConfirmDeleteModal(song)}
+                  />
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </Table>
 
