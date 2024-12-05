@@ -13,6 +13,7 @@ import {
   useCreateArtistMutation,
   useUpdateArtistMutation,
 } from "~/store/services/artistsApiSlice";
+import { useEffect } from "react";
 
 const artistSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
@@ -36,6 +37,7 @@ export function ArtistForm({
   const {
     register,
     handleSubmit,
+    setFocus,
     formState: { errors, isSubmitting },
   } = useForm<ArtistFormData>({
     resolver: zodResolver(artistSchema),
@@ -66,6 +68,16 @@ export function ArtistForm({
       console.log(error);
     }
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (selectedArtist) {
+        setFocus("country");
+      } else {
+        setFocus("name");
+      }
+    }, 0);
+  }, [selectedArtist, setFocus]);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>

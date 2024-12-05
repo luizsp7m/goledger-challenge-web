@@ -16,6 +16,7 @@ import {
   useCreatePlaylistMutation,
   useUpdatePlaylistMutation,
 } from "~/store/services/playlistsApiSlice";
+import { useEffect } from "react";
 
 const playlistSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
@@ -45,6 +46,7 @@ export function PlaylistForm({
     handleSubmit,
     watch,
     setValue,
+    setFocus,
     formState: { errors, isSubmitting },
   } = useForm<PlaylistFormData>({
     resolver: zodResolver(playlistSchema),
@@ -96,11 +98,19 @@ export function PlaylistForm({
     }
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (!selectedPlaylist) {
+        setFocus("name");
+      }
+    }, 0);
+  }, [selectedPlaylist, setFocus]);
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormGroup>
         <FormLabel label="Nome da playlist: " />
-        <Input {...register("name")} />
+        <Input {...register("name")} disabled={!!selectedPlaylist} />
         <FormErrorMessage error={errors.name} />
       </FormGroup>
 

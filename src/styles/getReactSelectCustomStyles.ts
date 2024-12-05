@@ -3,10 +3,10 @@ import { theme } from "./theme";
 
 export const getReactSelectCustomStyles = (): StylesConfig<unknown, false, GroupBase<unknown>> => {
   return {
-    input: (baseStyles) => {
+    container: (baseStyles, state) => {
       return {
         ...baseStyles,
-        color: theme["text-color-secondary"],
+        pointerEvents: state.isDisabled ? "unset" : "auto",
       }
     },
 
@@ -32,6 +32,13 @@ export const getReactSelectCustomStyles = (): StylesConfig<unknown, false, Group
         ":focus": {
           borderColor: theme["border-color"],
         },
+      }
+    },
+
+    input: (baseStyles) => {
+      return {
+        ...baseStyles,
+        color: theme["text-color-secondary"],
       }
     },
 

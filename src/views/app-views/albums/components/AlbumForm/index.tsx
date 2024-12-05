@@ -52,6 +52,7 @@ export function AlbumForm({
     control,
     register,
     handleSubmit,
+    setFocus,
     formState: { isSubmitting, errors },
   } = useForm<AlbumFormData>({
     resolver: zodResolver(albumSchema),
@@ -98,6 +99,16 @@ export function AlbumForm({
   useEffect(() => {
     getArtist().unwrap();
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (selectedAlbum) {
+        setFocus("year");
+      } else {
+        setFocus("name");
+      }
+    }, 0);
+  }, [selectedAlbum, setFocus]);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>

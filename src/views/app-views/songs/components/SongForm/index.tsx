@@ -50,6 +50,22 @@ export function SongForm({
     });
   }, [albumsData]);
 
+  const {
+    control,
+    register,
+    handleSubmit,
+    setFocus,
+    formState: { isSubmitting, errors },
+  } = useForm<SongFormData>({
+    resolver: zodResolver(songSchema),
+    ...(selectedSong && {
+      values: {
+        name: selectedSong.name,
+        album: selectedSong.albumId,
+      },
+    }),
+  });
+
   async function onSubmit(data: SongFormData) {
     if (selectedSong) {
       try {
@@ -74,20 +90,13 @@ export function SongForm({
     getAlbums().unwrap();
   }, []);
 
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { isSubmitting, errors },
-  } = useForm<SongFormData>({
-    resolver: zodResolver(songSchema),
-    ...(selectedSong && {
-      values: {
-        name: selectedSong.name,
-        album: selectedSong.albumId,
-      },
-    }),
-  });
+  useEffect(() => {
+    setTimeout(() => {
+      if (!selectedSong) {
+        setFocus("name");
+      }
+    }, 0);
+  }, [selectedSong, setFocus]);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
