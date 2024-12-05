@@ -15,6 +15,14 @@ interface UpdateSongRequest extends CreateSongRequest {
   songId: string;
 }
 
+function songFormatter(song: SongResponseAPI): Song {
+  return {
+    id: song["@key"],
+    name: song.name,
+    albumId: song.album["@key"]
+  }
+}
+
 export const songsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getSongs: builder.query<SongsResponse, void>({
@@ -33,13 +41,29 @@ export const songsApiSlice = apiSlice.injectEndpoints({
 
       transformResponse: (response: QuerySearchResponse<SongResponseAPI>) => {
         return {
-          songs: response.result.map(song => {
-            return {
-              id: song["@key"],
-              name: song.name,
-              albumId: song.album["@key"]
+          songs: response.result.map(songFormatter)
+        }
+      }
+    }),
+
+    getSongsByAlbum: builder.query<SongsResponse, { albumId: string }>({
+      providesTags: ["songs"],
+      query: ({ albumId }) => ({
+        url: "/query/search",
+        method: "POST",
+        body: {
+          query: {
+            selector: {
+              "@assetType": "song",
+              "album.@key": albumId
             }
-          })
+          }
+        }
+      }),
+
+      transformResponse: (response: QuerySearchResponse<SongResponseAPI>) => {
+        return {
+          songs: response.result.map(songFormatter)
         }
       }
     }),
@@ -100,6 +124,7 @@ export const songsApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetSongsQuery,
   useLazyGetSongsQuery,
+  useLazyGetSongsByAlbumQuery,
   useCreateSongMutation,
   useUpdateSongMutation,
   useDeleteSongMutation,

@@ -7,6 +7,10 @@ const SongsPage = lazy(() => import("../views/app-views/songs"));
 const AlbumsPage = lazy(() => import("../views/app-views/albums"));
 const PlaylistsPage = lazy(() => import("../views/app-views/playlists"));
 
+const ViewArtistPage = lazy(
+  () => import("../views/app-views/artists/ViewArtist")
+);
+
 export function Routes() {
   return (
     <Switch>
@@ -15,6 +19,9 @@ export function Routes() {
       <Route path="/songs" element={<SongsPage />} />
       <Route path="/Albums" element={<AlbumsPage />} />
       <Route path="/playlists" element={<PlaylistsPage />} />
+
+      <Route path="/artists/:id" element={<ViewArtistPage />} />
+
       <Route path="*" element={<Navigate to={"/"} replace />} />
     </Switch>
   );

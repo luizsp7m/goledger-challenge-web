@@ -15,6 +15,14 @@ interface UpdateArtistRequest extends CreateArtistRequest {
   artistId: string;
 }
 
+function artistFormatter(artist: ArtistResponseAPI): Artist {
+  return {
+    id: artist["@key"],
+    name: artist.name,
+    country: artist.country,
+  }
+}
+
 export const artistsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getArtists: builder.query<ArtistsResponse, void>({
@@ -33,15 +41,25 @@ export const artistsApiSlice = apiSlice.injectEndpoints({
 
       transformResponse: (response: QuerySearchResponse<ArtistResponseAPI>) => {
         return {
-          artists: response.result.map(artist => {
-            return {
-              id: artist["@key"],
-              name: artist.name,
-              country: artist.country,
-            }
-          })
+          artists: response.result.map(artistFormatter)
         }
       }
+    }),
+
+    getArtist: builder.query<Artist, { artistId: string }>({
+      providesTags: ["artists"],
+      query: ({ artistId }) => ({
+        url: "/query/readAsset",
+        method: "POST",
+        body: {
+          key: {
+            "@assetType": "artist",
+            "@key": artistId
+          }
+        }
+      }),
+
+      transformResponse: (response: ArtistResponseAPI) => artistFormatter(response)
     }),
 
     createArtist: builder.mutation<void, CreateArtistRequest>({
@@ -94,6 +112,7 @@ export const artistsApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetArtistsQuery,
   useLazyGetArtistsQuery,
+  useLazyGetArtistQuery,
   useCreateArtistMutation,
   useUpdateArtistMutation,
   useDeleteArtistMutation,

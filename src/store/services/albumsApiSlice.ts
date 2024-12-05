@@ -15,6 +15,15 @@ interface UpdateAlbumRequest extends CreateAlbumRequest {
   albumId: string;
 }
 
+function albumFormatter(album: AlbumResponseAPI): Album {
+  return {
+    id: album["@key"],
+    name: album.name,
+    year: album.year,
+    artistId: album.artist["@key"]
+  }
+}
+
 export const albumsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAlbums: builder.query<AlbumsResponse, void>({
@@ -33,16 +42,47 @@ export const albumsApiSlice = apiSlice.injectEndpoints({
 
       transformResponse: (response: QuerySearchResponse<AlbumResponseAPI>) => {
         return {
-          albums: response.result.map(album => {
-            return {
-              id: album["@key"],
-              name: album.name,
-              year: album.year,
-              artistId: album.artist["@key"]
-            }
-          })
+          albums: response.result.map(albumFormatter)
         }
       }
+    }),
+
+    getAlbumsByArtist: builder.query<AlbumsResponse, { artistId: string }>({
+      providesTags: ["albums"],
+      query: ({ artistId }) => ({
+        url: "/query/search",
+        method: "POST",
+        body: {
+          query: {
+            selector: {
+              "@assetType": "album",
+              "artist.@key": artistId
+            }
+          }
+        }
+      }),
+
+      transformResponse: (response: QuerySearchResponse<AlbumResponseAPI>) => {
+        return {
+          albums: response.result.map(albumFormatter)
+        }
+      }
+    }),
+
+    getAlbum: builder.query<Album, { albumId: string }>({
+      providesTags: ["albums"],
+      query: ({ albumId }) => ({
+        url: "/query/readAsset",
+        method: "POST",
+        body: {
+          key: {
+            "@assetType": "album",
+            "@key": albumId
+          }
+        }
+      }),
+
+      transformResponse: (response: AlbumResponseAPI) => albumFormatter(response)
     }),
 
     createAlbum: builder.mutation<void, CreateAlbumRequest>({
@@ -101,6 +141,8 @@ export const albumsApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetAlbumsQuery,
   useLazyGetAlbumsQuery,
+  useLazyGetAlbumsByArtistQuery,
+  useLazyGetAlbumQuery,
   useCreateAlbumMutation,
   useUpdateAlbumMutation,
   useDeleteAlbumMutation,
