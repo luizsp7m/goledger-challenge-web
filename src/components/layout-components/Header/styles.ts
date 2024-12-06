@@ -69,11 +69,11 @@ export const Container = styled.div`
         align-items: flex-start;
         gap: 0;
 
-        right: -100%;
-        transition: right 0.3s ease-in-out;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
 
         &.show {
-          right: 0;
+          transform: translateX(0);
         }
 
         a {
@@ -92,6 +92,14 @@ export const Container = styled.div`
 
       button.toggle-menu {
         display: flex;
+      }
+    }
+  }
+
+  @media (max-width: 320px) {
+    header {
+      nav {
+        width: 100%;
       }
     }
   }

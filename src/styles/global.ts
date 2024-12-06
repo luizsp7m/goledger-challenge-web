@@ -8,6 +8,7 @@ export const GlobalStyle = createGlobalStyle`
 
     &::-webkit-scrollbar {
       width: 10px;
+      height: 10px;
     }
 
     &::-webkit-scrollbar-thumb {

@@ -14,6 +14,9 @@ export const Container = styled.div`
     h3 {
       font-size: ${({ theme }) => theme["text-md"]};
       font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     button {
@@ -30,7 +33,6 @@ export const Container = styled.div`
 
   div.operations {
     display: flex;
-    flex-wrap: wrap;
     gap: ${({ theme }) => theme["p-3"]};
     align-items: center;
 
@@ -43,6 +45,22 @@ export const Container = styled.div`
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: ${({ theme }) => theme["p-3"]};
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+
+      div.left-side, div.right-side {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      div.right-side {
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
 `;

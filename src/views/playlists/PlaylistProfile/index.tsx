@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { DataLoading } from "~/components/shared-components/DataLoading";
 import { ErrorMessage } from "~/components/shared-components/ErrorMessage";
@@ -15,6 +15,16 @@ export default function PlaylistProfile() {
 
   const [getPlaylist, { data: playlistResponse }] = useLazyGetPlaylistQuery();
   const [getSongs, { data: songsResponse }] = useLazyGetSongsQuery();
+
+  const playlistSongs = useMemo(() => {
+    if (playlistResponse && songsResponse) {
+      return songsResponse.songs.filter((song) =>
+        playlistResponse.songIds.includes(song.id)
+      );
+    }
+
+    return [];
+  }, [playlistResponse, songsResponse]);
 
   async function fetchInformation(playlistId: string) {
     try {
@@ -59,11 +69,17 @@ export default function PlaylistProfile() {
             }`}
           />
 
-          <ProfilePage.SongList>
-            {songsResponse.songs.map((song, index) => (
-              <SongItem key={song.id} order={index + 1} name={song.name} />
-            ))}
-          </ProfilePage.SongList>
+          {playlistSongs.length === 0 ? (
+            <ProfilePage.Subtitle
+              subtitle={`Nenhuma música adicionada na playlist`}
+            />
+          ) : (
+            <ProfilePage.SongList>
+              {playlistSongs.map((song, index) => (
+                <SongItem key={song.id} order={index + 1} name={song.name} />
+              ))}
+            </ProfilePage.SongList>
+          )}
         </ProfilePage.SongSection>
       )}
     </ProfilePage.Container>
