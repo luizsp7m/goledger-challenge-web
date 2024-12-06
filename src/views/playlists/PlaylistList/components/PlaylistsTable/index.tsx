@@ -86,7 +86,6 @@ export function PlaylistsTable({
       <ConfirmDelete
         modalIsOpen={confirmDeleteModalIsOpen}
         handleCloseModal={handleCloseConfirmDeleteModal}
-        message="Deseja excluir essa playlist?"
         deleteIsLoading={deleteIsLoading}
         removeRecord={() =>
           deletePlaylist({ playlistId: selectedItem?.id ?? "" }).unwrap()

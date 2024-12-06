@@ -7,7 +7,6 @@ import { errorToast } from "~/utils/errorToast";
 interface ConfirmDeleteProps {
   modalIsOpen: boolean;
   handleCloseModal: () => void;
-  message: string;
   removeRecord: () => Promise<void>;
   deleteIsLoading: boolean;
 }
@@ -15,7 +14,6 @@ interface ConfirmDeleteProps {
 export function ConfirmDelete({
   modalIsOpen,
   handleCloseModal,
-  message,
   removeRecord,
   deleteIsLoading,
 }: ConfirmDeleteProps) {
@@ -34,14 +32,19 @@ export function ConfirmDelete({
       title="Confirmação"
       isOpen={modalIsOpen}
       handleCloseModal={handleCloseModal}
-      maxWidth={375}
     >
       <Container>
-        <div className="message">
-          <span>{message}</span>
-        </div>
+        <h5>Você tem certeza que deseja excluir esse registro?</h5>
+
+        <p>
+          Isso vai apaga-lo permanentemente. Você não pode desfazer essa ação.
+        </p>
 
         <div className="button-group">
+          <button type="button" className="cancel" onClick={handleCloseModal}>
+            Cancelar
+          </button>
+
           <button
             type="button"
             className="confirm"
@@ -51,11 +54,7 @@ export function ConfirmDelete({
             {deleteIsLoading && (
               <ReactLoading type="spinningBubbles" width={16} height={16} />
             )}
-            Sim
-          </button>
-
-          <button type="button" className="cancel" onClick={handleCloseModal}>
-            Não
+            Tenho certeza
           </button>
         </div>
       </Container>

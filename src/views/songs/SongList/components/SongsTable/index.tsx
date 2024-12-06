@@ -80,7 +80,6 @@ export function SongsTable({
       <ConfirmDelete
         modalIsOpen={confirmDeleteModalIsOpen}
         handleCloseModal={handleCloseConfirmDeleteModal}
-        message="Deseja excluir essa música?"
         deleteIsLoading={deleteIsLoading}
         removeRecord={() =>
           deleteSong({ songId: selectedItem?.id ?? "" }).unwrap()

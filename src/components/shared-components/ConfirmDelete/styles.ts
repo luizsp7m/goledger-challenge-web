@@ -3,7 +3,18 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme["gap-3"]};
+  gap: ${({ theme }) => theme["gap-2"]};
+
+  h5 {
+    font-weight: 500;
+    font-size: ${({ theme }) => theme["text-sm"]};
+    color: ${({ theme }) => theme["text-color-primary"]};
+  }
+
+  p {
+    font-size: ${({ theme }) => theme["text-sm"]};
+    color: ${({ theme }) => theme["text-color-secondary"]};
+  }
 
   div.message {
     span {
@@ -13,6 +24,7 @@ export const Container = styled.div`
   }
 
   div.button-group {
+    margin-top: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -28,7 +40,7 @@ export const Container = styled.div`
       transition: background 0.15s;
 
       &.confirm {
-        background: ${({ theme }) => theme["primary-color"]};
+        background: ${({ theme }) => theme["danger-color"]};
         display: flex;
         justify-content: center;
         align-items: center;
@@ -39,15 +51,16 @@ export const Container = styled.div`
         }
 
         &:hover {
-          background: ${({ theme }) => theme["primary-color-hover"]};
+          background: ${({ theme }) => theme["danger-color-hover"]};
         }
       }
 
       &.cancel {
-        background: #636e72;
+        background: #FAFAFA;
+        color: #535c68;
 
         &:hover {
-          background: #b2bec3;
+          background: #e1e1e1;
         }
       }
     }

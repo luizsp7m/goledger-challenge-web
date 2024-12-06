@@ -82,7 +82,6 @@ export function AlbumsTable({
       <ConfirmDelete
         modalIsOpen={confirmDeleteModalIsOpen}
         handleCloseModal={handleCloseConfirmDeleteModal}
-        message="Deseja excluir esse álbum?"
         deleteIsLoading={deleteIsLoading}
         removeRecord={() =>
           deleteAlbum({ albumId: selectedItem?.id ?? "" }).unwrap()

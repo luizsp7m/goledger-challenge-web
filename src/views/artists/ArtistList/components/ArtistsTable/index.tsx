@@ -82,7 +82,6 @@ export function ArtistsTable({
       <ConfirmDelete
         modalIsOpen={confirmDeleteModalIsOpen}
         handleCloseModal={handleCloseConfirmDeleteModal}
-        message="Deseja excluir esse artista?"
         deleteIsLoading={deleteIsLoading}
         removeRecord={() =>
           deleteArtist({ artistId: selectedItem?.id ?? "" }).unwrap()
