@@ -64,6 +64,10 @@ export const Container = styled.div<ContainerProps>`
 
     th, td {
       padding: ${({ theme }) => theme["p-4"]} ${({ theme }) => theme["p-6"]};
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     th[style] {
@@ -78,7 +82,7 @@ export const Container = styled.div<ContainerProps>`
       table-layout: auto;
 
       th, td {
-        white-space: nowrap;
+        max-width: 256px
       }
     }
   }

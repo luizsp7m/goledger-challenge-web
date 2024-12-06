@@ -65,7 +65,7 @@ export function Header() {
     <Container>
       <header>
         <Link to={HOME_PREFIX_PATH}>
-          <h1>GoLedger Challenge</h1>
+          <h1>GoLedger Play</h1>
         </Link>
 
         <nav className={menuIsOpen ? "show" : ""}>

@@ -2,8 +2,8 @@
 
 interface ImportMetaEnv {
   readonly VITE_API_BASE_URL: string
-  readonly VITE_USER_NAME: string
-  readonly VITE_USER_PASSWORD: string
+  readonly VITE_USER: string
+  readonly VITE_PASSWORD: string
 }
 
 interface ImportMeta {
