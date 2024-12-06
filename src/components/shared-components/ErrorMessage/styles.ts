@@ -1,18 +1,11 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-interface ContainerProps {
-  $withPadding: boolean;
-}
-
-export const Container = styled.div<ContainerProps>`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: ${({ theme }) => theme["gap-2"]};
-
-  ${({ $withPadding }) => $withPadding && css`
-    padding: 3rem;
-  `}
+  padding: 3rem;
 
   svg {
     color: ${({ theme }) => theme["danger-color"]};
@@ -22,5 +15,14 @@ export const Container = styled.div<ContainerProps>`
   span {
     font-size: ${({ theme }) => theme["text-sm"]};
     color: ${({ theme }) => theme["text-color-secondary"]};
+  }
+
+  a {
+    font-size: ${({ theme }) => theme["text-sm"]};
+    color: ${({ theme }) => theme["text-color-secondary"]};
+
+    &:hover {
+      opacity: 0.85;
+    }
   }
 `;

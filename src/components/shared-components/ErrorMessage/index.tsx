@@ -1,19 +1,25 @@
 import { Warning } from "@phosphor-icons/react";
 import { Container } from "./styles";
+import { Link } from "react-router-dom";
+import { HOME_PREFIX_PATH } from "~/configs/AppConfig";
 
 interface ErrorMessageProps {
   message?: string;
-  withPadding?: boolean;
+  showRedirectToHomeButton?: boolean;
 }
 
 export function ErrorMessage({
   message = "Ocorreu um erro inesperado",
-  withPadding = false,
+  showRedirectToHomeButton = false,
 }: ErrorMessageProps) {
   return (
-    <Container $withPadding={withPadding}>
+    <Container>
       <Warning />
       <span>{message}</span>
+
+      {showRedirectToHomeButton && (
+        <Link to={HOME_PREFIX_PATH}>Ir para início</Link>
+      )}
     </Container>
   );
 }

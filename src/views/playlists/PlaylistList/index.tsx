@@ -43,7 +43,7 @@ export default function PlaylistsList() {
       />
 
       {playlistsIsLoading && <DataLoading />}
-      {playlistsIsError && <ErrorMessage withPadding />}
+      {playlistsIsError && <ErrorMessage />}
 
       {!playlistsIsLoading && !playlistsIsError && playlistsData && (
         <PlaylistsTable

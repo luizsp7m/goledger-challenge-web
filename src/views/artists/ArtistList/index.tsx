@@ -46,7 +46,7 @@ export default function ArtistList() {
       />
 
       {artistsIsLoading && <DataLoading />}
-      {artistsIsError && <ErrorMessage withPadding />}
+      {artistsIsError && <ErrorMessage />}
 
       {!artistsIsLoading && !artistsIsError && artistsData && (
         <ArtistsTable

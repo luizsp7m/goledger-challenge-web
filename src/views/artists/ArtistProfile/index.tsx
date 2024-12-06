@@ -88,7 +88,10 @@ export default function ArtistProfile() {
 
   if (!artistResponse || !albumsByArtistResponse || !songsByAlbumsResponse) {
     return (
-      <ErrorMessage message="Não foi possível obter todos as informações do artista" />
+      <ErrorMessage
+        message="Não foi possível obter todos as informações do artista"
+        showRedirectToHomeButton
+      />
     );
   }
 

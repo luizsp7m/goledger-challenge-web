@@ -43,7 +43,7 @@ export default function SongList() {
       />
 
       {songsIsLoading && <DataLoading />}
-      {songsIsError && <ErrorMessage withPadding />}
+      {songsIsError && <ErrorMessage />}
 
       {!songsIsLoading && !songsIsError && songsData && (
         <SongsTable

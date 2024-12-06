@@ -50,7 +50,10 @@ export default function PlaylistProfile() {
 
   if (!playlistResponse || !songsResponse) {
     return (
-      <ErrorMessage message="Não foi possível obter todos as informações da playlist" />
+      <ErrorMessage
+        message="Não foi possível obter todos as informações da playlist"
+        showRedirectToHomeButton
+      />
     );
   }
 

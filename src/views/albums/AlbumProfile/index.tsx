@@ -47,7 +47,10 @@ export default function AlbumProfile() {
 
   if (!albumResponse || !artistResponse || !songsByAlbumsResponse) {
     return (
-      <ErrorMessage message="Não foi possível obter todos as informações do álbum" />
+      <ErrorMessage
+        message="Não foi possível obter todos as informações do álbum"
+        showRedirectToHomeButton
+      />
     );
   }
 

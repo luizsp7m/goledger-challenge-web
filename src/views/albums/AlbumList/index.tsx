@@ -46,7 +46,7 @@ export default function AlbumList() {
       />
 
       {albumsIsLoading && <DataLoading />}
-      {albumsIsError && <ErrorMessage withPadding />}
+      {albumsIsError && <ErrorMessage />}
 
       {!albumsIsLoading && !albumsIsError && albumsData && (
         <AlbumsTable
