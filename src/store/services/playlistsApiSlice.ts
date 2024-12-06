@@ -15,6 +15,15 @@ interface UpdatePlaylistRequest extends CreatePlaylistRequest {
   playlistId: string;
 }
 
+function playlistFormatter(playlist: PlaylistResponseAPI): Playlist {
+  return {
+    id: playlist["@key"],
+    name: playlist.name,
+    private: playlist.private,
+    songIds: playlist.songs.map(song => song["@key"])
+  }
+}
+
 export const playlistsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getPlaylists: builder.query<PlaylistsResponse, void>({
@@ -33,16 +42,25 @@ export const playlistsApiSlice = apiSlice.injectEndpoints({
 
       transformResponse: (response: QuerySearchResponse<PlaylistResponseAPI>) => {
         return {
-          playlists: response.result.map(playlist => {
-            return {
-              id: playlist["@key"],
-              name: playlist.name,
-              private: playlist.private,
-              songIds: playlist.songs.map(song => song["@key"])
-            }
-          })
+          playlists: response.result.map(playlistFormatter)
         }
       }
+    }),
+
+    getPlaylist: builder.query<Playlist, { playlistId: string }>({
+      providesTags: ["playlists"],
+      query: ({ playlistId }) => ({
+        url: "/query/readAsset",
+        method: "POST",
+        body: {
+          key: {
+            "@assetType": "playlist",
+            "@key": playlistId
+          }
+        }
+      }),
+
+      transformResponse: (response: PlaylistResponseAPI) => playlistFormatter(response)
     }),
 
     createPlaylist: builder.mutation<void, CreatePlaylistRequest>({
@@ -102,6 +120,7 @@ export const playlistsApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetPlaylistsQuery,
+  useLazyGetPlaylistQuery,
   useLazyGetPlaylistsQuery,
   useCreatePlaylistMutation,
   useUpdatePlaylistMutation,

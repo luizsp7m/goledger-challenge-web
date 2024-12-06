@@ -4,6 +4,7 @@ import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useDeletePlaylistMutation } from "~/store/services/playlistsApiSlice";
 import { Playlist } from "~/types/Playlist";
 import { OperationButton } from "~/components/shared-components/Table/OperationButton";
+import { useNavigateTo } from "~/hooks/useNavigateTo";
 
 interface PlaylistsTableProps {
   playlists: Playlist[];
@@ -28,6 +29,8 @@ export function PlaylistsTable({
     handleCloseConfirmDeleteModal,
   } = useConfirmDeleteModal<Playlist>();
 
+  const { handleNavigateTo } = useNavigateTo();
+
   return (
     <>
       <Table
@@ -48,7 +51,7 @@ export function PlaylistsTable({
             render: (playlist) => (
               <OperationButton
                 operationType="view"
-                onClick={() => alert(playlist.id)}
+                onClick={() => handleNavigateTo(`/playlists/${playlist.id}`)}
               />
             ),
           },
