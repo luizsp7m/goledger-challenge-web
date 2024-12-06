@@ -5,18 +5,11 @@ import { ErrorMessage } from "~/components/shared-components/ErrorMessage";
 import { useLazyGetAlbumQuery } from "~/store/services/albumsApiSlice";
 import { useLazyGetArtistQuery } from "~/store/services/artistsApiSlice";
 import { useLazyGetSongQuery } from "~/store/services/songsApiSlice";
-import { GoBackButton } from "~/components/shared-components/GoBackButton";
-import { ArtistItem } from "~/components/shared-components/ArtistItem";
-import { AlbumItem } from "~/components/shared-components/AlbumItem";
-import { SongItem } from "~/components/shared-components/SongItem";
-
-import {
-  AlbumList,
-  AlbumSection,
-  Container,
-  SongList,
-  SongSection,
-} from "./styles";
+import { GoBackButton } from "~/components/shared-components/ProfilePage/GoBackButton";
+import { ArtistItem } from "~/components/shared-components/ProfilePage/ArtistItem";
+import { AlbumItem } from "~/components/shared-components/ProfilePage/AlbumItem";
+import { SongItem } from "~/components/shared-components/ProfilePage/SongItem";
+import { ProfilePage } from "~/components/shared-components/ProfilePage";
 
 export default function SongProfile() {
   const [isLoadingInformation, setIsLoadingInformation] = useState(true);
@@ -62,35 +55,35 @@ export default function SongProfile() {
   }
 
   return (
-    <Container>
+    <ProfilePage.Container>
       <GoBackButton goBackTo="/songs" />
 
       <ArtistItem name={artistResponse.name} country={artistResponse.country} />
 
-      <AlbumSection>
-        <h2>Essa música é do álbum: </h2>
+      <ProfilePage.AlbumSection>
+        <ProfilePage.Title title="Informações do álbum" />
 
-        <AlbumList>
+        <ProfilePage.AlbumList>
           <AlbumItem
             key={albumResponse.id}
             name={albumResponse.name}
             year={albumResponse.year}
           />
-        </AlbumList>
-      </AlbumSection>
+        </ProfilePage.AlbumList>
+      </ProfilePage.AlbumSection>
 
-      <SongSection>
-        <h2>Detalhes da música: </h2>
+      <ProfilePage.SongSection>
+        <ProfilePage.Title title="Detalhes da música" />
 
-        <SongList>
+        <ProfilePage.SongList>
           <SongItem
             key={songResponse.id}
             order={1}
             name={songResponse.name}
             albumName={albumResponse.name}
           />
-        </SongList>
-      </SongSection>
-    </Container>
+        </ProfilePage.SongList>
+      </ProfilePage.SongSection>
+    </ProfilePage.Container>
   );
 }

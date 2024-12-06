@@ -4,19 +4,26 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme["gap-3"]};
+`;
 
-  h2 {
-    font-size: ${({ theme }) => theme["text-sm"]};
-    color: ${({ theme }) => theme["text-color-secondary"]};
-    margin-bottom: 0.5rem;
-  }
+export const Title = styled.h2`
+  font-size: ${({ theme }) => theme["text-sm"]};
+  color: ${({ theme }) => theme["text-color-secondary"]};
+  margin-bottom: 0.5rem;
+`;
+
+export const Subtitle = styled.span`
+  color: ${({ theme }) => theme["text-color-secondary"]};
+  font-size: ${({ theme }) => theme["text-sm"]};
+  margin-bottom: 0.5rem;
+  display: block;
 `;
 
 export const AlbumSection = styled.div``;
 
 export const AlbumList = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(273px, 1fr) );
+  grid-template-columns: repeat(auto-fill, minmax(273px, 1fr));
   gap: ${({ theme }) => theme["gap-3"]};
 `;
 

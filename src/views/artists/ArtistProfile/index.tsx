@@ -4,20 +4,13 @@ import { DataLoading } from "~/components/shared-components/DataLoading";
 import { useLazyGetAlbumsByArtistQuery } from "~/store/services/albumsApiSlice";
 import { useLazyGetArtistQuery } from "~/store/services/artistsApiSlice";
 import { useLazyGetSongsByAlbumsQuery } from "~/store/services/songsApiSlice";
-import { SongItem } from "~/components/shared-components/SongItem";
+import { SongItem } from "~/components/shared-components/ProfilePage/SongItem";
 import { Album } from "~/types/Album";
 import { ErrorMessage } from "~/components/shared-components/ErrorMessage";
-import { AlbumItem } from "~/components/shared-components/AlbumItem";
-import { ArtistItem } from "~/components/shared-components/ArtistItem";
-import { GoBackButton } from "~/components/shared-components/GoBackButton";
-
-import {
-  Container,
-  AlbumList,
-  AlbumSection,
-  SongList,
-  SongSection,
-} from "./styles";
+import { AlbumItem } from "~/components/shared-components/ProfilePage/AlbumItem";
+import { ArtistItem } from "~/components/shared-components/ProfilePage/ArtistItem";
+import { GoBackButton } from "~/components/shared-components/ProfilePage/GoBackButton";
+import { ProfilePage } from "~/components/shared-components/ProfilePage";
 
 export default function ArtistProfile() {
   const [isLoadingInformation, setIsLoadingInformation] = useState(true);
@@ -99,7 +92,7 @@ export default function ArtistProfile() {
   }
 
   return (
-    <Container>
+    <ProfilePage.Container>
       <GoBackButton goBackTo="/artists" />
 
       <ArtistItem
@@ -109,22 +102,22 @@ export default function ArtistProfile() {
       />
 
       {albumsByArtistResponse.albums.length > 0 && (
-        <AlbumSection>
-          <h2>Álbuns: </h2>
+        <ProfilePage.AlbumSection>
+          <ProfilePage.Title title="Álbuns do artista" />
 
-          <AlbumList>
+          <ProfilePage.AlbumList>
             {albumsByArtistResponse.albums.map((album) => (
               <AlbumItem key={album.id} name={album.name} year={album.year} />
             ))}
-          </AlbumList>
-        </AlbumSection>
+          </ProfilePage.AlbumList>
+        </ProfilePage.AlbumSection>
       )}
 
       {songsByAlbumsResponse.songs.length > 0 && (
-        <SongSection>
-          <h2>Músicas: </h2>
+        <ProfilePage.SongSection>
+          <ProfilePage.Title title="Músicas do artista" />
 
-          <SongList>
+          <ProfilePage.SongList>
             {songsByAlbumsResponse.songs.map((song, index) => (
               <SongItem
                 key={song.id}
@@ -133,9 +126,9 @@ export default function ArtistProfile() {
                 albumName={albumKeyValues[song.albumId].name}
               />
             ))}
-          </SongList>
-        </SongSection>
+          </ProfilePage.SongList>
+        </ProfilePage.SongSection>
       )}
-    </Container>
+    </ProfilePage.Container>
   );
 }

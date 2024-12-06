@@ -5,18 +5,11 @@ import { ErrorMessage } from "~/components/shared-components/ErrorMessage";
 import { useLazyGetAlbumQuery } from "~/store/services/albumsApiSlice";
 import { useLazyGetArtistQuery } from "~/store/services/artistsApiSlice";
 import { useLazyGetSongsByAlbumsQuery } from "~/store/services/songsApiSlice";
-import { GoBackButton } from "~/components/shared-components/GoBackButton";
-import { ArtistItem } from "~/components/shared-components/ArtistItem";
-import { SongItem } from "~/components/shared-components/SongItem";
-import { AlbumItem } from "~/components/shared-components/AlbumItem";
-
-import {
-  AlbumList,
-  AlbumSection,
-  Container,
-  SongList,
-  SongSection,
-} from "./styles";
+import { GoBackButton } from "~/components/shared-components/ProfilePage/GoBackButton";
+import { ArtistItem } from "~/components/shared-components/ProfilePage/ArtistItem";
+import { SongItem } from "~/components/shared-components/ProfilePage/SongItem";
+import { AlbumItem } from "~/components/shared-components/ProfilePage/AlbumItem";
+import { ProfilePage } from "~/components/shared-components/ProfilePage";
 
 export default function AlbumProfile() {
   const [isLoadingInformation, setIsLoadingInformation] = useState(true);
@@ -58,28 +51,28 @@ export default function AlbumProfile() {
   }
 
   return (
-    <Container>
+    <ProfilePage.Container>
       <GoBackButton goBackTo="/albums" />
 
       <ArtistItem name={artistResponse.name} country={artistResponse.country} />
 
-      <AlbumSection>
-        <h2>Detalhes do álbum: </h2>
+      <ProfilePage.AlbumSection>
+        <ProfilePage.Title title="Detalhes do álbum" />
 
-        <AlbumList>
+        <ProfilePage.AlbumList>
           <AlbumItem
             key={albumResponse.id}
             name={albumResponse.name}
             year={albumResponse.year}
           />
-        </AlbumList>
-      </AlbumSection>
+        </ProfilePage.AlbumList>
+      </ProfilePage.AlbumSection>
 
       {songsByAlbumsResponse.songs.length > 0 && (
-        <SongSection>
-          <h2>Músicas do álbum: </h2>
+        <ProfilePage.SongSection>
+          <ProfilePage.Title title="Músicas do álbum" />
 
-          <SongList>
+          <ProfilePage.SongList>
             {songsByAlbumsResponse.songs.map((song, index) => (
               <SongItem
                 key={song.id}
@@ -88,9 +81,9 @@ export default function AlbumProfile() {
                 albumName={albumResponse.name}
               />
             ))}
-          </SongList>
-        </SongSection>
+          </ProfilePage.SongList>
+        </ProfilePage.SongSection>
       )}
-    </Container>
+    </ProfilePage.Container>
   );
 }

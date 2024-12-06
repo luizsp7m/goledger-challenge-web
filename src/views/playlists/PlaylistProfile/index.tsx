@@ -4,9 +4,9 @@ import { DataLoading } from "~/components/shared-components/DataLoading";
 import { ErrorMessage } from "~/components/shared-components/ErrorMessage";
 import { useLazyGetPlaylistQuery } from "~/store/services/playlistsApiSlice";
 import { useLazyGetSongsQuery } from "~/store/services/songsApiSlice";
-import { Container, SongList, SongSection } from "./styles";
-import { SongItem } from "~/components/shared-components/SongItem";
-import { GoBackButton } from "~/components/shared-components/GoBackButton";
+import { SongItem } from "~/components/shared-components/ProfilePage/SongItem";
+import { GoBackButton } from "~/components/shared-components/ProfilePage/GoBackButton";
+import { ProfilePage } from "~/components/shared-components/ProfilePage";
 
 export default function PlaylistProfile() {
   const [isLoadingInformation, setIsLoadingInformation] = useState(true);
@@ -44,24 +44,28 @@ export default function PlaylistProfile() {
   }
 
   return (
-    <Container>
+    <ProfilePage.Container>
       <GoBackButton goBackTo="/playlists" />
 
       {songsResponse.songs.length > 0 && (
-        <SongSection>
-          <h2>Músicas da playlist {playlistResponse.name}: </h2>
+        <ProfilePage.SongSection>
+          <ProfilePage.Title
+            title={`Músicas da playlist ${playlistResponse.name}`}
+          />
 
-          <span>
-            Playlist {playlistResponse.private ? "privada" : "pública"}
-          </span>
+          <ProfilePage.Subtitle
+            subtitle={`Playlist ${
+              playlistResponse.private ? "privada" : "pública"
+            }`}
+          />
 
-          <SongList>
+          <ProfilePage.SongList>
             {songsResponse.songs.map((song, index) => (
               <SongItem key={song.id} order={index + 1} name={song.name} />
             ))}
-          </SongList>
-        </SongSection>
+          </ProfilePage.SongList>
+        </ProfilePage.SongSection>
       )}
-    </Container>
+    </ProfilePage.Container>
   );
 }
