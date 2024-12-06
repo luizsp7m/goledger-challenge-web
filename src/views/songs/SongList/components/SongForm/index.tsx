@@ -113,7 +113,7 @@ export function SongForm({
       </FormGroup>
 
       <FormGroup>
-        <FormLabel label="Artista" />
+        <FormLabel label="Álbum" />
 
         <Controller
           control={control}

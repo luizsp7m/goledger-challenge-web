@@ -41,17 +41,6 @@ export function SongsTable({
             width: 48,
             render: (song) => (
               <OperationButton
-                operationType="view"
-                onClick={() => alert(song.id)}
-              />
-            ),
-          },
-
-          {
-            title: "",
-            width: 48,
-            render: (song) => (
-              <OperationButton
                 operationType="update"
                 onClick={() => handleOpenFormModal(song)}
               />

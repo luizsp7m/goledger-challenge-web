@@ -68,6 +68,28 @@ export const songsApiSlice = apiSlice.injectEndpoints({
       }
     }),
 
+    getSongsByAlbums: builder.query<SongsResponse, { albumIds: string[] }>({
+      providesTags: ["songs"],
+      query: ({ albumIds }) => ({
+        url: "/query/search",
+        method: "POST",
+        body: {
+          query: {
+            selector: {
+              "@assetType": "song",
+              "album.@key": { "$in": albumIds }
+            }
+          }
+        }
+      }),
+
+      transformResponse: (response: QuerySearchResponse<SongResponseAPI>) => {
+        return {
+          songs: response.result.map(songFormatter)
+        }
+      }
+    }),
+
     createSong: builder.mutation<void, CreateSongRequest>({
       invalidatesTags: (result) => result ? ["songs"] : [],
       query: ({ data }) => ({
@@ -125,6 +147,7 @@ export const {
   useGetSongsQuery,
   useLazyGetSongsQuery,
   useLazyGetSongsByAlbumQuery,
+  useLazyGetSongsByAlbumsQuery,
   useCreateSongMutation,
   useUpdateSongMutation,
   useDeleteSongMutation,
