@@ -98,6 +98,10 @@ export default function ArtistProfile() {
     <ProfilePage.Container>
       <GoBackButton />
 
+      <ProfilePage.Heading
+        heading={`Você está vendo a página do artista ${artistResponse.name}`}
+      />
+
       <ArtistItem
         artist={artistResponse}
         subtitle={`Possui ${howManyAlbumsText} e ${howManySongsText}`}

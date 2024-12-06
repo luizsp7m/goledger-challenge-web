@@ -61,6 +61,10 @@ export default function SongProfile() {
     <ProfilePage.Container>
       <GoBackButton />
 
+      <ProfilePage.Heading
+        heading={`Você está vendo a página da música ${songResponse.name}`}
+      />
+
       <ArtistItem artist={artistResponse} />
 
       <ProfilePage.AlbumSection>

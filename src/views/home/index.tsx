@@ -10,6 +10,7 @@ import { AlbumItem } from "~/components/shared-components/ProfilePage/AlbumItem"
 import { ProfilePage } from "~/components/shared-components/ProfilePage";
 import { SongItem } from "~/components/shared-components/ProfilePage/SongItem";
 import { ArtistItem } from "~/components/shared-components/ProfilePage/ArtistItem";
+import { getArraySlice } from "./utils/getArraySlice";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,22 +18,23 @@ export default function Home() {
   const [getArtists, { data: artistsResponse }] = useLazyGetArtistsQuery();
   const [getAlbums, { data: albumsResponse }] = useLazyGetAlbumsQuery();
   const [getSongs, { data: songsResponse }] = useLazyGetSongsQuery();
+
   const [getPlaylists, { data: playlistsResponse }] =
     useLazyGetPlaylistsQuery();
 
   const artistList = useMemo(() => {
     if (!artistsResponse) return [];
-    return artistsResponse.artists.slice(0, 4);
+    return getArraySlice(artistsResponse.artists, 4);
   }, [artistsResponse]);
 
   const albumList = useMemo(() => {
     if (!albumsResponse) return [];
-    return albumsResponse.albums.slice(0, 8);
+    return getArraySlice(albumsResponse.albums, 8);
   }, [albumsResponse]);
 
   const songList = useMemo(() => {
     if (!songsResponse) return [];
-    return songsResponse.songs.slice(0, 8);
+    return getArraySlice(songsResponse.songs, 8);
   }, [songsResponse]);
 
   useEffect(() => {

@@ -6,6 +6,11 @@ export const Container = styled.div`
   gap: ${({ theme }) => theme["gap-3"]};
 `;
 
+export const Heading = styled.h1`
+  font-size: ${({ theme }) => theme["text-lg"]};
+  color: ${({ theme }) => theme["text-color-primary"]};
+`;
+
 export const Title = styled.h2`
   font-size: ${({ theme }) => theme["text-sm"]};
   color: ${({ theme }) => theme["text-color-secondary"]};

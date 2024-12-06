@@ -5,6 +5,10 @@ function Container({ children }: { children: ReactNode }) {
   return <S.Container>{children}</S.Container>;
 }
 
+function Heading({ heading }: { heading: string }) {
+  return <S.Heading>{heading}</S.Heading>;
+}
+
 function Title({ title }: { title: string }) {
   return <S.Title>{title}</S.Title>;
 }
@@ -39,6 +43,7 @@ export function SongList({ children }: { children: ReactNode }) {
 
 export const ProfilePage = {
   Container,
+  Heading,
   Title,
   Subtitle,
   ArtistSection,

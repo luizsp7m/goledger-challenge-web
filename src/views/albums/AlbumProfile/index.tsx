@@ -57,6 +57,10 @@ export default function AlbumProfile() {
     <ProfilePage.Container>
       <GoBackButton />
 
+      <ProfilePage.Heading
+        heading={`Você está vendo a página do álbum ${albumResponse.name}`}
+      />
+
       <ArtistItem artist={artistResponse} />
 
       <ProfilePage.AlbumSection>

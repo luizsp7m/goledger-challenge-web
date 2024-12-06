@@ -60,6 +60,10 @@ export default function PlaylistProfile() {
     <ProfilePage.Container>
       <GoBackButton />
 
+      <ProfilePage.Heading
+        heading={`Você está vendo a página da playlist ${playlistResponse.name}`}
+      />
+
       {songsResponse.songs.length > 0 && (
         <ProfilePage.SongSection>
           <ProfilePage.Title
