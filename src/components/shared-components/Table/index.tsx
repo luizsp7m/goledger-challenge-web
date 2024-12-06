@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { Container, PaginationContainer, PaginationItem } from "./styles";
 import { useSearchParams } from "react-router-dom";
 import { TableEmpty } from "../Table/TableEmpty";
-import { SEARCH_PARAMS_KEYS } from "~/constants/searchParmsKeys";
+import { SEARCH_PARAMS_KEYS } from "~/constants/SearchParmsKeys";
 
 export interface TablePagination {
   currentPage: number;

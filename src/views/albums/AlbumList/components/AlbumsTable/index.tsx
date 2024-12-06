@@ -5,6 +5,7 @@ import { useDeleteAlbumMutation } from "~/store/services/albumsApiSlice";
 import { Album } from "~/types/Album";
 import { OperationButton } from "~/components/shared-components/Table/OperationButton";
 import { useNavigateTo } from "~/hooks/useNavigateTo";
+import { ALBUMS_PREFIX_PATH } from "~/configs/AppConfig";
 
 interface AlbumsTableProps {
   albums: Album[];
@@ -47,7 +48,9 @@ export function AlbumsTable({
             render: (album) => (
               <OperationButton
                 operationType="view"
-                onClick={() => handleNavigateTo(`/albums/${album.id}`)}
+                onClick={() =>
+                  handleNavigateTo(`${ALBUMS_PREFIX_PATH}/${album.id}`)
+                }
               />
             ),
           },

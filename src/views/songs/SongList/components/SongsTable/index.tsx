@@ -1,6 +1,7 @@
 import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
 import { Table, TablePagination } from "~/components/shared-components/Table";
 import { OperationButton } from "~/components/shared-components/Table/OperationButton";
+import { SONGS_PREFIX_PATH } from "~/configs/AppConfig";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useNavigateTo } from "~/hooks/useNavigateTo";
 import { useDeleteSongMutation } from "~/store/services/songsApiSlice";
@@ -45,7 +46,9 @@ export function SongsTable({
             render: (album) => (
               <OperationButton
                 operationType="view"
-                onClick={() => handleNavigateTo(`/songs/${album.id}`)}
+                onClick={() =>
+                  handleNavigateTo(`${SONGS_PREFIX_PATH}/${album.id}`)
+                }
               />
             ),
           },

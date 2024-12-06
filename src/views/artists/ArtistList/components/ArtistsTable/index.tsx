@@ -1,6 +1,7 @@
 import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
 import { Table, TablePagination } from "~/components/shared-components/Table";
 import { OperationButton } from "~/components/shared-components/Table/OperationButton";
+import { ARTISTS_PREFIX_PATH } from "~/configs/AppConfig";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useNavigateTo } from "~/hooks/useNavigateTo";
 import { useDeleteArtistMutation } from "~/store/services/artistsApiSlice";
@@ -47,7 +48,9 @@ export function ArtistsTable({
             render: (artist) => (
               <OperationButton
                 operationType="view"
-                onClick={() => handleNavigateTo(`/artists/${artist.id}`)}
+                onClick={() =>
+                  handleNavigateTo(`${ARTISTS_PREFIX_PATH}/${artist.id}`)
+                }
               />
             ),
           },

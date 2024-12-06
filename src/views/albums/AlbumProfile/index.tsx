@@ -10,6 +10,7 @@ import { ArtistItem } from "~/components/shared-components/ProfilePage/ArtistIte
 import { SongItem } from "~/components/shared-components/ProfilePage/SongItem";
 import { AlbumItem } from "~/components/shared-components/ProfilePage/AlbumItem";
 import { ProfilePage } from "~/components/shared-components/ProfilePage";
+import { ALBUMS_PREFIX_PATH } from "~/configs/AppConfig";
 
 export default function AlbumProfile() {
   const [isLoadingInformation, setIsLoadingInformation] = useState(true);
@@ -52,7 +53,7 @@ export default function AlbumProfile() {
 
   return (
     <ProfilePage.Container>
-      <GoBackButton goBackTo="/albums" />
+      <GoBackButton goBackTo={ALBUMS_PREFIX_PATH} />
 
       <ArtistItem name={artistResponse.name} country={artistResponse.country} />
 

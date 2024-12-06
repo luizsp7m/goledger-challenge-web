@@ -5,6 +5,7 @@ import { useDeletePlaylistMutation } from "~/store/services/playlistsApiSlice";
 import { Playlist } from "~/types/Playlist";
 import { OperationButton } from "~/components/shared-components/Table/OperationButton";
 import { useNavigateTo } from "~/hooks/useNavigateTo";
+import { PLAYLISTS_PREFIX_PATH } from "~/configs/AppConfig";
 
 interface PlaylistsTableProps {
   playlists: Playlist[];
@@ -51,7 +52,9 @@ export function PlaylistsTable({
             render: (playlist) => (
               <OperationButton
                 operationType="view"
-                onClick={() => handleNavigateTo(`/playlists/${playlist.id}`)}
+                onClick={() =>
+                  handleNavigateTo(`${PLAYLISTS_PREFIX_PATH}/${playlist.id}`)
+                }
               />
             ),
           },

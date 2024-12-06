@@ -1,4 +1,9 @@
+import { THEME_CONFIG } from "~/configs/AppConfig";
+
 export const theme = {
+  "header-height": `${THEME_CONFIG.HEADER_HEIGHT}px`,
+  "content-max-width": `${THEME_CONFIG.CONTENT_MAX_WIDTH}px`,
+
   "background-color-primary": "#121214",
   "background-color-secondary": "#202024",
   "background-color-tertiary": "#323238",

@@ -2,13 +2,13 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   > main {
-    height: calc(100vh - 70px);
+    height: ${({ theme }) => `calc(100vh - ${theme['header-height']})`};
     overflow-y: auto;
     
     div.container {
       min-height: 100%;
       width: 100%;
-      max-width: 1152px;
+      max-width: ${({ theme }) => theme["content-max-width"]};
       margin: 0 auto;
 
       padding: ${({ theme }) => theme['p-3']};

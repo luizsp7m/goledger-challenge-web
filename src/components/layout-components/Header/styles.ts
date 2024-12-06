@@ -5,9 +5,9 @@ export const Container = styled.div`
   position: relative;
 
   header {
-    height: 70px;
+    height: ${({ theme }) => theme["header-height"]};
     width: 100%;
-    max-width: 1152px;
+    max-width: ${({ theme }) => theme["content-max-width"]};
     padding: ${({ theme }) => theme["p-3"]};
     margin: 0 auto;
     display: flex;

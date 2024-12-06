@@ -11,6 +11,7 @@ import { AlbumItem } from "~/components/shared-components/ProfilePage/AlbumItem"
 import { ArtistItem } from "~/components/shared-components/ProfilePage/ArtistItem";
 import { GoBackButton } from "~/components/shared-components/ProfilePage/GoBackButton";
 import { ProfilePage } from "~/components/shared-components/ProfilePage";
+import { ARTISTS_PREFIX_PATH } from "~/configs/AppConfig";
 
 export default function ArtistProfile() {
   const [isLoadingInformation, setIsLoadingInformation] = useState(true);
@@ -93,7 +94,7 @@ export default function ArtistProfile() {
 
   return (
     <ProfilePage.Container>
-      <GoBackButton goBackTo="/artists" />
+      <GoBackButton goBackTo={ARTISTS_PREFIX_PATH} />
 
       <ArtistItem
         name={artistResponse.name}

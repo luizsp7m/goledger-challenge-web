@@ -10,28 +10,36 @@ import {
   Users,
 } from "@phosphor-icons/react";
 
+import {
+  ALBUMS_PREFIX_PATH,
+  ARTISTS_PREFIX_PATH,
+  HOME_PREFIX_PATH,
+  PLAYLISTS_PREFIX_PATH,
+  SONGS_PREFIX_PATH,
+} from "~/configs/AppConfig";
+
 const NAV_ITEMS = [
   {
     title: "Artistas",
-    route: "/artists",
+    route: ARTISTS_PREFIX_PATH,
     icon: <Users size={16} weight="bold" />,
   },
 
   {
     title: "Álbuns",
-    route: "/albums",
+    route: ALBUMS_PREFIX_PATH,
     icon: <Queue size={16} weight="bold" />,
   },
 
   {
     title: "Músicas",
-    route: "/songs",
+    route: SONGS_PREFIX_PATH,
     icon: <MusicNotes size={16} weight="bold" />,
   },
 
   {
     title: "Playlists",
-    route: "/playlists",
+    route: PLAYLISTS_PREFIX_PATH,
     icon: <Playlist size={16} weight="bold" />,
   },
 ];
@@ -56,7 +64,7 @@ export function Header() {
   return (
     <Container>
       <header>
-        <Link to={"/"}>
+        <Link to={HOME_PREFIX_PATH}>
           <h1>GoLedger Challenge</h1>
         </Link>
 

@@ -1,6 +1,14 @@
 import { Routes as Switch, Route, Navigate } from "react-router-dom";
 import { lazy } from "react";
 
+import {
+  ALBUMS_PREFIX_PATH,
+  ARTISTS_PREFIX_PATH,
+  HOME_PREFIX_PATH,
+  PLAYLISTS_PREFIX_PATH,
+  SONGS_PREFIX_PATH,
+} from "~/configs/AppConfig";
+
 const HomePage = lazy(() => import("../views/home"));
 
 const ArtistList = lazy(() => import("../views/artists/ArtistList"));
@@ -20,21 +28,25 @@ const PlaylistProfile = lazy(
 export function Routes() {
   return (
     <Switch>
-      <Route path="/" element={<HomePage />} />
+      <Route path={HOME_PREFIX_PATH} element={<HomePage />} />
 
-      <Route path="/artists" element={<ArtistList />} />
-      <Route path="/artists/:id" element={<ArtistProfile />} />
+      <Route path={ARTISTS_PREFIX_PATH} element={<ArtistList />} />
+      <Route path={`${ARTISTS_PREFIX_PATH}/:id`} element={<ArtistProfile />} />
 
-      <Route path="/albums" element={<AlbumList />} />
-      <Route path="/albums/:id" element={<AlbumProfile />} />
+      <Route path={ALBUMS_PREFIX_PATH} element={<AlbumList />} />
+      <Route path={`${ALBUMS_PREFIX_PATH}/:id`} element={<AlbumProfile />} />
 
-      <Route path="/songs" element={<SongList />} />
-      <Route path="/songs/:id" element={<SongProfile />} />
+      <Route path={SONGS_PREFIX_PATH} element={<SongList />} />
+      <Route path={`${SONGS_PREFIX_PATH}/:id`} element={<SongProfile />} />
 
-      <Route path="/playlists" element={<PlaylistList />} />
-      <Route path="/playlists/:id" element={<PlaylistProfile />} />
+      <Route path={PLAYLISTS_PREFIX_PATH} element={<PlaylistList />} />
 
-      <Route path="*" element={<Navigate to={"/"} replace />} />
+      <Route
+        path={`${PLAYLISTS_PREFIX_PATH}/:id`}
+        element={<PlaylistProfile />}
+      />
+
+      <Route path="*" element={<Navigate to={HOME_PREFIX_PATH} replace />} />
     </Switch>
   );
 }
