@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   height: 256px;
   overflow-y: auto;
+  background: ${({ theme }) => theme["table-row-color"]};
 
   table {
     th {
@@ -19,4 +20,9 @@ export const Container = styled.div`
       }
     }
   }
+`;
+
+export const SongsQuantityText = styled.span`
+ color: ${({ theme }) => theme["text-color-secondary"]};
+ font-size: ${({ theme }) => theme["text-sm"]};
 `;
