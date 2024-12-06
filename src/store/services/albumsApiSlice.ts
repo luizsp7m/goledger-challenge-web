@@ -1,7 +1,7 @@
 import { Album, AlbumResponseAPI } from "~/types/Album";
 import { apiSlice } from "./apiSlice";
-import { AlbumFormData } from "~/views/app-views/albums/components/AlbumForm";
 import { QuerySearchResponse } from "~/types/QuerySearchResponse";
+import { AlbumFormData } from "~/views/albums/AlbumList/components/AlbumForm";
 
 interface AlbumsResponse {
   albums: Album[]

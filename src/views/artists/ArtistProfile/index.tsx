@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useLazyGetAlbumsByArtistQuery } from "~/store/services/albumsApiSlice";
 import { useLazyGetArtistQuery } from "~/store/services/artistsApiSlice";
 
-export default function ViewArtist() {
+export default function ArtistProfile() {
   const { id: artistId } = useParams();
 
   const [getArtist, { data: artistResponse }] = useLazyGetArtistQuery();

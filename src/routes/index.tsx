@@ -1,26 +1,30 @@
 import { Routes as Switch, Route, Navigate } from "react-router-dom";
 import { lazy } from "react";
 
-const HomePage = lazy(() => import("../views/app-views/home"));
-const ArtistsPage = lazy(() => import("../views/app-views/artists"));
-const SongsPage = lazy(() => import("../views/app-views/songs"));
-const AlbumsPage = lazy(() => import("../views/app-views/albums"));
-const PlaylistsPage = lazy(() => import("../views/app-views/playlists"));
+const HomePage = lazy(() => import("../views/home"));
 
-const ViewArtistPage = lazy(
-  () => import("../views/app-views/artists/ViewArtist")
-);
+const ArtistList = lazy(() => import("../views/artists/ArtistList"));
+const ArtistProfile = lazy(() => import("../views/artists/ArtistProfile"));
+
+const AlbumList = lazy(() => import("../views/albums/AlbumList"));
+const AlbumProfile = lazy(() => import("../views/albums/AlbumProfile"));
+
+const SongList = lazy(() => import("../views/songs/SongList"));
+const PlaylistList = lazy(() => import("../views/playlists/PlaylistList"));
 
 export function Routes() {
   return (
     <Switch>
       <Route path="/" element={<HomePage />} />
-      <Route path="/artists" element={<ArtistsPage />} />
-      <Route path="/songs" element={<SongsPage />} />
-      <Route path="/Albums" element={<AlbumsPage />} />
-      <Route path="/playlists" element={<PlaylistsPage />} />
 
-      <Route path="/artists/:id" element={<ViewArtistPage />} />
+      <Route path="/artists" element={<ArtistList />} />
+      <Route path="/artists/:id" element={<ArtistProfile />} />
+
+      <Route path="/albums" element={<AlbumList />} />
+      <Route path="/albums/:id" element={<AlbumProfile />} />
+
+      <Route path="/songs" element={<SongList />} />
+      <Route path="/playlists" element={<PlaylistList />} />
 
       <Route path="*" element={<Navigate to={"/"} replace />} />
     </Switch>

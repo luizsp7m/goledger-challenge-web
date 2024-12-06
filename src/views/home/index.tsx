@@ -1,12 +1,11 @@
 import { useLazyGetArtistsQuery } from "~/store/services/artistsApiSlice";
-import { Container, SectionContainer, SectionItems } from "./styles";
+import { Container } from "./styles";
 import { useLazyGetAlbumsQuery } from "~/store/services/albumsApiSlice";
 import { useLazyGetPlaylistsQuery } from "~/store/services/playlistsApiSlice";
 
 import { useLazyGetSongsQuery } from "~/store/services/songsApiSlice";
 import { useEffect, useState } from "react";
 import { Summary } from "./components/Summary";
-import { Card } from "./components/Card";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);

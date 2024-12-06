@@ -1,7 +1,7 @@
 import { Song, SongResponseAPI } from "~/types/Song"
 import { apiSlice } from "./apiSlice"
-import { SongFormData } from "~/views/app-views/songs/components/SongForm"
 import { QuerySearchResponse } from "~/types/QuerySearchResponse";
+import { SongFormData } from "~/views/songs/SongList/components/SongForm";
 
 interface SongsResponse {
   songs: Song[]

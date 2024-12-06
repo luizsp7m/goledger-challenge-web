@@ -1,7 +1,7 @@
 import { Playlist, PlaylistResponseAPI } from "~/types/Playlist";
 import { apiSlice } from "./apiSlice";
-import { PlaylistFormData } from "~/views/app-views/playlists/components/PlaylistForm";
 import { QuerySearchResponse } from "~/types/QuerySearchResponse";
+import { PlaylistFormData } from "~/views/playlists/PlaylistList/components/PlaylistForm";
 
 interface PlaylistsResponse {
   playlists: Playlist[]

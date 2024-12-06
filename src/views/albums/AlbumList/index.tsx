@@ -16,7 +16,7 @@ const sortByOptions = [
   { value: "year:desc", label: "Ano (mais recente)" },
 ];
 
-export default function AlbumsPage() {
+export default function AlbumList() {
   const {
     data: albumsData,
     isLoading: albumsIsLoading,

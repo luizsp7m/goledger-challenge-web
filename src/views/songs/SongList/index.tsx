@@ -13,7 +13,7 @@ const sortByOptions = [
   { value: "name:desc", label: "Nome da música (Z-A)" },
 ];
 
-export default function SongsPage() {
+export default function SongList() {
   const {
     data: songsData,
     isLoading: songsIsLoading,

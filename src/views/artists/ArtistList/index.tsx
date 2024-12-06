@@ -16,7 +16,7 @@ const sortByOptions = [
   { value: "country:desc", label: "País (Z-A)" },
 ];
 
-export default function ArtistsPage() {
+export default function ArtistList() {
   const {
     data: artistsData,
     isLoading: artistsIsLoading,

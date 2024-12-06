@@ -1,7 +1,7 @@
 import { Artist, ArtistResponseAPI } from "~/types/Artist";
 import { apiSlice } from "./apiSlice";
-import { ArtistFormData } from "~/views/app-views/artists/components/ArtistForm";
 import { QuerySearchResponse } from "~/types/QuerySearchResponse";
+import { ArtistFormData } from "~/views/artists/ArtistList/components/ArtistForm";
 
 interface ArtistsResponse {
   artists: Artist[]

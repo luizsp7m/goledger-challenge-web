@@ -13,7 +13,7 @@ const sortByOptions = [
   { value: "name:desc", label: "Nome da playlist (Z-A)" },
 ];
 
-export default function PlaylistsPage() {
+export default function PlaylistsList() {
   const {
     data: playlistsData,
     isLoading: playlistsIsLoading,
