@@ -7,6 +7,7 @@ import { useGetPlaylistsQuery } from "~/store/services/playlistsApiSlice";
 import { Modal } from "~/components/shared-components/Modal";
 import { PlaylistForm } from "./components/PlaylistForm";
 import { useFilterDataFromQuery } from "~/hooks/useFilterDataFromQuery";
+import { ErrorMessage } from "~/components/shared-components/ErrorMessage";
 
 const sortByOptions = [
   { value: "name:asc", label: "Nome da playlist (A-Z)" },
@@ -42,9 +43,9 @@ export default function PlaylistsList() {
       />
 
       {playlistsIsLoading && <DataLoading />}
-      {playlistsIsError && <p>Failed to fetch user data</p>}
+      {playlistsIsError && <ErrorMessage withPadding />}
 
-      {!playlistsIsLoading && playlistsData && (
+      {!playlistsIsLoading && !playlistsIsError && playlistsData && (
         <PlaylistsTable
           playlists={paginatedData}
           handleOpenFormModal={handleOpenFormModal}
@@ -52,8 +53,6 @@ export default function PlaylistsList() {
           pagination={{ currentPage, totalPages }}
         />
       )}
-
-      {!playlistsIsLoading && !playlistsData && <p>No data available</p>}
 
       <Modal
         title="Playlist"

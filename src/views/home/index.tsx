@@ -6,6 +6,7 @@ import { useLazyGetPlaylistsQuery } from "~/store/services/playlistsApiSlice";
 import { useLazyGetSongsQuery } from "~/store/services/songsApiSlice";
 import { useEffect, useState } from "react";
 import { Summary } from "./components/Summary";
+import { DataLoading } from "~/components/shared-components/DataLoading";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +28,7 @@ export default function Home() {
     });
   }, []);
 
-  if (isLoading) return null;
+  if (isLoading) return <DataLoading />;
 
   return (
     <Container>

@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router-dom";
 import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
 import { Table, TablePagination } from "~/components/shared-components/Table";
 import { OperationButton } from "~/components/shared-components/Table/OperationButton";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
+import { useNavigateTo } from "~/hooks/useNavigateTo";
 import { useDeleteArtistMutation } from "~/store/services/artistsApiSlice";
 import { Artist } from "~/types/Artist";
 
@@ -19,10 +19,10 @@ export function ArtistsTable({
   artistsIsFetching,
   pagination,
 }: ArtistsTableProps) {
-  const navigate = useNavigate();
-
   const [deleteArtist, { isLoading: deleteIsLoading }] =
     useDeleteArtistMutation();
+
+  const { handleNavigateTo } = useNavigateTo();
 
   const {
     confirmDeleteModalIsOpen,
@@ -30,10 +30,6 @@ export function ArtistsTable({
     handleOpenConfirmDeleteModal,
     handleCloseConfirmDeleteModal,
   } = useConfirmDeleteModal<Artist>();
-
-  function handleNavigateToViewArtist(artist: Artist) {
-    navigate(`/artists/${artist.id}`);
-  }
 
   return (
     <>
@@ -51,7 +47,7 @@ export function ArtistsTable({
             render: (artist) => (
               <OperationButton
                 operationType="view"
-                onClick={() => handleNavigateToViewArtist(artist)}
+                onClick={() => handleNavigateTo(`/artists/${artist.id}`)}
               />
             ),
           },

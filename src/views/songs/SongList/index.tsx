@@ -7,6 +7,7 @@ import { SongsTable } from "./components/SongsTable";
 import { Modal } from "~/components/shared-components/Modal";
 import { SongForm } from "./components/SongForm";
 import { useFilterDataFromQuery } from "~/hooks/useFilterDataFromQuery";
+import { ErrorMessage } from "~/components/shared-components/ErrorMessage";
 
 const sortByOptions = [
   { value: "name:asc", label: "Nome da música (A-Z)" },
@@ -42,9 +43,9 @@ export default function SongList() {
       />
 
       {songsIsLoading && <DataLoading />}
-      {songsIsError && <p>Failed to fetch user data</p>}
+      {songsIsError && <ErrorMessage withPadding />}
 
-      {!songsIsLoading && songsData && (
+      {!songsIsLoading && !songsIsError && songsData && (
         <SongsTable
           songs={paginatedData}
           handleOpenFormModal={handleOpenFormModal}
@@ -52,8 +53,6 @@ export default function SongList() {
           pagination={{ currentPage, totalPages }}
         />
       )}
-
-      {!songsIsLoading && !songsData && <p>No data available</p>}
 
       <Modal
         title="Música"

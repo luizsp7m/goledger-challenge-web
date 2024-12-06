@@ -4,6 +4,7 @@ import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useDeleteAlbumMutation } from "~/store/services/albumsApiSlice";
 import { Album } from "~/types/Album";
 import { OperationButton } from "~/components/shared-components/Table/OperationButton";
+import { useNavigateTo } from "~/hooks/useNavigateTo";
 
 interface AlbumsTableProps {
   albums: Album[];
@@ -18,6 +19,8 @@ export function AlbumsTable({
   albumsIsFetching,
   pagination,
 }: AlbumsTableProps) {
+  const { handleNavigateTo } = useNavigateTo();
+
   const [deleteAlbum, { isLoading: deleteIsLoading }] =
     useDeleteAlbumMutation();
 
@@ -44,7 +47,7 @@ export function AlbumsTable({
             render: (album) => (
               <OperationButton
                 operationType="view"
-                onClick={() => alert(album.id)}
+                onClick={() => handleNavigateTo(`/albums/${album.id}`)}
               />
             ),
           },

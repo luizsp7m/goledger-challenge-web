@@ -9,6 +9,7 @@ import { Album } from "~/types/Album";
 import { ErrorMessage } from "~/components/shared-components/ErrorMessage";
 import { AlbumItem } from "~/components/shared-components/AlbumItem";
 import { ArtistItem } from "~/components/shared-components/ArtistItem";
+import { GoBackButton } from "~/components/shared-components/GoBackButton";
 
 import {
   Container,
@@ -17,7 +18,6 @@ import {
   SongList,
   SongSection,
 } from "./styles";
-import { GoBackButton } from "~/components/shared-components/GoBackButton";
 
 export default function ArtistProfile() {
   const [isLoadingInformation, setIsLoadingInformation] = useState(true);

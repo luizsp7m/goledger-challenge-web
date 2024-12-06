@@ -8,6 +8,7 @@ import { Toolbar } from "~/components/shared-components/Toolbar";
 import { useFilterDataFromQuery } from "~/hooks/useFilterDataFromQuery";
 import { useFormModal } from "~/hooks/useFormModal";
 import { DataLoading } from "~/components/shared-components/DataLoading";
+import { ErrorMessage } from "~/components/shared-components/ErrorMessage";
 
 const sortByOptions = [
   { value: "name:asc", label: "Nome do artista (A-Z)" },
@@ -45,7 +46,7 @@ export default function ArtistList() {
       />
 
       {artistsIsLoading && <DataLoading />}
-      {artistsIsError && <p>aaa</p>}
+      {artistsIsError && <ErrorMessage withPadding />}
 
       {!artistsIsLoading && !artistsIsError && artistsData && (
         <ArtistsTable

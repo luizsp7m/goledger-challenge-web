@@ -8,6 +8,7 @@ import { Modal } from "~/components/shared-components/Modal";
 import { AlbumForm } from "./components/AlbumForm";
 import { useFormModal } from "~/hooks/useFormModal";
 import { useFilterDataFromQuery } from "~/hooks/useFilterDataFromQuery";
+import { ErrorMessage } from "~/components/shared-components/ErrorMessage";
 
 const sortByOptions = [
   { value: "name:asc", label: "Nome do albúm (A-Z)" },
@@ -45,9 +46,9 @@ export default function AlbumList() {
       />
 
       {albumsIsLoading && <DataLoading />}
-      {albumsIsError && <p>Failed to fetch user data</p>}
+      {albumsIsError && <ErrorMessage withPadding />}
 
-      {!albumsIsLoading && albumsData && (
+      {!albumsIsLoading && !albumsIsError && albumsData && (
         <AlbumsTable
           albums={paginatedData}
           handleOpenFormModal={handleOpenFormModal}
@@ -55,8 +56,6 @@ export default function AlbumList() {
           pagination={{ currentPage, totalPages }}
         />
       )}
-
-      {!albumsIsLoading && !albumsData && <p>No data available</p>}
 
       <Modal
         title="Albúm"
