@@ -46,6 +46,22 @@ export const songsApiSlice = apiSlice.injectEndpoints({
       }
     }),
 
+    getSong: builder.query<Song, { songId: string }>({
+      providesTags: ["songs"],
+      query: ({ songId }) => ({
+        url: "/query/readAsset",
+        method: "POST",
+        body: {
+          key: {
+            "@assetType": "song",
+            "@key": songId
+          }
+        }
+      }),
+
+      transformResponse: (response: SongResponseAPI) => songFormatter(response)
+    }),
+
     getSongsByAlbum: builder.query<SongsResponse, { albumId: string }>({
       providesTags: ["songs"],
       query: ({ albumId }) => ({
@@ -145,6 +161,7 @@ export const songsApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetSongsQuery,
+  useLazyGetSongQuery,
   useLazyGetSongsQuery,
   useLazyGetSongsByAlbumQuery,
   useLazyGetSongsByAlbumsQuery,

@@ -4,7 +4,7 @@ import { Container } from "./styles";
 interface ArtistItemProps {
   name: string;
   country: string;
-  subtitle: string;
+  subtitle?: string;
 }
 
 export function ArtistItem({ name, country, subtitle }: ArtistItemProps) {
@@ -17,7 +17,7 @@ export function ArtistItem({ name, country, subtitle }: ArtistItemProps) {
       <div className="information">
         <h3>{name}</h3>
         <h5>{country}</h5>
-        <span>{subtitle}</span>
+        {subtitle && <span>{subtitle}</span>}
       </div>
     </Container>
   );

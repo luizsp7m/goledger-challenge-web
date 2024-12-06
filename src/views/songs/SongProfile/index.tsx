@@ -4,11 +4,11 @@ import { DataLoading } from "~/components/shared-components/DataLoading";
 import { ErrorMessage } from "~/components/shared-components/ErrorMessage";
 import { useLazyGetAlbumQuery } from "~/store/services/albumsApiSlice";
 import { useLazyGetArtistQuery } from "~/store/services/artistsApiSlice";
-import { useLazyGetSongsByAlbumsQuery } from "~/store/services/songsApiSlice";
+import { useLazyGetSongQuery } from "~/store/services/songsApiSlice";
 import { GoBackButton } from "~/components/shared-components/GoBackButton";
 import { ArtistItem } from "~/components/shared-components/ArtistItem";
-import { SongItem } from "~/components/shared-components/SongItem";
 import { AlbumItem } from "~/components/shared-components/AlbumItem";
+import { SongItem } from "~/components/shared-components/SongItem";
 
 import {
   AlbumList,
@@ -18,22 +18,26 @@ import {
   SongSection,
 } from "./styles";
 
-export default function AlbumProfile() {
+export default function SongProfile() {
   const [isLoadingInformation, setIsLoadingInformation] = useState(true);
 
-  const { id: albumId } = useParams();
+  const { id: songId } = useParams();
 
-  const [getArtist, { data: artistResponse }] = useLazyGetArtistQuery();
+  const [getSong, { data: songResponse }] = useLazyGetSongQuery();
   const [getAlbum, { data: albumResponse }] = useLazyGetAlbumQuery();
+  const [getArtist, { data: artistResponse }] = useLazyGetArtistQuery();
 
-  const [getSongsByAlbums, { data: songsByAlbumsResponse }] =
-    useLazyGetSongsByAlbumsQuery();
-
-  async function fetchInformation(albumId: string) {
+  async function fetchInformation(songId: string) {
     try {
-      const albumResponse = await getAlbum({ albumId }).unwrap();
-      await getArtist({ artistId: albumResponse.artistId }).unwrap();
-      await getSongsByAlbums({ albumIds: [albumResponse.id] }).unwrap();
+      const songResponse = await getSong({ songId }).unwrap();
+
+      const albumResponse = await getAlbum({
+        albumId: songResponse.albumId,
+      }).unwrap();
+
+      await getArtist({
+        artistId: albumResponse.artistId,
+      }).unwrap();
     } catch (error) {
       console.log(error);
     } finally {
@@ -42,16 +46,16 @@ export default function AlbumProfile() {
   }
 
   useEffect(() => {
-    if (albumId) {
-      fetchInformation(albumId);
+    if (songId) {
+      fetchInformation(songId);
     }
-  }, [albumId]);
+  }, [songId]);
 
   if (isLoadingInformation) {
     return <DataLoading />;
   }
 
-  if (!albumResponse || !artistResponse || !songsByAlbumsResponse) {
+  if (!songResponse || !albumResponse || !artistResponse) {
     return (
       <ErrorMessage message="Não foi possível obter todos as informações do álbum" />
     );
@@ -59,12 +63,12 @@ export default function AlbumProfile() {
 
   return (
     <Container>
-      <GoBackButton goBackTo="/albums" />
+      <GoBackButton goBackTo="/songs" />
 
       <ArtistItem name={artistResponse.name} country={artistResponse.country} />
 
       <AlbumSection>
-        <h2>Detalhes do álbum: </h2>
+        <h2>Essa música é do álbum: </h2>
 
         <AlbumList>
           <AlbumItem
@@ -75,22 +79,18 @@ export default function AlbumProfile() {
         </AlbumList>
       </AlbumSection>
 
-      {songsByAlbumsResponse.songs.length > 0 && (
-        <SongSection>
-          <h2>Músicas do álbum: </h2>
+      <SongSection>
+        <h2>Detalhes da música: </h2>
 
-          <SongList>
-            {songsByAlbumsResponse.songs.map((song, index) => (
-              <SongItem
-                key={song.id}
-                order={index + 1}
-                name={song.name}
-                albumName={albumResponse.name}
-              />
-            ))}
-          </SongList>
-        </SongSection>
-      )}
+        <SongList>
+          <SongItem
+            key={songResponse.id}
+            order={1}
+            name={songResponse.name}
+            albumName={albumResponse.name}
+          />
+        </SongList>
+      </SongSection>
     </Container>
   );
 }

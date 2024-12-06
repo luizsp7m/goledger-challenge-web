@@ -2,6 +2,7 @@ import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
 import { Table, TablePagination } from "~/components/shared-components/Table";
 import { OperationButton } from "~/components/shared-components/Table/OperationButton";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
+import { useNavigateTo } from "~/hooks/useNavigateTo";
 import { useDeleteSongMutation } from "~/store/services/songsApiSlice";
 import { Song } from "~/types/Song";
 
@@ -27,6 +28,8 @@ export function SongsTable({
     handleCloseConfirmDeleteModal,
   } = useConfirmDeleteModal<Song>();
 
+  const { handleNavigateTo } = useNavigateTo();
+
   return (
     <>
       <Table
@@ -35,6 +38,17 @@ export function SongsTable({
         pagination={pagination}
         columns={[
           { dataIndex: "name", title: "Nome da música" },
+
+          {
+            title: "",
+            width: 48,
+            render: (album) => (
+              <OperationButton
+                operationType="view"
+                onClick={() => handleNavigateTo(`/songs/${album.id}`)}
+              />
+            ),
+          },
 
           {
             title: "",

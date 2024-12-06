@@ -10,6 +10,7 @@ const AlbumList = lazy(() => import("../views/albums/AlbumList"));
 const AlbumProfile = lazy(() => import("../views/albums/AlbumProfile"));
 
 const SongList = lazy(() => import("../views/songs/SongList"));
+const SongProfile = lazy(() => import("../views/songs/SongProfile"));
 
 const PlaylistList = lazy(() => import("../views/playlists/PlaylistList"));
 const PlaylistProfile = lazy(
@@ -28,6 +29,7 @@ export function Routes() {
       <Route path="/albums/:id" element={<AlbumProfile />} />
 
       <Route path="/songs" element={<SongList />} />
+      <Route path="/songs/:id" element={<SongProfile />} />
 
       <Route path="/playlists" element={<PlaylistList />} />
       <Route path="/playlists/:id" element={<PlaylistProfile />} />
