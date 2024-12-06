@@ -7,7 +7,7 @@ export const Container = styled.div`
 
   div.message {
     span {
-      font-size: ${({ theme }) => theme["text-md"]};
+      font-size: ${({ theme }) => theme["text-sm"]};
       color: ${({ theme }) => theme["text-color-secondary"]};
     }
   }

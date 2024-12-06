@@ -34,6 +34,7 @@ export function ConfirmDelete({
       title="Confirmação"
       isOpen={modalIsOpen}
       handleCloseModal={handleCloseModal}
+      maxWidth={375}
     >
       <Container>
         <div className="message">

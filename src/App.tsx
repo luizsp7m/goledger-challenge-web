@@ -23,7 +23,12 @@ export function App() {
             </Layout>
           </Suspense>
 
-          <ToastContainer position="top-center" />
+          <ToastContainer
+            position="top-center"
+            style={{
+              fontSize: "0.875rem",
+            }}
+          />
         </BrowserRouter>
 
         <GlobalStyle />

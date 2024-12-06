@@ -70,6 +70,18 @@ export const Container = styled.div<ContainerProps>`
       width: auto;
     }
   }
+
+  @media (max-width: 768px) {
+    overflow-x: auto;
+
+    table {
+      table-layout: auto;
+
+      th, td {
+        white-space: nowrap;
+      }
+    }
+  }
 `;
 
 export const PaginationContainer = styled.div`
