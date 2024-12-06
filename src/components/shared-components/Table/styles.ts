@@ -7,13 +7,11 @@ interface ContainerProps {
 export const Container = styled.div<ContainerProps>`
   position: relative;
   width: 100%;
-  max-height: 100%;
-  overflow: auto;
 
   table {
-    border-collapse: collapse;
     width: 100%;
     table-layout: fixed;
+    border-collapse: collapse;
     font-size: ${({ theme }) => theme["text-sm"]};
     text-align: left;
 
@@ -40,10 +38,13 @@ export const Container = styled.div<ContainerProps>`
     tbody {
       tr {
         background: ${({ theme }) => theme["table-row-color"]};
-        /* border-bottom: 1px solid ${({ theme }) => theme["border-color"]}; */
         color: ${({ theme }) => theme["text-color-secondary"]};
         font-weight: 400;
         transition: background 0.15s;
+
+        & + tr {
+          border-top: 1px solid ${({ theme }) => theme["border-color"]};
+        }
 
         &.row-selectable {
           cursor: pointer;
@@ -81,18 +82,14 @@ interface PaginationItemProps {
 }
 
 export const PaginationItem = styled.button<PaginationItemProps>`
-  /* width: 36px; */
-  /* height: 36px; */
   background: ${({ theme }) => theme["background-color-tertiary"]};
   display: flex;
   justify-content: center;
   align-items: center;
-  /* border-radius: 4px; */
   font-size: ${({ theme }) => theme["text-sm"]};
   cursor: pointer;
 
   ${({ $isActive }) => $isActive && css`
-    /* background: ${({ theme }) => theme["primary-color"]}; */
     color: ${({ theme }) => theme["primary-color-hover"]};
   `}
 `;

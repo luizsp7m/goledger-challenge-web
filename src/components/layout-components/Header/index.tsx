@@ -1,5 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Container, Overlay } from "./styles";
+import { useEffect, useState } from "react";
+
 import {
   List,
   MusicNotes,
@@ -7,7 +9,6 @@ import {
   Queue,
   Users,
 } from "@phosphor-icons/react";
-import { useEffect, useState } from "react";
 
 const NAV_ITEMS = [
   {

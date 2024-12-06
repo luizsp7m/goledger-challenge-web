@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.button`
   display: flex;
+  align-self: flex-start;
   align-items: center;
   gap: ${({ theme }) => theme["gap-1"]};
   color: ${({ theme }) => theme["text-color-secondary"]};

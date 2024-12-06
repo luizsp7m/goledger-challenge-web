@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   height: 256px;
+  overflow-y: auto;
 
   table {
     th {
