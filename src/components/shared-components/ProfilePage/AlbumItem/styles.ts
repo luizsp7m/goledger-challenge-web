@@ -9,6 +9,13 @@ export const Container = styled.div`
   gap: ${({ theme }) => theme["gap-3"]};
   overflow: hidden;
 
+  cursor: pointer;
+  transition: opacity 0.10s ease-in-out;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
   div.icon-wrapper {
     display: flex;
     background: ${({ theme }) => theme["background-color-secondary"]};

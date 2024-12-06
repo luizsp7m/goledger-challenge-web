@@ -11,7 +11,6 @@ import { AlbumItem } from "~/components/shared-components/ProfilePage/AlbumItem"
 import { ArtistItem } from "~/components/shared-components/ProfilePage/ArtistItem";
 import { GoBackButton } from "~/components/shared-components/ProfilePage/GoBackButton";
 import { ProfilePage } from "~/components/shared-components/ProfilePage";
-import { ARTISTS_PREFIX_PATH } from "~/configs/AppConfig";
 
 export default function ArtistProfile() {
   const [isLoadingInformation, setIsLoadingInformation] = useState(true);
@@ -97,11 +96,10 @@ export default function ArtistProfile() {
 
   return (
     <ProfilePage.Container>
-      <GoBackButton goBackTo={ARTISTS_PREFIX_PATH} />
+      <GoBackButton />
 
       <ArtistItem
-        name={artistResponse.name}
-        country={artistResponse.country}
+        artist={artistResponse}
         subtitle={`Possui ${howManyAlbumsText} e ${howManySongsText}`}
       />
 
@@ -111,7 +109,7 @@ export default function ArtistProfile() {
 
           <ProfilePage.AlbumList>
             {albumsByArtistResponse.albums.map((album) => (
-              <AlbumItem key={album.id} name={album.name} year={album.year} />
+              <AlbumItem key={album.id} album={album} />
             ))}
           </ProfilePage.AlbumList>
         </ProfilePage.AlbumSection>
@@ -126,8 +124,8 @@ export default function ArtistProfile() {
               <SongItem
                 key={song.id}
                 order={index + 1}
-                name={song.name}
                 albumName={albumKeyValues[song.albumId].name}
+                song={song}
               />
             ))}
           </ProfilePage.SongList>

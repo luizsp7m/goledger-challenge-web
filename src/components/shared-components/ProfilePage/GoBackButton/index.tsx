@@ -1,16 +1,12 @@
 import { ArrowLeft } from "@phosphor-icons/react";
 import { Container } from "./styles";
-import { useNavigateTo } from "~/hooks/useNavigateTo";
+import { useNavigate } from "react-router-dom";
 
-interface GoBackButtonProps {
-  goBackTo: string;
-}
-
-export function GoBackButton({ goBackTo }: GoBackButtonProps) {
-  const { handleNavigateTo } = useNavigateTo();
+export function GoBackButton() {
+  const navigate = useNavigate();
 
   return (
-    <Container onClick={() => handleNavigateTo(goBackTo)}>
+    <Container onClick={() => navigate(-1)}>
       <ArrowLeft weight="bold" />
       <span>Voltar</span>
     </Container>

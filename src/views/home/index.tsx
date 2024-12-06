@@ -2,11 +2,14 @@ import { useLazyGetArtistsQuery } from "~/store/services/artistsApiSlice";
 import { Container } from "./styles";
 import { useLazyGetAlbumsQuery } from "~/store/services/albumsApiSlice";
 import { useLazyGetPlaylistsQuery } from "~/store/services/playlistsApiSlice";
-
 import { useLazyGetSongsQuery } from "~/store/services/songsApiSlice";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Summary } from "./components/Summary";
 import { DataLoading } from "~/components/shared-components/DataLoading";
+import { AlbumItem } from "~/components/shared-components/ProfilePage/AlbumItem";
+import { ProfilePage } from "~/components/shared-components/ProfilePage";
+import { SongItem } from "~/components/shared-components/ProfilePage/SongItem";
+import { ArtistItem } from "~/components/shared-components/ProfilePage/ArtistItem";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,6 +19,21 @@ export default function Home() {
   const [getSongs, { data: songsResponse }] = useLazyGetSongsQuery();
   const [getPlaylists, { data: playlistsResponse }] =
     useLazyGetPlaylistsQuery();
+
+  const artistList = useMemo(() => {
+    if (!artistsResponse) return [];
+    return artistsResponse.artists.slice(0, 4);
+  }, [artistsResponse]);
+
+  const albumList = useMemo(() => {
+    if (!albumsResponse) return [];
+    return albumsResponse.albums.slice(0, 8);
+  }, [albumsResponse]);
+
+  const songList = useMemo(() => {
+    if (!songsResponse) return [];
+    return songsResponse.songs.slice(0, 8);
+  }, [songsResponse]);
 
   useEffect(() => {
     Promise.all([
@@ -39,67 +57,41 @@ export default function Home() {
         playlists={playlistsResponse?.playlists}
       />
 
-      {/* <SectionContainer>
-        <h3>Artistas</h3>
+      {artistList.length > 0 && (
+        <ProfilePage.ArtistSection>
+          <ProfilePage.Title title="Os melhores artistas" />
 
-        <SectionItems>
-          {artistsResponse?.artists
-            .filter((_, index) => index < 10)
-            .map((artist) => (
-              <Card
-                key={artist.id}
-                assetType="artist"
-                title={artist.name}
-                subtitle={artist.country}
-              />
+          <ProfilePage.ArtistList>
+            {artistList.map((artist) => (
+              <ArtistItem key={artist.id} artist={artist} />
             ))}
-        </SectionItems>
-      </SectionContainer>
+          </ProfilePage.ArtistList>
+        </ProfilePage.ArtistSection>
+      )}
 
-      <SectionContainer>
-        <h3>Álbuns</h3>
+      {albumList.length > 0 && (
+        <ProfilePage.AlbumSection>
+          <ProfilePage.Title title="Os melhores álbuns" />
 
-        <SectionItems>
-          {albumsResponse?.albums
-            .filter((_, index) => index < 10)
-            .map((album) => (
-              <Card
-                key={album.id}
-                assetType="album"
-                title={album.name}
-                subtitle={album.year + ""}
-              />
+          <ProfilePage.AlbumList>
+            {albumList.map((album) => (
+              <AlbumItem key={album.id} album={album} />
             ))}
-        </SectionItems>
-      </SectionContainer>
+          </ProfilePage.AlbumList>
+        </ProfilePage.AlbumSection>
+      )}
 
-      <SectionContainer>
-        <h3>Músicas</h3>
+      {songList.length > 0 && (
+        <ProfilePage.SongSection>
+          <ProfilePage.Title title="As mais tocadas da semana" />
 
-        <SectionItems>
-          {songsResponse?.songs
-            .filter((_, index) => index < 10)
-            .map((song) => (
-              <Card key={song.id} assetType="song" title={song.name} />
+          <ProfilePage.SongList>
+            {songList.map((song, index) => (
+              <SongItem key={song.id} song={song} order={index + 1} />
             ))}
-        </SectionItems>
-      </SectionContainer>
-
-      <SectionContainer>
-        <h3>Playlists</h3>
-
-        <SectionItems>
-          {playlistsResponse?.playlists
-            .filter((_, index) => index < 10)
-            .map((playlist) => (
-              <Card
-                key={playlist.id}
-                assetType="playlist"
-                title={playlist.name}
-              />
-            ))}
-        </SectionItems>
-      </SectionContainer> */}
+          </ProfilePage.SongList>
+        </ProfilePage.SongSection>
+      )}
     </Container>
   );
 }

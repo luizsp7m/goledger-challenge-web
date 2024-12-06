@@ -13,6 +13,14 @@ function Subtitle({ subtitle }: { subtitle: string }) {
   return <S.Subtitle>{subtitle}</S.Subtitle>;
 }
 
+export function ArtistSection({ children }: { children: ReactNode }) {
+  return <S.ArtistSection>{children}</S.ArtistSection>;
+}
+
+export function ArtistList({ children }: { children: ReactNode }) {
+  return <S.ArtistList>{children}</S.ArtistList>;
+}
+
 export function AlbumSection({ children }: { children: ReactNode }) {
   return <S.AlbumSection>{children}</S.AlbumSection>;
 }
@@ -33,6 +41,8 @@ export const ProfilePage = {
   Container,
   Title,
   Subtitle,
+  ArtistSection,
+  ArtistList,
   AlbumSection,
   AlbumList,
   SongSection,

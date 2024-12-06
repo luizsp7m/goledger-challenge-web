@@ -5,6 +5,13 @@ export const Container = styled.div`
   align-items: center;
   gap: ${({ theme }) => theme["gap-3"]};
 
+  cursor: pointer;
+  transition: opacity 0.10s ease-in-out;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
   div.avatar {
     width: 96px;
     height: 96px;

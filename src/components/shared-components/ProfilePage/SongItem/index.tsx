@@ -1,9 +1,12 @@
 import { MusicNotes } from "@phosphor-icons/react";
 import { Container } from "./styles";
+import { Song } from "~/types/Song";
+import { useNavigateTo } from "~/hooks/useNavigateTo";
+import { SONGS_PREFIX_PATH } from "~/configs/AppConfig";
 
 interface SongItemProps {
+  song: Song;
   order: number;
-  name: string;
   albumName?: string;
 }
 
@@ -18,9 +21,13 @@ function randomTime() {
   return `${minute}:${(seconds + "").padStart(2, "0")}`;
 }
 
-export function SongItem({ order, name, albumName }: SongItemProps) {
+export function SongItem({ song, order, albumName }: SongItemProps) {
+  const { handleNavigateTo } = useNavigateTo();
+
   return (
-    <Container>
+    <Container
+      onClick={() => handleNavigateTo(`${SONGS_PREFIX_PATH}/${song.id}`)}
+    >
       <div className="left-side">
         <span>{order}. </span>
 
@@ -29,7 +36,7 @@ export function SongItem({ order, name, albumName }: SongItemProps) {
         </div>
 
         <div className="song-information">
-          <h5>{name}</h5>
+          <h5>{song.name}</h5>
           {albumName && <span>{albumName}</span>}
         </div>
       </div>

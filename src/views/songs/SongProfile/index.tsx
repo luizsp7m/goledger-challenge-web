@@ -10,7 +10,6 @@ import { ArtistItem } from "~/components/shared-components/ProfilePage/ArtistIte
 import { AlbumItem } from "~/components/shared-components/ProfilePage/AlbumItem";
 import { SongItem } from "~/components/shared-components/ProfilePage/SongItem";
 import { ProfilePage } from "~/components/shared-components/ProfilePage";
-import { SONGS_PREFIX_PATH } from "~/configs/AppConfig";
 
 export default function SongProfile() {
   const [isLoadingInformation, setIsLoadingInformation] = useState(true);
@@ -60,19 +59,15 @@ export default function SongProfile() {
 
   return (
     <ProfilePage.Container>
-      <GoBackButton goBackTo={SONGS_PREFIX_PATH} />
+      <GoBackButton />
 
-      <ArtistItem name={artistResponse.name} country={artistResponse.country} />
+      <ArtistItem artist={artistResponse} />
 
       <ProfilePage.AlbumSection>
         <ProfilePage.Title title="Informações do álbum" />
 
         <ProfilePage.AlbumList>
-          <AlbumItem
-            key={albumResponse.id}
-            name={albumResponse.name}
-            year={albumResponse.year}
-          />
+          <AlbumItem key={albumResponse.id} album={albumResponse} />
         </ProfilePage.AlbumList>
       </ProfilePage.AlbumSection>
 
@@ -83,8 +78,8 @@ export default function SongProfile() {
           <SongItem
             key={songResponse.id}
             order={1}
-            name={songResponse.name}
             albumName={albumResponse.name}
+            song={songResponse}
           />
         </ProfilePage.SongList>
       </ProfilePage.SongSection>

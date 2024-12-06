@@ -7,7 +7,6 @@ import { useLazyGetSongsQuery } from "~/store/services/songsApiSlice";
 import { SongItem } from "~/components/shared-components/ProfilePage/SongItem";
 import { GoBackButton } from "~/components/shared-components/ProfilePage/GoBackButton";
 import { ProfilePage } from "~/components/shared-components/ProfilePage";
-import { PLAYLISTS_PREFIX_PATH } from "~/configs/AppConfig";
 
 export default function PlaylistProfile() {
   const [isLoadingInformation, setIsLoadingInformation] = useState(true);
@@ -59,7 +58,7 @@ export default function PlaylistProfile() {
 
   return (
     <ProfilePage.Container>
-      <GoBackButton goBackTo={PLAYLISTS_PREFIX_PATH} />
+      <GoBackButton />
 
       {songsResponse.songs.length > 0 && (
         <ProfilePage.SongSection>
@@ -80,7 +79,7 @@ export default function PlaylistProfile() {
           ) : (
             <ProfilePage.SongList>
               {playlistSongs.map((song, index) => (
-                <SongItem key={song.id} order={index + 1} name={song.name} />
+                <SongItem key={song.id} order={index + 1} song={song} />
               ))}
             </ProfilePage.SongList>
           )}

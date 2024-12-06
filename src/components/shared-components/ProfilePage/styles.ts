@@ -19,6 +19,14 @@ export const Subtitle = styled.span`
   display: block;
 `;
 
+export const ArtistSection = styled.div``;
+
+export const ArtistList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(273px, 1fr));
+  gap: ${({ theme }) => theme["gap-3"]};
+`;
+
 export const AlbumSection = styled.div``;
 
 export const AlbumList = styled.div`

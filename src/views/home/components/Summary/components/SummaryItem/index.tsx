@@ -25,7 +25,7 @@ export function SummaryItem({
       </div>
 
       <span>
-        {quantity === 0 && `Nenhum ${singleValue.toLowerCase()}`}
+        {quantity === 0 && `Não há nada aqui`}
         {quantity === 1 && `${quantity} ${singleValue.toLowerCase()}`}
         {quantity > 1 && `${quantity} ${pluralValue.toLowerCase()}`}{" "}
       </span>
