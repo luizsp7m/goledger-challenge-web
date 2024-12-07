@@ -1,50 +1,44 @@
-# React + TypeScript + Vite
+### GoLedger Challenge Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+#### Pré-requisitos
 
-Currently, two official plugins are available:
+Antes de começar, certifique-se de ter os seguintes requisitos instalados em sua máquina:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Node.js](https://nodejs.org/) (versão 18 ou superior)
+- [Git](https://git-scm.com/)
 
-## Expanding the ESLint configuration
+Verificar se o Node.js está instalado:
+`node -v`
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Verificar se o Git está instalado:
+`git -v`
 
-- Configure the top-level `parserOptions` property like this:
+#### 1. Clonar o repositório
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+Clone este repositório em sua máquina local usando o comando abaixo:
+`git clone https://github.com/luizsp7m/goledger-challenge-web`
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+#### 2. Navegue até o diretório do projeto
 
-```js
-// eslint.config.js
-import react from "eslint-plugin-react";
+`cd goledger-challenge-web`
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: "18.3" } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs["jsx-runtime"].rules,
-  },
-});
-```
+#### 3. Instale as dependências
+
+`npm install`
+
+#### 4. Configure as variáveis de ambiente
+
+Crie um arquivo `.env.local` na raiz do projeto e configure as variáveis de ambiente necessárias. Consulte o arquivo `.env.example` para ver as variáveis disponíveis e preencha conforme necessário
+
+#### 5. Execute o projeto
+
+Para iniciar o servidor de desenvolvimento, execute:
+
+`npm run dev`
+
+O projeto estará disponível no endereço http://localhost:5174/
+
+#### Projeto Online
+
+Ou se preferir, você pode visualizar este projeto em funcionamento diretamente na Vercel. Acesse o link abaixo para conferir:
+➡️ **[Acesse o projeto aqui](https://luizoliveira.vercel.app/)**

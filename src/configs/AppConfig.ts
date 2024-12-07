@@ -1,3 +1,5 @@
+export const APP_NAME = "GoLedger Play"
+
 export const HOME_PREFIX_PATH = "/";
 export const ARTISTS_PREFIX_PATH = "/artists";
 export const ALBUMS_PREFIX_PATH = "/albums";

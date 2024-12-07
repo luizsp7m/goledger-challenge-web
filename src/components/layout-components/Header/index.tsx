@@ -12,6 +12,7 @@ import {
 
 import {
   ALBUMS_PREFIX_PATH,
+  APP_NAME,
   ARTISTS_PREFIX_PATH,
   HOME_PREFIX_PATH,
   PLAYLISTS_PREFIX_PATH,
@@ -65,7 +66,7 @@ export function Header() {
     <Container>
       <header>
         <Link to={HOME_PREFIX_PATH}>
-          <h1>GoLedger Play</h1>
+          <h1>{APP_NAME}</h1>
         </Link>
 
         <nav className={menuIsOpen ? "show" : ""}>
@@ -74,7 +75,9 @@ export function Header() {
               <Link
                 key={index}
                 to={navItem.route}
-                className={pathname === navItem.route ? "active-link" : ""}
+                className={
+                  pathname.includes(navItem.route) ? "active-link" : ""
+                }
               >
                 {navItem.icon}
                 {navItem.title}
