@@ -42,8 +42,8 @@ export function PlaylistsTable({
           { dataIndex: "name", title: "Nome da playlist" },
           {
             dataIndex: "private",
-            title: "Pública",
-            render: (playlist) => (!playlist.private ? "Sim" : "Não"),
+            title: "Visibilidade",
+            render: (playlist) => (playlist.private ? "Privada" : "Pública"),
           },
 
           {

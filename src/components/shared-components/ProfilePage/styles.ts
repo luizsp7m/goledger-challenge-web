@@ -7,8 +7,9 @@ export const Container = styled.div`
 `;
 
 export const Heading = styled.h1`
-  font-size: ${({ theme }) => theme["text-lg"]};
+  font-size: ${({ theme }) => theme["text-md"]};
   color: ${({ theme }) => theme["text-color-primary"]};
+  font-weight: 500;
 `;
 
 export const Title = styled.h2`

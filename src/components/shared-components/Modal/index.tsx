@@ -1,4 +1,5 @@
 import { X } from "@phosphor-icons/react";
+import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 
 import {
   DialogContent,
@@ -6,7 +7,6 @@ import {
   DialogPortal,
   DialogRoot,
 } from "./styles";
-import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 
 interface ModalProps {
   title: string;

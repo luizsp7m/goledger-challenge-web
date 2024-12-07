@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   background: ${({ theme }) => theme["background-color-tertiary"]};
   border-radius: 4px;
-  padding: ${({ theme }) => theme["p-3"]};
+  padding: ${({ theme }) => theme["p-3"]} ${({ theme }) => theme["p-6"]};
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme["gap-3"]};

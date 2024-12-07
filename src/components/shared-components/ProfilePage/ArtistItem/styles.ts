@@ -4,6 +4,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme["gap-3"]};
+  align-self: flex-start;
 
   cursor: pointer;
   transition: opacity 0.10s ease-in-out;

@@ -63,7 +63,7 @@ export const Container = styled.div`
         top: 70px;
         bottom: 0;
         width: 256px;
-        background: ${({ theme }) => theme["background-color-secondary"]};
+        background: #1d1d20;
 
         flex-direction: column;
         align-items: flex-start;
@@ -115,7 +115,7 @@ export const Overlay = styled.div<OverlayProps>`
   z-index: 10;
   inset: 0;
   top: 70px;
-
+  
   @media(max-width: 768px) {
     display: ${({ $isVisible }) => $isVisible ? "flex" : "none"};
   }

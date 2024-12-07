@@ -1,14 +1,60 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
+
+const scaleIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+`;
+
+const scaleOut = keyframes`
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.95);
+  }
+`;
 
 export const DialogRoot = styled(Dialog.Root)``;
 
 export const DialogPortal = styled(Dialog.Portal)``;
 
 export const DialogOverlay = styled(Dialog.Overlay)`
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.45);
   position: fixed;
   inset: 0;
+
+	animation: ${fadeIn} 200ms ease-out;
+
+	&[data-state="closed"] {
+    animation: ${fadeOut} 200ms ease-in;
+  }
 `;
 
 interface DialogContentProps {
@@ -24,6 +70,12 @@ export const DialogContent = styled(Dialog.Content) <DialogContentProps>`
 	transform: translate(-50%, -50%);
 	width: 95%;
 	max-width: ${({ $maxWidth }) => `${$maxWidth}px`};
+
+	animation: ${scaleIn} 200ms ease-out;
+
+	&[data-state="closed"] {
+		animation: ${scaleOut} 200ms ease-in;
+}
 
   &:focus {
     outline: none;
