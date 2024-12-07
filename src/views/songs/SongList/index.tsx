@@ -29,16 +29,18 @@ export default function SongList() {
     handleCloseFormModal,
   } = useFormModal<Song>();
 
-  const { paginatedData, currentPage, totalPages } = useFilterDataFromQuery({
-    records: songsData?.songs ?? [],
-    searchField: "name",
-  });
+  const { paginatedData, currentPage, totalPages, totalItems } =
+    useFilterDataFromQuery({
+      records: songsData?.songs ?? [],
+      searchField: "name",
+    });
 
   return (
     <>
       <Toolbar
         title="Músicas"
         sortByOptions={sortByOptions}
+        totalItems={totalItems}
         handleOpenModalForm={handleOpenFormModal}
       />
 

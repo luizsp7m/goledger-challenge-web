@@ -43,9 +43,6 @@ export const Container = styled.div`
     h5 {
       font-size: ${({ theme }) => theme["text-sm"]};
       color: ${({ theme }) => theme["text-color-secondary"]};
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     span {

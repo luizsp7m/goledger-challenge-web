@@ -36,8 +36,8 @@ export function SongItem({ song, order, albumName }: SongItemProps) {
         </div>
 
         <div className="song-information">
-          <h5>{song.name}</h5>
-          {albumName && <span>{albumName}</span>}
+          <h5 className="truncate">{song.name}</h5>
+          {albumName && <span className="truncate">{albumName}</span>}
         </div>
       </div>
 

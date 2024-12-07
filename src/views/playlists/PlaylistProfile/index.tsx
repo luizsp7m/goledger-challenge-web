@@ -7,6 +7,7 @@ import { useLazyGetSongsQuery } from "~/store/services/songsApiSlice";
 import { SongItem } from "~/components/shared-components/ProfilePage/SongItem";
 import { GoBackButton } from "~/components/shared-components/ProfilePage/GoBackButton";
 import { ProfilePage } from "~/components/shared-components/ProfilePage";
+import { truncateText } from "~/utils/truncateText";
 
 export default function PlaylistProfile() {
   const [isLoadingInformation, setIsLoadingInformation] = useState(true);
@@ -61,7 +62,10 @@ export default function PlaylistProfile() {
       <GoBackButton />
 
       <ProfilePage.Heading
-        heading={`Você está vendo a página da playlist ${playlistResponse.name}`}
+        heading={`Você está vendo a página da playlist ${truncateText(
+          playlistResponse.name,
+          48
+        )}`}
       />
 
       {songsResponse.songs.length > 0 && (

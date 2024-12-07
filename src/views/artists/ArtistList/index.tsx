@@ -32,16 +32,18 @@ export default function ArtistList() {
     handleCloseFormModal,
   } = useFormModal<Artist>();
 
-  const { paginatedData, currentPage, totalPages } = useFilterDataFromQuery({
-    records: artistsData?.artists ?? [],
-    searchField: "name",
-  });
+  const { paginatedData, currentPage, totalPages, totalItems } =
+    useFilterDataFromQuery({
+      records: artistsData?.artists ?? [],
+      searchField: "name",
+    });
 
   return (
     <Fragment>
       <Toolbar
         title="Artistas"
         sortByOptions={sortByOptions}
+        totalItems={totalItems}
         handleOpenModalForm={handleOpenFormModal}
       />
 

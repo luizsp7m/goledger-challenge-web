@@ -3,6 +3,7 @@ import ReactLoading from "react-loading";
 import { Modal } from "../Modal";
 import { Container } from "./styles";
 import { errorToast } from "~/utils/errorToast";
+import { successToast } from "~/utils/successToast";
 
 interface ConfirmDeleteProps {
   modalIsOpen: boolean;
@@ -21,6 +22,7 @@ export function ConfirmDelete({
     try {
       await removeRecord();
       handleCloseModal();
+      successToast("Registro removido com sucesso");
     } catch (error) {
       errorToast("Não foi possível excluir o registro");
       console.log(error);

@@ -51,12 +51,6 @@ export const Container = styled.div`
       gap: 0.15rem;
       overflow: hidden;
 
-      h5, span {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
       h5 {
         font-size: ${({ theme }) => theme["text-sm"]};
         color: ${({ theme }) => theme["text-color-secondary"]};

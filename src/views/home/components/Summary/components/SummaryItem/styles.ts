@@ -10,11 +10,9 @@ export const Container = styled.div`
   overflow: hidden;
 
   span {
+    flex: 1;
     color: ${({ theme }) => theme["text-color-secondary"]};
     font-size: ${({ theme }) => theme["text-sm"]};
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   > div {

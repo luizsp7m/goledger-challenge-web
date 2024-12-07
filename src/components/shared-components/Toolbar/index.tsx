@@ -27,12 +27,14 @@ type SearchFormData = z.infer<typeof searchSchema>;
 interface ToolbarProps {
   title: string;
   sortByOptions: Option[];
+  totalItems: number;
   handleOpenModalForm: () => void;
 }
 
 export function Toolbar({
   title,
   sortByOptions,
+  totalItems,
   handleOpenModalForm,
 }: ToolbarProps) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -88,7 +90,7 @@ export function Toolbar({
   return (
     <Container>
       <div className="header">
-        <h3>{title}</h3>
+        <h3 className="truncate">{title}</h3>
 
         <button type="button" onClick={() => handleOpenModalForm()}>
           Adicionar
@@ -126,6 +128,10 @@ export function Toolbar({
           />
         </div>
       </div>
+
+      <span className="total-items-text">
+        Quantidade de registros: {totalItems}
+      </span>
     </Container>
   );
 }

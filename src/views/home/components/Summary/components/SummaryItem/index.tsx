@@ -24,10 +24,10 @@ export function SummaryItem({
         {assetType === "playlists" && <Playlist weight="bold" />}
       </div>
 
-      <span>
+      <span className="truncate">
         {quantity === 0 && `Não há nada aqui`}
         {quantity === 1 && `${quantity} ${singleValue.toLowerCase()}`}
-        {quantity > 1 && `${quantity} ${pluralValue.toLowerCase()}`}{" "}
+        {quantity > 1 && `${quantity} ${pluralValue.toLowerCase()}`}
       </span>
     </Container>
   );

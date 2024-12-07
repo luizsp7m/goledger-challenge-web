@@ -18,6 +18,7 @@ import {
   useCreatePlaylistMutation,
   useUpdatePlaylistMutation,
 } from "~/store/services/playlistsApiSlice";
+import { successToast } from "~/utils/successToast";
 
 const playlistSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
@@ -84,6 +85,7 @@ export function PlaylistForm({
         }).unwrap();
 
         handleCloseModal();
+        successToast();
       } catch (error) {
         errorToast();
         console.log(error);
@@ -95,6 +97,7 @@ export function PlaylistForm({
     try {
       await createPlaylist({ data }).unwrap();
       handleCloseModal();
+      successToast();
     } catch (error) {
       errorToast();
       console.log(error);

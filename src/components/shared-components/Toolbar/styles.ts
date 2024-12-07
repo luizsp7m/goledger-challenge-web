@@ -14,9 +14,6 @@ export const Container = styled.div`
     h3 {
       font-size: ${({ theme }) => theme["text-md"]};
       font-weight: 500;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     button {
@@ -62,5 +59,10 @@ export const Container = styled.div`
         flex-direction: column;
       }
     }
+  }
+
+  span.total-items-text {
+    font-size: ${({ theme }) => theme["text-sm"]};
+    color: ${({ theme }) => theme["text-color-secondary"]};
   }
 `;

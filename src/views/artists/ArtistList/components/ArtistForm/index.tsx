@@ -15,6 +15,7 @@ import {
   useCreateArtistMutation,
   useUpdateArtistMutation,
 } from "~/store/services/artistsApiSlice";
+import { successToast } from "~/utils/successToast";
 
 const artistSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
@@ -55,6 +56,7 @@ export function ArtistForm({
       try {
         await updateArtist({ artistId: selectedArtist.id, data }).unwrap();
         handleCloseModal();
+        successToast();
       } catch (error) {
         errorToast();
         console.log(error);
@@ -66,6 +68,7 @@ export function ArtistForm({
     try {
       await createArtist({ data }).unwrap();
       handleCloseModal();
+      successToast();
     } catch (error) {
       errorToast();
       console.log(error);

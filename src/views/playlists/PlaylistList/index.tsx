@@ -29,16 +29,18 @@ export default function PlaylistsList() {
     handleCloseFormModal,
   } = useFormModal<Playlist>();
 
-  const { paginatedData, currentPage, totalPages } = useFilterDataFromQuery({
-    records: playlistsData?.playlists ?? [],
-    searchField: "name",
-  });
+  const { paginatedData, currentPage, totalPages, totalItems } =
+    useFilterDataFromQuery({
+      records: playlistsData?.playlists ?? [],
+      searchField: "name",
+    });
 
   return (
     <>
       <Toolbar
         title="Playlists"
         sortByOptions={sortByOptions}
+        totalItems={totalItems}
         handleOpenModalForm={handleOpenFormModal}
       />
 

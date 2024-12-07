@@ -20,8 +20,8 @@ export function AlbumItem({ album }: AlbumItemProps) {
       </div>
 
       <div className="album-information">
-        <h5>{album.name}</h5>
-        <span>{album.year}</span>
+        <h5 className="truncate">{album.name}</h5>
+        <span className="truncate">{album.year}</span>
       </div>
     </Container>
   );

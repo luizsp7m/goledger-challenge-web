@@ -40,11 +40,13 @@ export function useFilterDataFromQuery<T>({ records, searchField }: UseFilterDat
 
   const totalPages = Math.ceil(sortedData.length / perPage);
 
+  const totalItems = filteredData.length;
   const currentPage = Math.min(Math.max(page, 1), totalPages);
   const paginatedData = sortedData.slice((currentPage - 1) * perPage, currentPage * perPage);
 
   return {
     paginatedData,
+    totalItems,
     totalPages,
     currentPage,
   };

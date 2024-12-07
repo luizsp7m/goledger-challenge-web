@@ -37,4 +37,10 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
     color: ${({ theme }) => theme["text-color-primary"]};
   }
+
+  .truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `

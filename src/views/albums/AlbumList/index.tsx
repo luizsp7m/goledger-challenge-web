@@ -32,16 +32,18 @@ export default function AlbumList() {
     handleCloseFormModal,
   } = useFormModal<Album>();
 
-  const { paginatedData, currentPage, totalPages } = useFilterDataFromQuery({
-    records: albumsData?.albums ?? [],
-    searchField: "name",
-  });
+  const { paginatedData, currentPage, totalPages, totalItems } =
+    useFilterDataFromQuery({
+      records: albumsData?.albums ?? [],
+      searchField: "name",
+    });
 
   return (
     <Fragment>
       <Toolbar
         title="Álbuns"
         sortByOptions={sortByOptions}
+        totalItems={totalItems}
         handleOpenModalForm={handleOpenFormModal}
       />
 

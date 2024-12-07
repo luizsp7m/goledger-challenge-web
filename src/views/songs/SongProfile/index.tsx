@@ -10,6 +10,7 @@ import { ArtistItem } from "~/components/shared-components/ProfilePage/ArtistIte
 import { AlbumItem } from "~/components/shared-components/ProfilePage/AlbumItem";
 import { SongItem } from "~/components/shared-components/ProfilePage/SongItem";
 import { ProfilePage } from "~/components/shared-components/ProfilePage";
+import { truncateText } from "~/utils/truncateText";
 
 export default function SongProfile() {
   const [isLoadingInformation, setIsLoadingInformation] = useState(true);
@@ -62,7 +63,10 @@ export default function SongProfile() {
       <GoBackButton />
 
       <ProfilePage.Heading
-        heading={`Você está vendo a página da música ${songResponse.name}`}
+        heading={`Você está vendo a página da música ${truncateText(
+          songResponse.name,
+          48
+        )}`}
       />
 
       <ArtistItem artist={artistResponse} />

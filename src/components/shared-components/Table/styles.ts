@@ -16,7 +16,7 @@ export const Container = styled.div<ContainerProps>`
     text-align: left;
 
     ${({ $isFetching }) => $isFetching && css`
-      opacity: 0.75;
+      opacity: 0.65;
     `}
 
     thead, tfoot {

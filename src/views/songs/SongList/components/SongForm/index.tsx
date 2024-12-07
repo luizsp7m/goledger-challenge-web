@@ -17,6 +17,7 @@ import {
   useCreateSongMutation,
   useUpdateSongMutation,
 } from "~/store/services/songsApiSlice";
+import { successToast } from "~/utils/successToast";
 
 const songSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
@@ -75,6 +76,7 @@ export function SongForm({
       try {
         await updateSong({ songId: selectedSong.id, data }).unwrap();
         handleCloseFormModal();
+        successToast();
       } catch (error) {
         errorToast();
         console.log(error);
@@ -86,6 +88,7 @@ export function SongForm({
     try {
       await createSong({ data }).unwrap();
       handleCloseFormModal();
+      successToast();
     } catch (error) {
       errorToast();
       console.log(error);

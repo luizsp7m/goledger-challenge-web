@@ -17,6 +17,7 @@ import {
   useUpdateAlbumMutation,
 } from "~/store/services/albumsApiSlice";
 import { errorToast } from "~/utils/errorToast";
+import { successToast } from "~/utils/successToast";
 
 const albumSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
@@ -69,8 +70,6 @@ export function AlbumForm({
     }),
   });
 
-  console.log(errors);
-
   const artistOptions = useMemo(() => {
     if (!artistsData) return [];
 
@@ -90,6 +89,7 @@ export function AlbumForm({
           data,
         }).unwrap();
         handleCloseFormModal();
+        successToast();
       } catch (error) {
         errorToast();
         console.log(error);
@@ -101,6 +101,7 @@ export function AlbumForm({
     try {
       await createAlbum({ data }).unwrap();
       handleCloseFormModal();
+      successToast();
     } catch (error) {
       errorToast();
       console.log(error);

@@ -11,6 +11,7 @@ import { AlbumItem } from "~/components/shared-components/ProfilePage/AlbumItem"
 import { ArtistItem } from "~/components/shared-components/ProfilePage/ArtistItem";
 import { GoBackButton } from "~/components/shared-components/ProfilePage/GoBackButton";
 import { ProfilePage } from "~/components/shared-components/ProfilePage";
+import { truncateText } from "~/utils/truncateText";
 
 export default function ArtistProfile() {
   const [isLoadingInformation, setIsLoadingInformation] = useState(true);
@@ -99,7 +100,10 @@ export default function ArtistProfile() {
       <GoBackButton />
 
       <ProfilePage.Heading
-        heading={`Você está vendo a página do artista ${artistResponse.name}`}
+        heading={`Você está vendo a página do artista ${truncateText(
+          artistResponse.name,
+          48
+        )}`}
       />
 
       <ArtistItem

@@ -24,10 +24,12 @@ export const Container = styled.div`
   }
 
   div.information {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: ${({ theme }) => theme["gap-1"]};
-
+    overflow: hidden;
+    
     h3 {
       font-size: ${({ theme }) => theme["text-md"]};
       color: ${({ theme }) => theme["text-color-primary"]};
