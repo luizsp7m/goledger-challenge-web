@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { SEARCH_PARAMS_KEYS } from "~/constants/SearchParmsKeys";
+import { SEARCH_PARAMS_KEYS } from "~/constants/SearchParamsKeys";
 
 interface UseFilterDataFromQuery<T> {
   records: T[];

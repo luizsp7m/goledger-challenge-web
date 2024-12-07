@@ -5,7 +5,7 @@ import { z } from "zod";
 import { useSearchParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Select } from "../DataEntry/Select";
-import { SEARCH_PARAMS_KEYS } from "~/constants/SearchParmsKeys";
+import { SEARCH_PARAMS_KEYS } from "~/constants/SearchParamsKeys";
 
 const perPageOptions = [
   { value: "10", label: "10 itens por página" },
