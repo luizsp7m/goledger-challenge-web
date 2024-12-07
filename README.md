@@ -37,7 +37,7 @@ cd goledger-challenge-web
 npm install
 ```
 
-### 4. Configure as variáveis de ambiente
+### 4. (Opcional) Configure as variáveis de ambiente
 
 Crie um arquivo `.env.local` na raiz do projeto e configure as variáveis de ambiente necessárias. <br />
 Consulte o arquivo `.env.example` para ver as variáveis que devem ser preenchidas
@@ -50,4 +50,4 @@ Para iniciar o servidor de desenvolvimento, execute:
 npm run dev
 ```
 
-O projeto estará disponível no endereço http://localhost:5174/
+O projeto estará disponível no endereço <a href="http://localhost:5173/" target="_blank">http://localhost:5173/</a>
