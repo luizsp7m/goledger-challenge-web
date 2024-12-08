@@ -37,10 +37,15 @@ cd goledger-challenge-web
 npm install
 ```
 
-### 4. (Opcional) Configure as variáveis de ambiente
+### 4. Configure as variáveis de ambiente
 
-Crie um arquivo `.env.local` na raiz do projeto e configure as variáveis de ambiente necessárias. <br />
-Consulte o arquivo `.env.example` para ver as variáveis que devem ser preenchidas
+Crie o arquivo `.env.local` na raiz do projeto e configure as variáveis de ambiente abaixo: <br />
+
+```js
+VITE_API_BASE_URL="http://ec2-54-91-215-149.compute-1.amazonaws.com"
+VITE_USER=""
+VITE_PASSWORD=""
+```
 
 ### 5. Execute o projeto
 
