@@ -75,7 +75,7 @@ export function Table<T>({
                     return <td key={columnIndex}>{column.render(record)}</td>;
                   }
 
-                  if (column.dataIndex && record[column.dataIndex]) {
+                  if (column.dataIndex) {
                     return (
                       <td key={columnIndex}>
                         {record[column.dataIndex] as ReactNode}
