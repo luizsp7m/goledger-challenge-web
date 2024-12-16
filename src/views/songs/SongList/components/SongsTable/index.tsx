@@ -6,6 +6,7 @@ import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useNavigateTo } from "~/hooks/useNavigateTo";
 import { useDeleteSongMutation } from "~/store/services/songsApiSlice";
 import { Song } from "~/types/Song";
+import { dateFormatter } from "~/utils/dateFormatter";
 
 interface SongsTableProps {
   songs: Song[];
@@ -39,6 +40,12 @@ export function SongsTable({
         pagination={pagination}
         columns={[
           { dataIndex: "name", title: "Nome da música" },
+
+          {
+            dataIndex: "lastUpdated",
+            title: "Última atualização",
+            render: (song) => dateFormatter(song.lastUpdated),
+          },
 
           {
             title: "",

@@ -12,6 +12,8 @@ import { ErrorMessage } from "~/components/shared-components/ErrorMessage";
 const sortByOptions = [
   { value: "name:asc", label: "Nome da playlist (A-Z)" },
   { value: "name:desc", label: "Nome da playlist (Z-A)" },
+  { value: "lastUpdated:asc", label: "Atualização mais antiga" },
+  { value: "lastUpdated:desc", label: "Atualização mais recente" },
 ];
 
 export default function PlaylistsList() {

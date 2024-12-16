@@ -12,6 +12,8 @@ import { ErrorMessage } from "~/components/shared-components/ErrorMessage";
 const sortByOptions = [
   { value: "name:asc", label: "Nome da música (A-Z)" },
   { value: "name:desc", label: "Nome da música (Z-A)" },
+  { value: "lastUpdated:asc", label: "Atualização mais antiga" },
+  { value: "lastUpdated:desc", label: "Atualização mais recente" },
 ];
 
 export default function SongList() {

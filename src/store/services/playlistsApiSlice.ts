@@ -4,7 +4,7 @@ import { QuerySearchResponse } from "~/types/QuerySearchResponse";
 import { PlaylistFormData } from "~/views/playlists/PlaylistList/components/PlaylistForm";
 
 interface PlaylistsResponse {
-  playlists: Playlist[]
+  playlists: Playlist[];
 }
 
 interface CreatePlaylistRequest {
@@ -20,8 +20,9 @@ function playlistFormatter(playlist: PlaylistResponseAPI): Playlist {
     id: playlist["@key"],
     name: playlist.name,
     private: playlist.private,
-    songIds: playlist.songs.map(song => song["@key"])
-  }
+    songIds: playlist.songs.map((song) => song["@key"]),
+    lastUpdated: playlist["@lastUpdated"],
+  };
 }
 
 export const playlistsApiSlice = apiSlice.injectEndpoints({
@@ -34,17 +35,19 @@ export const playlistsApiSlice = apiSlice.injectEndpoints({
         body: {
           query: {
             selector: {
-              "@assetType": "playlist"
-            }
-          }
-        }
+              "@assetType": "playlist",
+            },
+          },
+        },
       }),
 
-      transformResponse: (response: QuerySearchResponse<PlaylistResponseAPI>) => {
+      transformResponse: (
+        response: QuerySearchResponse<PlaylistResponseAPI>
+      ) => {
         return {
-          playlists: response.result.map(playlistFormatter)
-        }
-      }
+          playlists: response.result.map(playlistFormatter),
+        };
+      },
     }),
 
     getPlaylist: builder.query<Playlist, { playlistId: string }>({
@@ -55,55 +58,56 @@ export const playlistsApiSlice = apiSlice.injectEndpoints({
         body: {
           key: {
             "@assetType": "playlist",
-            "@key": playlistId
-          }
-        }
+            "@key": playlistId,
+          },
+        },
       }),
 
-      transformResponse: (response: PlaylistResponseAPI) => playlistFormatter(response)
+      transformResponse: (response: PlaylistResponseAPI) =>
+        playlistFormatter(response),
     }),
 
     createPlaylist: builder.mutation<void, CreatePlaylistRequest>({
-      invalidatesTags: (result) => result ? ["playlists"] : [],
+      invalidatesTags: (result) => (result ? ["playlists"] : []),
       query: ({ data }) => ({
         url: "/invoke/createAsset",
         method: "POST",
         body: {
-          "asset": [
+          asset: [
             {
               "@assetType": "playlist",
               name: data.name,
               private: data.private,
-              songs: data.songs.map(songId => ({
-                "@key": songId
+              songs: data.songs.map((songId) => ({
+                "@key": songId,
               })),
-            }
-          ]
-        }
-      })
+            },
+          ],
+        },
+      }),
     }),
 
     updatePlaylist: builder.mutation<void, UpdatePlaylistRequest>({
-      invalidatesTags: (result) => result ? ["playlists"] : [],
+      invalidatesTags: (result) => (result ? ["playlists"] : []),
       query: ({ playlistId, data }) => ({
         url: "/invoke/updateAsset",
         method: "PUT",
         body: {
-          "update": {
+          update: {
             "@assetType": "playlist",
             "@key": playlistId,
             name: data.name,
             private: data.private,
-            songs: data.songs.map(songId => ({
-              "@key": songId
+            songs: data.songs.map((songId) => ({
+              "@key": songId,
             })),
-          }
-        }
-      })
+          },
+        },
+      }),
     }),
 
     deletePlaylist: builder.mutation<void, { playlistId: string }>({
-      invalidatesTags: (result) => result ? ["playlists"] : [],
+      invalidatesTags: (result) => (result ? ["playlists"] : []),
       query: ({ playlistId }) => ({
         url: "/invoke/deleteAsset",
         method: "DELETE",
@@ -111,11 +115,11 @@ export const playlistsApiSlice = apiSlice.injectEndpoints({
           key: {
             "@assetType": "playlist",
             "@key": playlistId,
-          }
-        }
-      })
+          },
+        },
+      }),
     }),
-  })
+  }),
 });
 
 export const {
@@ -125,4 +129,4 @@ export const {
   useCreatePlaylistMutation,
   useUpdatePlaylistMutation,
   useDeletePlaylistMutation,
-} = playlistsApiSlice
+} = playlistsApiSlice;

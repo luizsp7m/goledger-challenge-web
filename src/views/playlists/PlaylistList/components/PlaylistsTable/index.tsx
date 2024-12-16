@@ -6,6 +6,7 @@ import { Playlist } from "~/types/Playlist";
 import { OperationButton } from "~/components/shared-components/Table/OperationButton";
 import { useNavigateTo } from "~/hooks/useNavigateTo";
 import { PLAYLISTS_PREFIX_PATH } from "~/configs/AppConfig";
+import { dateFormatter } from "~/utils/dateFormatter";
 
 interface PlaylistsTableProps {
   playlists: Playlist[];
@@ -40,10 +41,17 @@ export function PlaylistsTable({
         pagination={pagination}
         columns={[
           { dataIndex: "name", title: "Nome da playlist" },
+
           {
             dataIndex: "private",
             title: "Visibilidade",
             render: (playlist) => (playlist.private ? "Privada" : "Pública"),
+          },
+
+          {
+            dataIndex: "lastUpdated",
+            title: "Última atualização",
+            render: (playlist) => dateFormatter(playlist.lastUpdated),
           },
 
           {

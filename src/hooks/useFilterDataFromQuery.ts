@@ -3,16 +3,26 @@ import { SEARCH_PARAMS_KEYS } from "~/constants/SearchParamsKeys";
 
 interface UseFilterDataFromQuery<T> {
   records: T[];
-  searchField: keyof T
+  searchField: keyof T;
 }
 
-export function useFilterDataFromQuery<T>({ records, searchField }: UseFilterDataFromQuery<T>) {
+export function useFilterDataFromQuery<T>({
+  records,
+  searchField,
+}: UseFilterDataFromQuery<T>) {
   const [searchParams] = useSearchParams();
 
   const search = searchParams.get(SEARCH_PARAMS_KEYS.SEARCH);
   const sortBy = searchParams.get(SEARCH_PARAMS_KEYS.SORT_BY);
-  const page = parseInt(searchParams.get(SEARCH_PARAMS_KEYS.PAGE) ?? "1", 10);
-  const perPage = parseInt(searchParams.get(SEARCH_PARAMS_KEYS.PER_PAGE) ?? "10", 10);
+
+  const pageSearchParamValue = searchParams.get(SEARCH_PARAMS_KEYS.PAGE);
+  const perPageSearchParamValue = searchParams.get(SEARCH_PARAMS_KEYS.PER_PAGE);
+
+  const page = pageSearchParamValue ? parseInt(pageSearchParamValue, 10) : 1;
+
+  const perPage = perPageSearchParamValue
+    ? parseInt(perPageSearchParamValue, 10)
+    : 10;
 
   const filteredData = records.filter((record) => {
     if (!search) return true;
@@ -39,10 +49,13 @@ export function useFilterDataFromQuery<T>({ records, searchField }: UseFilterDat
   });
 
   const totalPages = Math.ceil(sortedData.length / perPage);
-
   const totalItems = filteredData.length;
   const currentPage = Math.min(Math.max(page, 1), totalPages);
-  const paginatedData = sortedData.slice((currentPage - 1) * perPage, currentPage * perPage);
+
+  const paginatedData = sortedData.slice(
+    (currentPage - 1) * perPage,
+    currentPage * perPage
+  );
 
   return {
     paginatedData,

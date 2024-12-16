@@ -4,7 +4,7 @@ import { QuerySearchResponse } from "~/types/QuerySearchResponse";
 import { AlbumFormData } from "~/views/albums/AlbumList/components/AlbumForm";
 
 interface AlbumsResponse {
-  albums: Album[]
+  albums: Album[];
 }
 
 interface CreateAlbumRequest {
@@ -20,8 +20,9 @@ function albumFormatter(album: AlbumResponseAPI): Album {
     id: album["@key"],
     name: album.name,
     year: album.year,
-    artistId: album.artist["@key"]
-  }
+    artistId: album.artist["@key"],
+    lastUpdated: album["@lastUpdated"],
+  };
 }
 
 export const albumsApiSlice = apiSlice.injectEndpoints({
@@ -34,17 +35,17 @@ export const albumsApiSlice = apiSlice.injectEndpoints({
         body: {
           query: {
             selector: {
-              "@assetType": "album"
-            }
-          }
-        }
+              "@assetType": "album",
+            },
+          },
+        },
       }),
 
       transformResponse: (response: QuerySearchResponse<AlbumResponseAPI>) => {
         return {
-          albums: response.result.map(albumFormatter)
-        }
-      }
+          albums: response.result.map(albumFormatter),
+        };
+      },
     }),
 
     getAlbumsByArtist: builder.query<AlbumsResponse, { artistId: string }>({
@@ -56,17 +57,17 @@ export const albumsApiSlice = apiSlice.injectEndpoints({
           query: {
             selector: {
               "@assetType": "album",
-              "artist.@key": artistId
-            }
-          }
-        }
+              "artist.@key": artistId,
+            },
+          },
+        },
       }),
 
       transformResponse: (response: QuerySearchResponse<AlbumResponseAPI>) => {
         return {
-          albums: response.result.map(albumFormatter)
-        }
-      }
+          albums: response.result.map(albumFormatter),
+        };
+      },
     }),
 
     getAlbum: builder.query<Album, { albumId: string }>({
@@ -77,53 +78,54 @@ export const albumsApiSlice = apiSlice.injectEndpoints({
         body: {
           key: {
             "@assetType": "album",
-            "@key": albumId
-          }
-        }
+            "@key": albumId,
+          },
+        },
       }),
 
-      transformResponse: (response: AlbumResponseAPI) => albumFormatter(response)
+      transformResponse: (response: AlbumResponseAPI) =>
+        albumFormatter(response),
     }),
 
     createAlbum: builder.mutation<void, CreateAlbumRequest>({
-      invalidatesTags: (result) => result ? ["albums"] : [],
+      invalidatesTags: (result) => (result ? ["albums"] : []),
       query: ({ data }) => ({
         url: "/invoke/createAsset",
         method: "POST",
         body: {
-          "asset": [
+          asset: [
             {
               "@assetType": "album",
               ...data,
               artist: {
                 "@key": data.artist,
-              }
-            }
-          ]
-        }
-      })
+              },
+            },
+          ],
+        },
+      }),
     }),
 
     updateAlbum: builder.mutation<void, UpdateAlbumRequest>({
-      invalidatesTags: (result) => result ? ["albums"] : [],
+      invalidatesTags: (result) => (result ? ["albums"] : []),
       query: ({ albumId, data }) => ({
         url: "/invoke/updateAsset",
         method: "PUT",
         body: {
-          "update": {
+          update: {
             "@assetType": "album",
             "@key": albumId,
             ...data,
             artist: {
               "@key": data.artist,
-            }
-          }
-        }
-      })
+            },
+          },
+        },
+      }),
     }),
 
     deleteAlbum: builder.mutation<void, { albumId: string }>({
-      invalidatesTags: (result) => result ? ["albums"] : [],
+      invalidatesTags: (result) => (result ? ["albums"] : []),
       query: ({ albumId }) => ({
         url: "/invoke/deleteAsset",
         method: "DELETE",
@@ -131,12 +133,12 @@ export const albumsApiSlice = apiSlice.injectEndpoints({
           key: {
             "@assetType": "album",
             "@key": albumId,
-          }
-        }
-      })
+          },
+        },
+      }),
     }),
-  })
-})
+  }),
+});
 
 export const {
   useGetAlbumsQuery,
@@ -146,4 +148,4 @@ export const {
   useCreateAlbumMutation,
   useUpdateAlbumMutation,
   useDeleteAlbumMutation,
-} = albumsApiSlice
+} = albumsApiSlice;

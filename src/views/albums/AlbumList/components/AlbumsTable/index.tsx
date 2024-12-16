@@ -6,6 +6,7 @@ import { Album } from "~/types/Album";
 import { OperationButton } from "~/components/shared-components/Table/OperationButton";
 import { useNavigateTo } from "~/hooks/useNavigateTo";
 import { ALBUMS_PREFIX_PATH } from "~/configs/AppConfig";
+import { dateFormatter } from "~/utils/dateFormatter";
 
 interface AlbumsTableProps {
   albums: Album[];
@@ -41,6 +42,12 @@ export function AlbumsTable({
         columns={[
           { dataIndex: "name", title: "Nome do albúm" },
           { dataIndex: "year", title: "Ano de lançamento" },
+
+          {
+            dataIndex: "lastUpdated",
+            title: "Última atualização",
+            render: (album) => dateFormatter(album.lastUpdated),
+          },
 
           {
             title: "",

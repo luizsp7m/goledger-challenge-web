@@ -15,6 +15,8 @@ const sortByOptions = [
   { value: "name:desc", label: "Nome do albúm (Z-A)" },
   { value: "year:asc", label: "Ano (mais antigo)" },
   { value: "year:desc", label: "Ano (mais recente)" },
+  { value: "lastUpdated:asc", label: "Atualização mais antiga" },
+  { value: "lastUpdated:desc", label: "Atualização mais recente" },
 ];
 
 export default function AlbumList() {
