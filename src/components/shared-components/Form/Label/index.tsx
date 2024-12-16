@@ -1,9 +1,9 @@
 import { Container } from "./styles";
 
-interface FormLabelProps {
+interface LabelProps {
   label: string;
 }
 
-export function FormLabel({ label }: FormLabelProps) {
+export function Label({ label }: LabelProps) {
   return <Container>{label}</Container>;
 }

@@ -1,8 +1,15 @@
-import { FormHTMLAttributes } from "react";
-import { Container } from "./styles";
+import { ButtonGroup } from "./ButtonGroup";
+import { Group } from "./Group";
+import { InputErrorMessage } from "./InputErrorMessage";
+import { Label } from "./Label";
+import { Root } from "./Root";
+import { SubmitButton } from "./SubmitButton";
 
-interface FormProps extends FormHTMLAttributes<HTMLFormElement> {}
-
-export function Form({ children, ...props }: FormProps) {
-  return <Container {...props}>{children}</Container>;
-}
+export const Form = {
+  Root,
+  Group,
+  Label,
+  InputErrorMessage,
+  ButtonGroup,
+  SubmitButton,
+};

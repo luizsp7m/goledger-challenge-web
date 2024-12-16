@@ -5,19 +5,15 @@ import { z } from "zod";
 import { Input } from "~/components/shared-components/DataEntry/Input";
 import { Select } from "~/components/shared-components/DataEntry/Select";
 import { Form } from "~/components/shared-components/Form";
-import { FormErrorMessage } from "~/components/shared-components/Form/FormErrorMessage";
-import { FormGroup } from "~/components/shared-components/Form/FormGroup";
-import { FormLabel } from "~/components/shared-components/Form/FormLabel";
-import { SubmitButton } from "~/components/shared-components/Form/SubmitButton";
 import { useLazyGetAlbumsQuery } from "~/store/services/albumsApiSlice";
 import { Song } from "~/types/Song";
 import { errorToast } from "~/utils/errorToast";
+import { successToast } from "~/utils/successToast";
 
 import {
   useCreateSongMutation,
   useUpdateSongMutation,
 } from "~/store/services/songsApiSlice";
-import { successToast } from "~/utils/successToast";
 
 const songSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
@@ -108,15 +104,15 @@ export function SongForm({
   }, [selectedSong, setFocus]);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormGroup>
-        <FormLabel label="Nome da música" />
+    <Form.Root onSubmit={handleSubmit(onSubmit)}>
+      <Form.Group>
+        <Form.Label label="Nome da música" />
         <Input {...register("name")} disabled={!!selectedSong} />
-        <FormErrorMessage error={errors.name} />
-      </FormGroup>
+        <Form.InputErrorMessage error={errors.name?.message} />
+      </Form.Group>
 
-      <FormGroup>
-        <FormLabel label="Álbum" />
+      <Form.Group>
+        <Form.Label label="Álbum" />
 
         <Controller
           control={control}
@@ -143,10 +139,12 @@ export function SongForm({
           )}
         />
 
-        <FormErrorMessage error={errors.album} />
-      </FormGroup>
+        <Form.InputErrorMessage error={errors.album?.message} />
+      </Form.Group>
 
-      <SubmitButton isSubmitting={isSubmitting} />
-    </Form>
+      <Form.ButtonGroup>
+        <Form.SubmitButton isSubmitting={isSubmitting} />
+      </Form.ButtonGroup>
+    </Form.Root>
   );
 }

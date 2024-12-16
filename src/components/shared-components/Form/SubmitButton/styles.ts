@@ -4,7 +4,6 @@ export const Container = styled.button`
   background: ${({ theme }) => theme["primary-color"]};
   padding: ${({ theme }) => theme["gap-3"]} ${({ theme }) => theme["gap-6"]};
   border-radius: 4px;
-  align-self: flex-end;
   display: flex;
   justify-content: center;
   align-items: center;

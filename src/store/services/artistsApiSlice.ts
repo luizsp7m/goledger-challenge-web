@@ -20,6 +20,7 @@ function artistFormatter(artist: ArtistResponseAPI): Artist {
     id: artist["@key"],
     name: artist.name,
     country: artist.country,
+    lastUpdated: artist["@lastUpdated"]
   }
 }
 

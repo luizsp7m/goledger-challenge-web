@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
 import { Container } from "./styles";
 
-interface FormGroupProps {
+interface ButtonGroupProps {
   children: ReactNode;
 }
 
-export function FormGroup({ children }: FormGroupProps) {
+export function ButtonGroup({ children }: ButtonGroupProps) {
   return <Container>{children}</Container>;
 }

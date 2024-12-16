@@ -6,6 +6,7 @@ import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
 import { useNavigateTo } from "~/hooks/useNavigateTo";
 import { useDeleteArtistMutation } from "~/store/services/artistsApiSlice";
 import { Artist } from "~/types/Artist";
+import { dateFormatter } from "~/utils/dateFormatter";
 
 interface ArtistsTableProps {
   artists: Artist[];
@@ -41,6 +42,11 @@ export function ArtistsTable({
         columns={[
           { dataIndex: "name", title: "Nome do artista" },
           { dataIndex: "country", title: "País" },
+          {
+            dataIndex: "lastUpdated",
+            title: "Última atualização",
+            render: (artist) => dateFormatter(artist.lastUpdated),
+          },
 
           {
             title: "",

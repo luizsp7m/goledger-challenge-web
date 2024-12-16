@@ -2,6 +2,7 @@ export type Artist = {
   id: string;
   name: string;
   country: string;
+  lastUpdated: string;
 }
 
 export type ArtistResponseAPI = {

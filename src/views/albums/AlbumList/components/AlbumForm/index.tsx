@@ -5,10 +5,6 @@ import { z } from "zod";
 import { Input } from "~/components/shared-components/DataEntry/Input";
 import { Select } from "~/components/shared-components/DataEntry/Select";
 import { Form } from "~/components/shared-components/Form";
-import { FormErrorMessage } from "~/components/shared-components/Form/FormErrorMessage";
-import { FormGroup } from "~/components/shared-components/Form/FormGroup";
-import { FormLabel } from "~/components/shared-components/Form/FormLabel";
-import { SubmitButton } from "~/components/shared-components/Form/SubmitButton";
 import { useLazyGetArtistsQuery } from "~/store/services/artistsApiSlice";
 import { Album } from "~/types/Album";
 
@@ -16,6 +12,7 @@ import {
   useCreateAlbumMutation,
   useUpdateAlbumMutation,
 } from "~/store/services/albumsApiSlice";
+
 import { errorToast } from "~/utils/errorToast";
 import { successToast } from "~/utils/successToast";
 
@@ -123,21 +120,21 @@ export function AlbumForm({
   }, [selectedAlbum, setFocus]);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormGroup>
-        <FormLabel label="Nome do álbum" />
+    <Form.Root onSubmit={handleSubmit(onSubmit)}>
+      <Form.Group>
+        <Form.Label label="Nome do álbum" />
         <Input {...register("name")} disabled={!!selectedAlbum} />
-        <FormErrorMessage error={errors.name} />
-      </FormGroup>
+        <Form.InputErrorMessage error={errors.name?.message} />
+      </Form.Group>
 
-      <FormGroup>
-        <FormLabel label="Ano de lançamento" />
+      <Form.Group>
+        <Form.Label label="Ano de lançamento" />
         <Input {...register("year")} type="number" />
-        <FormErrorMessage error={errors.year} />
-      </FormGroup>
+        <Form.InputErrorMessage error={errors.year?.message} />
+      </Form.Group>
 
-      <FormGroup>
-        <FormLabel label="Artista" />
+      <Form.Group>
+        <Form.Label label="Artista" />
 
         <Controller
           control={control}
@@ -164,10 +161,12 @@ export function AlbumForm({
           )}
         />
 
-        <FormErrorMessage error={errors.artist} />
-      </FormGroup>
+        <Form.InputErrorMessage error={errors.artist?.message} />
+      </Form.Group>
 
-      <SubmitButton isSubmitting={isSubmitting} />
-    </Form>
+      <Form.ButtonGroup>
+        <Form.SubmitButton isSubmitting={isSubmitting} />
+      </Form.ButtonGroup>
+    </Form.Root>
   );
 }

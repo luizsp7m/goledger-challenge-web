@@ -3,19 +3,15 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Input } from "~/components/shared-components/DataEntry/Input";
 import { Form } from "~/components/shared-components/Form";
-import { FormErrorMessage } from "~/components/shared-components/Form/FormErrorMessage";
-import { FormGroup } from "~/components/shared-components/Form/FormGroup";
-import { FormLabel } from "~/components/shared-components/Form/FormLabel";
-import { SubmitButton } from "~/components/shared-components/Form/SubmitButton";
 import { Artist } from "~/types/Artist";
 import { useEffect } from "react";
 import { errorToast } from "~/utils/errorToast";
+import { successToast } from "~/utils/successToast";
 
 import {
   useCreateArtistMutation,
   useUpdateArtistMutation,
 } from "~/store/services/artistsApiSlice";
-import { successToast } from "~/utils/successToast";
 
 const artistSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
@@ -86,20 +82,22 @@ export function ArtistForm({
   }, [selectedArtist, setFocus]);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormGroup>
-        <FormLabel label="Nome do artista: " />
+    <Form.Root onSubmit={handleSubmit(onSubmit)}>
+      <Form.Group>
+        <Form.Label label="Nome do artista: " />
         <Input {...register("name")} disabled={!!selectedArtist} />
-        <FormErrorMessage error={errors.name} />
-      </FormGroup>
+        <Form.InputErrorMessage error={errors.name?.message} />
+      </Form.Group>
 
-      <FormGroup>
-        <FormLabel label="País: " />
+      <Form.Group>
+        <Form.Label label="País: " />
         <Input {...register("country")} />
-        <FormErrorMessage error={errors.country} />
-      </FormGroup>
+        <Form.InputErrorMessage error={errors.country?.message} />
+      </Form.Group>
 
-      <SubmitButton isSubmitting={isSubmitting} />
-    </Form>
+      <Form.ButtonGroup>
+        <Form.SubmitButton isSubmitting={isSubmitting} />
+      </Form.ButtonGroup>
+    </Form.Root>
   );
 }

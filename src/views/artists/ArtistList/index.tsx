@@ -15,6 +15,8 @@ const sortByOptions = [
   { value: "name:desc", label: "Nome do artista (Z-A)" },
   { value: "country:asc", label: "País (A-Z)" },
   { value: "country:desc", label: "País (Z-A)" },
+  { value: "lastUpdated:asc", label: "Atualização mais antiga" },
+  { value: "lastUpdated:desc", label: "Atualização mais recente" },
 ];
 
 export default function ArtistList() {

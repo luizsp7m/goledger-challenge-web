@@ -3,22 +3,18 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Input } from "~/components/shared-components/DataEntry/Input";
 import { Form } from "~/components/shared-components/Form";
-import { FormErrorMessage } from "~/components/shared-components/Form/FormErrorMessage";
-import { FormGroup } from "~/components/shared-components/Form/FormGroup";
-import { FormLabel } from "~/components/shared-components/Form/FormLabel";
-import { SubmitButton } from "~/components/shared-components/Form/SubmitButton";
 import { Playlist } from "~/types/Playlist";
 import { SongList } from "./components/SongList";
 import { Song } from "~/types/Song";
 import { Checkbox } from "~/components/shared-components/DataEntry/Switch";
 import { useEffect } from "react";
 import { errorToast } from "~/utils/errorToast";
+import { successToast } from "~/utils/successToast";
 
 import {
   useCreatePlaylistMutation,
   useUpdatePlaylistMutation,
 } from "~/store/services/playlistsApiSlice";
-import { successToast } from "~/utils/successToast";
 
 const playlistSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
@@ -113,27 +109,29 @@ export function PlaylistForm({
   }, [selectedPlaylist, setFocus]);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormGroup>
-        <FormLabel label="Nome da playlist: " />
+    <Form.Root onSubmit={handleSubmit(onSubmit)}>
+      <Form.Group>
+        <Form.Label label="Nome da playlist: " />
         <Input {...register("name")} disabled={!!selectedPlaylist} />
-        <FormErrorMessage error={errors.name} />
-      </FormGroup>
+        <Form.InputErrorMessage error={errors.name?.message} />
+      </Form.Group>
 
-      <FormGroup>
-        <FormLabel label="Selecione as músicas da playlist: " />
+      <Form.Group>
+        <Form.Label label="Selecione as músicas da playlist: " />
 
         <SongList
           selectedSongIds={selectedSongIds}
           handleSelectSong={handleSelectSong}
         />
 
-        <FormErrorMessage error={errors.songs} />
-      </FormGroup>
+        <Form.InputErrorMessage error={errors.songs?.message} />
+      </Form.Group>
 
       <Checkbox label="Está playlist é privada" {...register("private")} />
 
-      <SubmitButton isSubmitting={isSubmitting} />
-    </Form>
+      <Form.ButtonGroup>
+        <Form.SubmitButton isSubmitting={isSubmitting} />
+      </Form.ButtonGroup>
+    </Form.Root>
   );
 }
