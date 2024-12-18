@@ -4,6 +4,7 @@ import { Song } from "~/types/Song";
 import { Album } from "~/types/Album";
 import { Artist } from "~/types/Artist";
 import { Link } from "react-router-dom";
+import { ALBUMS_PREFIX_PATH, ARTISTS_PREFIX_PATH } from "~/configs/AppConfig";
 
 interface SongItemProps {
   song: Song;
@@ -37,7 +38,10 @@ export function SongItem({ song, order, album, artist }: SongItemProps) {
           <h5 className="truncate">{song.name}</h5>
 
           {artist ? (
-            <Link to={`/artists/${artist.id}`} className="truncate">
+            <Link
+              to={`${ARTISTS_PREFIX_PATH}/${artist.id}`}
+              className="truncate"
+            >
               {artist.name}
             </Link>
           ) : (
@@ -48,7 +52,7 @@ export function SongItem({ song, order, album, artist }: SongItemProps) {
 
       <div className="grid-item-2">
         {album ? (
-          <Link to={`/albums/${album.id}`} className="truncate">
+          <Link to={`${ALBUMS_PREFIX_PATH}/${album.id}`} className="truncate">
             {album.name}
           </Link>
         ) : (

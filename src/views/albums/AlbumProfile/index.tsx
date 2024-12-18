@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { DataLoading } from "~/components/shared-components/DataLoading";
 import { ErrorMessage } from "~/components/shared-components/ErrorMessage";
 import { useLazyGetAlbumQuery } from "~/store/services/albumsApiSlice";
 import { useLazyGetArtistQuery } from "~/store/services/artistsApiSlice";
 import { useLazyGetSongsByAlbumsQuery } from "~/store/services/songsApiSlice";
 import { GoBackButton } from "~/components/shared-components/ProfilePage/GoBackButton";
-import { ArtistItem } from "~/components/shared-components/ProfilePage/ArtistItem";
 import { SongItem } from "~/components/shared-components/ProfilePage/SongItem";
-import { AlbumItem } from "~/components/shared-components/ProfilePage/AlbumItem";
 import { ProfilePage } from "~/components/shared-components/ProfilePage";
-import { truncateText } from "~/utils/truncateText";
+import { AlbumHeader } from "./styles";
+import { VinylRecord } from "@phosphor-icons/react";
+import { ARTISTS_PREFIX_PATH } from "~/configs/AppConfig";
 
 export default function AlbumProfile() {
   const [isLoadingInformation, setIsLoadingInformation] = useState(true);
@@ -58,22 +58,26 @@ export default function AlbumProfile() {
     <ProfilePage.Container>
       <GoBackButton />
 
-      <ProfilePage.Heading
-        heading={`Você está vendo a página do álbum ${truncateText(
-          albumResponse.name,
-          48
-        )}`}
-      />
+      <AlbumHeader>
+        <div className="icon-wrapper">
+          <VinylRecord />
+        </div>
 
-      <ArtistItem artist={artistResponse} />
+        <div className="album-information">
+          <h3 className="truncate">{albumResponse.name}</h3>
 
-      <ProfilePage.AlbumSection>
-        <ProfilePage.Title title="Detalhes do álbum" />
+          <Link
+            to={`${ARTISTS_PREFIX_PATH}/${artistResponse.id}`}
+            className="truncate"
+          >
+            {artistResponse.name}
+          </Link>
 
-        <ProfilePage.AlbumList>
-          <AlbumItem album={albumResponse} />
-        </ProfilePage.AlbumList>
-      </ProfilePage.AlbumSection>
+          <span className="truncate">
+            Quantidade de músicas do álbum: {songsByAlbumsResponse.songs.length}
+          </span>
+        </div>
+      </AlbumHeader>
 
       {songsByAlbumsResponse.songs.length > 0 && (
         <ProfilePage.SongSection>

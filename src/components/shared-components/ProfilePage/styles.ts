@@ -13,9 +13,10 @@ export const Heading = styled.h1`
 `;
 
 export const Title = styled.h2`
-  font-size: ${({ theme }) => theme["text-sm"]};
-  color: ${({ theme }) => theme["text-color-secondary"]};
+  font-size: ${({ theme }) => theme["text-md"]};
+  color: ${({ theme }) => theme["text-color-primary"]};
   margin-bottom: 0.5rem;
+  font-weight: 500;
 `;
 
 export const Subtitle = styled.span`

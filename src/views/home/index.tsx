@@ -36,12 +36,12 @@ export default function Home() {
 
   const albumList = useMemo(() => {
     if (!albumsResponse) return [];
-    return getArraySlice(albumsResponse.albums, 8);
+    return getArraySlice(albumsResponse.albums, 6);
   }, [albumsResponse]);
 
   const songList = useMemo(() => {
     if (!songsResponse) return [];
-    return getArraySlice(songsResponse.songs, 8);
+    return getArraySlice(songsResponse.songs, 10);
   }, [songsResponse]);
 
   useEffect(() => {
