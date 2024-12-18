@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme["gap-3"]};
+  gap: ${({ theme }) => theme["gap-6"]};
 `;
 
 export const Heading = styled.h1`

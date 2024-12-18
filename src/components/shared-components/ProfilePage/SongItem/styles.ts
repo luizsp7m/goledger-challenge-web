@@ -4,16 +4,15 @@ export const Container = styled.div`
   background: ${({ theme }) => theme["background-color-tertiary"]};
   border-radius: 4px;
   padding: ${({ theme }) => theme["p-3"]} ${({ theme }) => theme["p-6"]};
+
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
-  justify-content: space-between;
   gap: ${({ theme }) => theme["gap-3"]};
 
   div.grid-item-1,
   div.grid-item-2,
   div.grid-item-3 {
-    width: 100%;
     overflow: hidden;
 
     a,
@@ -72,5 +71,21 @@ export const Container = styled.div`
 
   div.grid-item-3 {
     text-align: end;
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+
+    div.grid-item-1 {
+      flex: 1;
+    }
+
+    div.grid-item-2 {
+      display: none;
+    }
+
+    div.grid-item-3 {
+      width: auto;
+    }
   }
 `;

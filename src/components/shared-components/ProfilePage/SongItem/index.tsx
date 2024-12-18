@@ -50,7 +50,7 @@ export function SongItem({ song, order, album, artist }: SongItemProps) {
         </div>
       </div>
 
-      <div className="grid-item-2">
+      <div className="grid-item-2 truncate">
         {album ? (
           <Link to={`${ALBUMS_PREFIX_PATH}/${album.id}`} className="truncate">
             {album.name}

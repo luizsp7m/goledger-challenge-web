@@ -8,6 +8,7 @@ export const Container = styled.button`
   color: ${({ theme }) => theme["text-color-secondary"]};
   transition: color 0.15s ease-in-out;
   cursor: pointer;
+  margin-bottom: -0.25rem;
 
   svg {
     font-size: 1rem;
