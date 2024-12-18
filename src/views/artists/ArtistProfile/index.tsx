@@ -10,7 +10,6 @@ import { AlbumItem } from "~/components/shared-components/ProfilePage/AlbumItem"
 import { ArtistItem } from "~/components/shared-components/ProfilePage/ArtistItem";
 import { GoBackButton } from "~/components/shared-components/ProfilePage/GoBackButton";
 import { ProfilePage } from "~/components/shared-components/ProfilePage";
-import { truncateText } from "~/utils/truncateText";
 import { useAlbumsById } from "~/hooks/useAlbumsById";
 import { findAlbumByAlbumId } from "~/utils/findAlbumByAlbumId";
 
@@ -88,13 +87,6 @@ export default function ArtistProfile() {
   return (
     <ProfilePage.Container>
       <GoBackButton />
-
-      <ProfilePage.Heading
-        heading={`Você está vendo a página do artista ${truncateText(
-          artistResponse.name,
-          48
-        )}`}
-      />
 
       <ArtistItem
         artist={artistResponse}

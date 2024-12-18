@@ -74,6 +74,10 @@ export default function AlbumProfile() {
           </Link>
 
           <span className="truncate">
+            Ano de lançamento: {albumResponse.year}
+          </span>
+
+          <span className="truncate">
             Quantidade de músicas do álbum: {songsByAlbumsResponse.songs.length}
           </span>
         </div>

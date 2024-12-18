@@ -10,7 +10,7 @@ export const AlbumHeader = styled.div`
     justify-content: center;
     align-items: center;
     background: ${({ theme }) => theme["background-color-tertiary"]};
-    border-radius: 999px;
+    border-radius: 4px;
 
     height: 128px;
     width: 128px;
@@ -35,6 +35,7 @@ export const AlbumHeader = styled.div`
     }
 
     a {
+      align-self: flex-start;
       font-size: ${({ theme }) => theme["text-sm"]};
       color: ${({ theme }) => theme["text-color-primary"]};
       text-decoration: none;
@@ -56,6 +57,10 @@ export const AlbumHeader = styled.div`
 
     div.album-information {
       text-align: center;
+
+      a {
+        align-self: center;
+      }
     }
   }
 `;
