@@ -84,8 +84,9 @@ export default function AlbumProfile() {
               <SongItem
                 key={song.id}
                 order={index + 1}
-                albumName={albumResponse.name}
+                album={albumResponse}
                 song={song}
+                artist={artistResponse}
               />
             ))}
           </ProfilePage.SongList>

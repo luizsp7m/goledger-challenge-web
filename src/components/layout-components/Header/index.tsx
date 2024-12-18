@@ -6,7 +6,7 @@ import {
   List,
   MusicNotes,
   Playlist,
-  Queue,
+  VinylRecord,
   Users,
 } from "@phosphor-icons/react";
 
@@ -29,7 +29,7 @@ const NAV_ITEMS = [
   {
     title: "Álbuns",
     route: ALBUMS_PREFIX_PATH,
-    icon: <Queue size={16} weight="bold" />,
+    icon: <VinylRecord size={16} weight="bold" />,
   },
 
   {

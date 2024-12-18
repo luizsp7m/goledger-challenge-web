@@ -1,44 +1,41 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  background: ${({ theme }) => theme["background-color-tertiary"]};
-  border-radius: 4px;
-  padding: ${({ theme }) => theme["p-3"]};
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   gap: ${({ theme }) => theme["gap-3"]};
-  overflow: hidden;
 
   cursor: pointer;
-  transition: opacity 0.10s ease-in-out;
+  transition: opacity 0.1s ease-in-out;
 
   &:hover {
     opacity: 0.85;
   }
 
   div.icon-wrapper {
-    display: flex;
-    background: ${({ theme }) => theme["background-color-secondary"]};
-    width: 42px;
-    height: 42px;
-    border-radius: 36px;
+    background: ${({ theme }) => theme["background-color-tertiary"]};
+    border-radius: 4px;
+
+    width: 100%;
+    aspect-ratio: 1/1;
+
     display: flex;
     justify-content: center;
     align-items: center;
 
     svg {
-      font-size: 1.25rem;
+      font-size: 5rem;
       color: ${({ theme }) => theme["text-color-secondary"]};
     }
   }
 
   div.album-information {
     flex: 1;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
-
-    overflow: hidden;
 
     h5 {
       font-size: ${({ theme }) => theme["text-sm"]};

@@ -8,6 +8,12 @@ import { SongItem } from "~/components/shared-components/ProfilePage/SongItem";
 import { GoBackButton } from "~/components/shared-components/ProfilePage/GoBackButton";
 import { ProfilePage } from "~/components/shared-components/ProfilePage";
 import { truncateText } from "~/utils/truncateText";
+import { useLazyGetAlbumsQuery } from "~/store/services/albumsApiSlice";
+import { useLazyGetArtistsQuery } from "~/store/services/artistsApiSlice";
+import { useArtistsById } from "~/hooks/useArtistsById";
+import { useAlbumsById } from "~/hooks/useAlbumsById";
+import { findArtistBySongId } from "~/utils/findArtistByAlbumId";
+import { findAlbumByAlbumId } from "~/utils/findAlbumByAlbumId";
 
 export default function PlaylistProfile() {
   const [isLoadingInformation, setIsLoadingInformation] = useState(true);
@@ -16,6 +22,8 @@ export default function PlaylistProfile() {
 
   const [getPlaylist, { data: playlistResponse }] = useLazyGetPlaylistQuery();
   const [getSongs, { data: songsResponse }] = useLazyGetSongsQuery();
+  const [getAlbums, { data: albumsResponse }] = useLazyGetAlbumsQuery();
+  const [getArtists, { data: artistsResponse }] = useLazyGetArtistsQuery();
 
   const playlistSongs = useMemo(() => {
     if (playlistResponse && songsResponse) {
@@ -27,10 +35,17 @@ export default function PlaylistProfile() {
     return [];
   }, [playlistResponse, songsResponse]);
 
+  const { albumsById } = useAlbumsById(albumsResponse?.albums);
+  const { artistsById } = useArtistsById(artistsResponse?.artists);
+
   async function fetchInformation(playlistId: string) {
     try {
-      await getPlaylist({ playlistId }).unwrap();
-      await getSongs().unwrap();
+      await Promise.all([
+        getPlaylist({ playlistId }).unwrap(),
+        getSongs().unwrap(),
+        getAlbums().unwrap(),
+        getArtists().unwrap(),
+      ]);
     } catch (error) {
       console.log(error);
     } finally {
@@ -87,7 +102,20 @@ export default function PlaylistProfile() {
           ) : (
             <ProfilePage.SongList>
               {playlistSongs.map((song, index) => (
-                <SongItem key={song.id} order={index + 1} song={song} />
+                <SongItem
+                  key={song.id}
+                  order={index + 1}
+                  song={song}
+                  album={findAlbumByAlbumId({
+                    albumId: song.albumId,
+                    albumsById,
+                  })}
+                  artist={findArtistBySongId({
+                    albumId: song.albumId,
+                    albumsById,
+                    artistsById,
+                  })}
+                />
               ))}
             </ProfilePage.SongList>
           )}

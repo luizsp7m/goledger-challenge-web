@@ -11,6 +11,10 @@ import { ProfilePage } from "~/components/shared-components/ProfilePage";
 import { SongItem } from "~/components/shared-components/ProfilePage/SongItem";
 import { ArtistItem } from "~/components/shared-components/ProfilePage/ArtistItem";
 import { getArraySlice } from "./utils/getArraySlice";
+import { useAlbumsById } from "~/hooks/useAlbumsById";
+import { useArtistsById } from "~/hooks/useArtistsById";
+import { findAlbumByAlbumId } from "~/utils/findAlbumByAlbumId";
+import { findArtistBySongId } from "~/utils/findArtistByAlbumId";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,6 +25,9 @@ export default function Home() {
 
   const [getPlaylists, { data: playlistsResponse }] =
     useLazyGetPlaylistsQuery();
+
+  const { albumsById } = useAlbumsById(albumsResponse?.albums);
+  const { artistsById } = useArtistsById(artistsResponse?.artists);
 
   const artistList = useMemo(() => {
     if (!artistsResponse) return [];
@@ -77,7 +84,13 @@ export default function Home() {
 
           <ProfilePage.AlbumList>
             {albumList.map((album) => (
-              <AlbumItem key={album.id} album={album} />
+              <AlbumItem
+                key={album.id}
+                album={album}
+                artistName={
+                  artistsById[album.artistId]?.name ?? "Artista não encontrado"
+                }
+              />
             ))}
           </ProfilePage.AlbumList>
         </ProfilePage.AlbumSection>
@@ -88,9 +101,24 @@ export default function Home() {
           <ProfilePage.Title title="As mais tocadas da semana" />
 
           <ProfilePage.SongList>
-            {songList.map((song, index) => (
-              <SongItem key={song.id} song={song} order={index + 1} />
-            ))}
+            {songList.map((song, index) => {
+              return (
+                <SongItem
+                  key={song.id}
+                  order={index + 1}
+                  song={song}
+                  album={findAlbumByAlbumId({
+                    albumId: song.albumId,
+                    albumsById,
+                  })}
+                  artist={findArtistBySongId({
+                    albumId: song.albumId,
+                    albumsById,
+                    artistsById,
+                  })}
+                />
+              );
+            })}
           </ProfilePage.SongList>
         </ProfilePage.SongSection>
       )}

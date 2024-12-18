@@ -4,29 +4,37 @@ export const Container = styled.div`
   background: ${({ theme }) => theme["background-color-tertiary"]};
   border-radius: 4px;
   padding: ${({ theme }) => theme["p-3"]} ${({ theme }) => theme["p-6"]};
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   align-items: center;
+  justify-content: space-between;
   gap: ${({ theme }) => theme["gap-3"]};
 
-  cursor: pointer;
-  transition: opacity 0.10s ease-in-out;
-
-  &:hover {
-    opacity: 0.85;
-  }
-
-  div.left-side {
-    flex: 1;
+  div.grid-item-1,
+  div.grid-item-2,
+  div.grid-item-3 {
+    width: 100%;
     overflow: hidden;
 
-    display: flex;
-    align-items: center;
-    gap: ${({ theme }) => theme["gap-3"]};
-
+    a,
     span {
       color: ${({ theme }) => theme["text-color-secondary"]};
       font-size: ${({ theme }) => theme["text-sm"]};
     }
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  div.grid-item-1 {
+    display: flex;
+    align-items: center;
+    gap: ${({ theme }) => theme["gap-3"]};
 
     div.icon-wrapper {
       display: flex;
@@ -55,19 +63,14 @@ export const Container = styled.div`
         font-size: ${({ theme }) => theme["text-sm"]};
         color: ${({ theme }) => theme["text-color-secondary"]};
       }
-
-      span {
-        display: block;
-        color: ${({ theme }) => theme["text-color-secondary"]};
-        font-size: ${({ theme }) => theme["text-sm"]};
-      }
     }
   }
 
-  div.right-side {
-    span {
-      color: ${({ theme }) => theme["text-color-secondary"]};
-      font-size: ${({ theme }) => theme["text-sm"]};
-    }
+  div.grid-item-2 {
+    text-align: center;
+  }
+
+  div.grid-item-3 {
+    text-align: end;
   }
 `;

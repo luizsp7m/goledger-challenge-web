@@ -1,13 +1,15 @@
 import { MusicNotes } from "@phosphor-icons/react";
 import { Container } from "./styles";
 import { Song } from "~/types/Song";
-import { useNavigateTo } from "~/hooks/useNavigateTo";
-import { SONGS_PREFIX_PATH } from "~/configs/AppConfig";
+import { Album } from "~/types/Album";
+import { Artist } from "~/types/Artist";
+import { Link } from "react-router-dom";
 
 interface SongItemProps {
   song: Song;
   order: number;
-  albumName?: string;
+  album: Album | null;
+  artist: Artist | null;
 }
 
 function getRandomInt(max: number) {
@@ -21,14 +23,10 @@ function randomTime() {
   return `${minute}:${(seconds + "").padStart(2, "0")}`;
 }
 
-export function SongItem({ song, order, albumName }: SongItemProps) {
-  const { handleNavigateTo } = useNavigateTo();
-
+export function SongItem({ song, order, album, artist }: SongItemProps) {
   return (
-    <Container
-      onClick={() => handleNavigateTo(`${SONGS_PREFIX_PATH}/${song.id}`)}
-    >
-      <div className="left-side">
+    <Container>
+      <div className="grid-item-1">
         <span>{order}. </span>
 
         <div className="icon-wrapper">
@@ -37,12 +35,29 @@ export function SongItem({ song, order, albumName }: SongItemProps) {
 
         <div className="song-information">
           <h5 className="truncate">{song.name}</h5>
-          {albumName && <span className="truncate">{albumName}</span>}
+
+          {artist ? (
+            <Link to={`/artists/${artist.id}`} className="truncate">
+              {artist.name}
+            </Link>
+          ) : (
+            <span className="truncate">Artista desconhecido</span>
+          )}
         </div>
       </div>
 
-      <div className="right-side">
-        <span>{randomTime()}</span>
+      <div className="grid-item-2">
+        {album ? (
+          <Link to={`/albums/${album.id}`} className="truncate">
+            {album.name}
+          </Link>
+        ) : (
+          <span className="truncate">Álbum desconhecido</span>
+        )}
+      </div>
+
+      <div className="grid-item-3">
+        <span className="truncate">{randomTime()}</span>
       </div>
     </Container>
   );

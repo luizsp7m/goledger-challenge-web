@@ -1,9 +1,7 @@
 import { ConfirmDelete } from "~/components/shared-components/ConfirmDelete";
 import { Table, TablePagination } from "~/components/shared-components/Table";
 import { OperationButton } from "~/components/shared-components/Table/OperationButton";
-import { SONGS_PREFIX_PATH } from "~/configs/AppConfig";
 import { useConfirmDeleteModal } from "~/hooks/useConfirmDeleteModal";
-import { useNavigateTo } from "~/hooks/useNavigateTo";
 import { useDeleteSongMutation } from "~/store/services/songsApiSlice";
 import { Song } from "~/types/Song";
 import { dateFormatter } from "~/utils/dateFormatter";
@@ -30,8 +28,6 @@ export function SongsTable({
     handleCloseConfirmDeleteModal,
   } = useConfirmDeleteModal<Song>();
 
-  const { handleNavigateTo } = useNavigateTo();
-
   return (
     <>
       <Table
@@ -45,19 +41,6 @@ export function SongsTable({
             dataIndex: "lastUpdated",
             title: "Última atualização",
             render: (song) => dateFormatter(song.lastUpdated),
-          },
-
-          {
-            title: "",
-            width: 48,
-            render: (album) => (
-              <OperationButton
-                operationType="view"
-                onClick={() =>
-                  handleNavigateTo(`${SONGS_PREFIX_PATH}/${album.id}`)
-                }
-              />
-            ),
           },
 
           {

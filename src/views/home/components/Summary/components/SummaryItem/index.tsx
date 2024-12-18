@@ -1,6 +1,11 @@
 import { Container } from "./styles";
 
-import { MusicNotes, Playlist, Queue, Users } from "@phosphor-icons/react";
+import {
+  MusicNotes,
+  Playlist,
+  VinylRecord,
+  Users,
+} from "@phosphor-icons/react";
 
 interface SummaryItemProps {
   assetType: "artists" | "albums" | "songs" | "playlists";
@@ -19,7 +24,7 @@ export function SummaryItem({
     <Container>
       <div>
         {assetType === "artists" && <Users weight="bold" />}
-        {assetType === "albums" && <Queue weight="bold" />}
+        {assetType === "albums" && <VinylRecord weight="bold" />}
         {assetType === "songs" && <MusicNotes weight="bold" />}
         {assetType === "playlists" && <Playlist weight="bold" />}
       </div>

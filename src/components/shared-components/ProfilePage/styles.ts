@@ -37,7 +37,7 @@ export const AlbumSection = styled.div``;
 
 export const AlbumList = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(273px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: ${({ theme }) => theme["gap-3"]};
 `;
 
