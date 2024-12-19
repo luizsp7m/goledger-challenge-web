@@ -1,11 +1,24 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const Container = styled.div`
+interface ContainerProps {
+  $alternativeStyle: boolean;
+}
+
+export const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: ${({ theme }) => theme["gap-2"]};
   padding: 3rem;
+
+  ${({ $alternativeStyle }) =>
+    $alternativeStyle &&
+    css`
+      flex-direction: row;
+      background: rgba(255, 118, 117, 0.15);
+      padding: 1rem;
+      border-radius: 4px;
+    `}
 
   svg {
     color: ${({ theme }) => theme["danger-color"]};

@@ -46,8 +46,13 @@ export default function PlaylistsList() {
         handleOpenModalForm={handleOpenFormModal}
       />
 
-      {playlistsIsLoading && <DataLoading />}
-      {playlistsIsError && <ErrorMessage />}
+      {(playlistsIsLoading || (!playlistsData && playlistsIsFetching)) && (
+        <DataLoading />
+      )}
+
+      {playlistsIsError && (
+        <ErrorMessage message="Não foi possível carregar a lista de playlists" />
+      )}
 
       {!playlistsIsLoading && !playlistsIsError && playlistsData && (
         <PlaylistsTable

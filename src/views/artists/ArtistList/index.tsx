@@ -49,8 +49,13 @@ export default function ArtistList() {
         handleOpenModalForm={handleOpenFormModal}
       />
 
-      {artistsIsLoading && <DataLoading />}
-      {artistsIsError && <ErrorMessage />}
+      {(artistsIsLoading || (!artistsData && artistsIsFetching)) && (
+        <DataLoading />
+      )}
+
+      {artistsIsError && (
+        <ErrorMessage message="Não foi possível carregar a lista de artistas" />
+      )}
 
       {!artistsIsLoading && !artistsIsError && artistsData && (
         <ArtistsTable

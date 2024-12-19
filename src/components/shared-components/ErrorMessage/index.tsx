@@ -6,14 +6,16 @@ import { HOME_PREFIX_PATH } from "~/configs/AppConfig";
 interface ErrorMessageProps {
   message?: string;
   showRedirectToHomeButton?: boolean;
+  alternativeStyle?: boolean;
 }
 
 export function ErrorMessage({
   message = "Ocorreu um erro inesperado",
   showRedirectToHomeButton = false,
+  alternativeStyle = false,
 }: ErrorMessageProps) {
   return (
-    <Container>
+    <Container $alternativeStyle={alternativeStyle}>
       <Warning />
       <span>{message}</span>
 

@@ -4,6 +4,7 @@ import { Modal } from "../Modal";
 import { Container } from "./styles";
 import { errorToast } from "~/utils/errorToast";
 import { successToast } from "~/utils/successToast";
+import { errorMessageHandler } from "~/utils/errorMessageHandler";
 
 interface ConfirmDeleteProps {
   modalIsOpen: boolean;
@@ -24,8 +25,7 @@ export function ConfirmDelete({
       handleCloseModal();
       successToast("Registro removido com sucesso");
     } catch (error) {
-      errorToast("Não foi possível excluir o registro");
-      console.log(error);
+      errorToast(errorMessageHandler(error));
     }
   }
 

@@ -15,13 +15,19 @@ import { useAlbumsById } from "~/hooks/useAlbumsById";
 import { useArtistsById } from "~/hooks/useArtistsById";
 import { findAlbumByAlbumId } from "~/utils/findAlbumByAlbumId";
 import { findArtistBySongId } from "~/utils/findArtistByAlbumId";
+import { ErrorMessage } from "~/components/shared-components/ErrorMessage";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
-  const [getArtists, { data: artistsResponse }] = useLazyGetArtistsQuery();
-  const [getAlbums, { data: albumsResponse }] = useLazyGetAlbumsQuery();
-  const [getSongs, { data: songsResponse }] = useLazyGetSongsQuery();
+  const [getArtists, { data: artistsResponse, isError: artistsIsError }] =
+    useLazyGetArtistsQuery();
+
+  const [getAlbums, { data: albumsResponse, isError: albumsIsError }] =
+    useLazyGetAlbumsQuery();
+
+  const [getSongs, { data: songsResponse, isError: songsIsError }] =
+    useLazyGetSongsQuery();
 
   const [getPlaylists, { data: playlistsResponse }] =
     useLazyGetPlaylistsQuery();
@@ -66,62 +72,90 @@ export default function Home() {
         playlists={playlistsResponse?.playlists}
       />
 
-      {artistList.length > 0 && (
-        <ProfilePage.ArtistSection>
-          <ProfilePage.Title title="Os melhores artistas" />
+      <>
+        {artistsIsError && (
+          <ErrorMessage
+            message="Ocorreu um erro ao obter os artistas"
+            alternativeStyle
+          />
+        )}
 
-          <ProfilePage.ArtistList>
-            {artistList.map((artist) => (
-              <ArtistItem key={artist.id} artist={artist} />
-            ))}
-          </ProfilePage.ArtistList>
-        </ProfilePage.ArtistSection>
-      )}
+        {artistList.length > 0 && (
+          <ProfilePage.ArtistSection>
+            <ProfilePage.Title title="Os melhores artistas" />
 
-      {albumList.length > 0 && (
-        <ProfilePage.AlbumSection>
-          <ProfilePage.Title title="Os melhores álbuns" />
+            <ProfilePage.ArtistList>
+              {artistList.map((artist) => (
+                <ArtistItem key={artist.id} artist={artist} />
+              ))}
+            </ProfilePage.ArtistList>
+          </ProfilePage.ArtistSection>
+        )}
+      </>
 
-          <ProfilePage.AlbumList>
-            {albumList.map((album) => (
-              <AlbumItem
-                key={album.id}
-                album={album}
-                artistName={
-                  artistsById[album.artistId]?.name ?? "Artista não encontrado"
-                }
-              />
-            ))}
-          </ProfilePage.AlbumList>
-        </ProfilePage.AlbumSection>
-      )}
+      <>
+        {albumsIsError && (
+          <ErrorMessage
+            message="Ocorreu um erro ao obter os álbuns"
+            alternativeStyle
+          />
+        )}
 
-      {songList.length > 0 && (
-        <ProfilePage.SongSection>
-          <ProfilePage.Title title="As mais tocadas da semana" />
+        {albumList.length > 0 && (
+          <ProfilePage.AlbumSection>
+            <ProfilePage.Title title="Os melhores álbuns" />
 
-          <ProfilePage.SongList>
-            {songList.map((song, index) => {
-              return (
-                <SongItem
-                  key={song.id}
-                  order={index + 1}
-                  song={song}
-                  album={findAlbumByAlbumId({
-                    albumId: song.albumId,
-                    albumsById,
-                  })}
-                  artist={findArtistBySongId({
-                    albumId: song.albumId,
-                    albumsById,
-                    artistsById,
-                  })}
+            <ProfilePage.AlbumList>
+              {albumList.map((album) => (
+                <AlbumItem
+                  key={album.id}
+                  album={album}
+                  artistName={
+                    artistsById[album.artistId]?.name ??
+                    "Artista não encontrado"
+                  }
                 />
-              );
-            })}
-          </ProfilePage.SongList>
-        </ProfilePage.SongSection>
-      )}
+              ))}
+            </ProfilePage.AlbumList>
+          </ProfilePage.AlbumSection>
+        )}
+      </>
+
+      <>
+        {songsIsError && (
+          <ErrorMessage
+            message="Ocorreu um erro ao obter as músicas"
+            alternativeStyle
+          />
+        )}
+
+        {songList.length > 0 && (
+          <ProfilePage.SongSection>
+            <ProfilePage.Title title="As mais tocadas da semana" />
+
+            <ProfilePage.SongList>
+              {songList.map((song, index) => {
+                return (
+                  <SongItem
+                    key={song.id}
+                    order={index + 1}
+                    song={song}
+                    album={findAlbumByAlbumId({
+                      albumId: song.albumId,
+                      albumsById,
+                    })}
+                    artist={findArtistBySongId({
+                      albumId: song.albumId,
+                      albumsById,
+                      artistsById,
+                    })}
+                  />
+                );
+              })}
+            </ProfilePage.SongList>
+          </ProfilePage.SongSection>
+        )}
+      </>
     </Container>
   );
 }

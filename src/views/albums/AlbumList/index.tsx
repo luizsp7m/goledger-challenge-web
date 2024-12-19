@@ -49,8 +49,13 @@ export default function AlbumList() {
         handleOpenModalForm={handleOpenFormModal}
       />
 
-      {albumsIsLoading && <DataLoading />}
-      {albumsIsError && <ErrorMessage />}
+      {(albumsIsLoading || (!albumsData && albumsIsFetching)) && (
+        <DataLoading />
+      )}
+
+      {albumsIsError && (
+        <ErrorMessage message="Não foi possível carregar a lista de álbums" />
+      )}
 
       {!albumsIsLoading && !albumsIsError && albumsData && (
         <AlbumsTable

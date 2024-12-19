@@ -4,7 +4,7 @@ import { QuerySearchResponse } from "~/types/QuerySearchResponse";
 import { ArtistFormData } from "~/views/artists/ArtistList/components/ArtistForm";
 
 interface ArtistsResponse {
-  artists: Artist[]
+  artists: Artist[];
 }
 
 interface CreateArtistRequest {
@@ -20,8 +20,8 @@ function artistFormatter(artist: ArtistResponseAPI): Artist {
     id: artist["@key"],
     name: artist.name,
     country: artist.country,
-    lastUpdated: artist["@lastUpdated"]
-  }
+    lastUpdated: artist["@lastUpdated"],
+  };
 }
 
 export const artistsApiSlice = apiSlice.injectEndpoints({
@@ -34,17 +34,17 @@ export const artistsApiSlice = apiSlice.injectEndpoints({
         body: {
           query: {
             selector: {
-              "@assetType": "artist"
-            }
-          }
-        }
+              "@assetType": "artist",
+            },
+          },
+        },
       }),
 
       transformResponse: (response: QuerySearchResponse<ArtistResponseAPI>) => {
         return {
-          artists: response.result.map(artistFormatter)
-        }
-      }
+          artists: response.result.map(artistFormatter),
+        };
+      },
     }),
 
     getArtist: builder.query<Artist, { artistId: string }>({
@@ -55,47 +55,48 @@ export const artistsApiSlice = apiSlice.injectEndpoints({
         body: {
           key: {
             "@assetType": "artist",
-            "@key": artistId
-          }
-        }
+            "@key": artistId,
+          },
+        },
       }),
 
-      transformResponse: (response: ArtistResponseAPI) => artistFormatter(response)
+      transformResponse: (response: ArtistResponseAPI) =>
+        artistFormatter(response),
     }),
 
     createArtist: builder.mutation<void, CreateArtistRequest>({
-      invalidatesTags: (result) => result ? ["artists"] : [],
+      invalidatesTags: (result) => (result ? ["artists"] : []),
       query: ({ data }) => ({
         url: "/invoke/createAsset",
         method: "POST",
         body: {
-          "asset": [
+          asset: [
             {
               "@assetType": "artist",
               ...data,
-            }
-          ]
-        }
-      })
+            },
+          ],
+        },
+      }),
     }),
 
     updateArtist: builder.mutation<void, UpdateArtistRequest>({
-      invalidatesTags: (result) => result ? ["artists"] : [],
+      invalidatesTags: (result) => (result ? ["artists"] : []),
       query: ({ artistId, data }) => ({
         url: "/invoke/updateAsset",
         method: "PUT",
         body: {
-          "update": {
+          update: {
             "@assetType": "artist",
             "@key": artistId,
             ...data,
-          }
-        }
-      })
+          },
+        },
+      }),
     }),
 
     deleteArtist: builder.mutation<void, { artistId: string }>({
-      invalidatesTags: (result) => result ? ["artists"] : [],
+      invalidatesTags: (result) => (result ? ["artists"] : []),
       query: ({ artistId }) => ({
         url: "/invoke/deleteAsset",
         method: "DELETE",
@@ -103,12 +104,12 @@ export const artistsApiSlice = apiSlice.injectEndpoints({
           key: {
             "@assetType": "artist",
             "@key": artistId,
-          }
-        }
-      })
+          },
+        },
+      }),
     }),
-  })
-})
+  }),
+});
 
 export const {
   useGetArtistsQuery,
@@ -117,4 +118,4 @@ export const {
   useCreateArtistMutation,
   useUpdateArtistMutation,
   useDeleteArtistMutation,
-} = artistsApiSlice
+} = artistsApiSlice;

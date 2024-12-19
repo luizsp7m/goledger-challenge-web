@@ -15,6 +15,7 @@ import {
 
 import { errorToast } from "~/utils/errorToast";
 import { successToast } from "~/utils/successToast";
+import { errorMessageHandler } from "~/utils/errorMessageHandler";
 
 const albumSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
@@ -88,8 +89,7 @@ export function AlbumForm({
         handleCloseFormModal();
         successToast();
       } catch (error) {
-        errorToast();
-        console.log(error);
+        errorToast(errorMessageHandler(error));
       }
 
       return;
@@ -100,8 +100,7 @@ export function AlbumForm({
       handleCloseFormModal();
       successToast();
     } catch (error) {
-      errorToast();
-      console.log(error);
+      errorToast(errorMessageHandler(error));
     }
   }
 

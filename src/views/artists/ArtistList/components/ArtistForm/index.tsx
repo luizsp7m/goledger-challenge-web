@@ -13,6 +13,8 @@ import {
   useUpdateArtistMutation,
 } from "~/store/services/artistsApiSlice";
 
+import { errorMessageHandler } from "~/utils/errorMessageHandler";
+
 const artistSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
   country: z.string().trim().min(1, { message: "Campo obrigatório" }),
@@ -54,8 +56,7 @@ export function ArtistForm({
         handleCloseModal();
         successToast();
       } catch (error) {
-        errorToast();
-        console.log(error);
+        errorToast(errorMessageHandler(error));
       }
 
       return;
@@ -66,8 +67,7 @@ export function ArtistForm({
       handleCloseModal();
       successToast();
     } catch (error) {
-      errorToast();
-      console.log(error);
+      errorToast(errorMessageHandler(error));
     }
   }
 

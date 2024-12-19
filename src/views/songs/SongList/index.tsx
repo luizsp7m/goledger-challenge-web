@@ -46,8 +46,11 @@ export default function SongList() {
         handleOpenModalForm={handleOpenFormModal}
       />
 
-      {songsIsLoading && <DataLoading />}
-      {songsIsError && <ErrorMessage />}
+      {(songsIsLoading || (!songsData && songsIsFetching)) && <DataLoading />}
+
+      {songsIsError && (
+        <ErrorMessage message="Não foi possível carregar a lista de músicas" />
+      )}
 
       {!songsIsLoading && !songsIsError && songsData && (
         <SongsTable

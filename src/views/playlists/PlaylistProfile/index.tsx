@@ -7,7 +7,6 @@ import { useLazyGetSongsQuery } from "~/store/services/songsApiSlice";
 import { SongItem } from "~/components/shared-components/ProfilePage/SongItem";
 import { GoBackButton } from "~/components/shared-components/ProfilePage/GoBackButton";
 import { ProfilePage } from "~/components/shared-components/ProfilePage";
-import { truncateText } from "~/utils/truncateText";
 import { useLazyGetAlbumsQuery } from "~/store/services/albumsApiSlice";
 import { useLazyGetArtistsQuery } from "~/store/services/artistsApiSlice";
 import { useArtistsById } from "~/hooks/useArtistsById";

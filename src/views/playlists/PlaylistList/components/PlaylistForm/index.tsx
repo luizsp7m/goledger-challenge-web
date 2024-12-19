@@ -16,6 +16,8 @@ import {
   useUpdatePlaylistMutation,
 } from "~/store/services/playlistsApiSlice";
 
+import { errorMessageHandler } from "~/utils/errorMessageHandler";
+
 const playlistSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
   private: z.boolean(),
@@ -83,8 +85,7 @@ export function PlaylistForm({
         handleCloseModal();
         successToast();
       } catch (error) {
-        errorToast();
-        console.log(error);
+        errorToast(errorMessageHandler(error));
       }
 
       return;
@@ -95,8 +96,7 @@ export function PlaylistForm({
       handleCloseModal();
       successToast();
     } catch (error) {
-      errorToast();
-      console.log(error);
+      errorToast(errorMessageHandler(error));
     }
   }
 

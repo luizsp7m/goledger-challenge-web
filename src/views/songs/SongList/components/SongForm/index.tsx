@@ -15,6 +15,8 @@ import {
   useUpdateSongMutation,
 } from "~/store/services/songsApiSlice";
 
+import { errorMessageHandler } from "~/utils/errorMessageHandler";
+
 const songSchema = z.object({
   name: z.string().trim().min(1, { message: "Campo obrigatório" }),
   album: z
@@ -74,8 +76,7 @@ export function SongForm({
         handleCloseFormModal();
         successToast();
       } catch (error) {
-        errorToast();
-        console.log(error);
+        errorToast(errorMessageHandler(error));
       }
 
       return;
@@ -86,8 +87,7 @@ export function SongForm({
       handleCloseFormModal();
       successToast();
     } catch (error) {
-      errorToast();
-      console.log(error);
+      errorToast(errorMessageHandler(error));
     }
   }
 
